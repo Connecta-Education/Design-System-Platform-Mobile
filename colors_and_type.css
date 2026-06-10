@@ -1,0 +1,439 @@
+/* ============================================================
+   Connecta — Colors & Type Foundations
+   A safe communication + AI learning layer for schools and families in the EU.
+   Built around the school graph: school → class → circle → child → parent → teacher.
+   Two AI characters live inside it:
+     · GoodTalk — child-safety moderation (calm, intervenes only on risk)
+     · Cosmo    — Socratic homework helper (curious, never gives the answer)
+   ============================================================ */
+
+/* ---------- Web fonts ---------- */
+/* DM Sans — local variable fonts (uploaded brand assets) */
+@font-face {
+  font-family: "DM Sans";
+  src: url("./fonts/DMSans-VariableFont_opsz_wght.ttf") format("truetype-variations"),
+       url("./fonts/DMSans-VariableFont_opsz_wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("./fonts/DMSans-Italic-VariableFont_opsz_wght.ttf") format("truetype-variations"),
+       url("./fonts/DMSans-Italic-VariableFont_opsz_wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: italic;
+  font-display: swap;
+}
+/* Monospace is retired — categories/labels use DM Sans. */
+
+:root {
+  /* ====================================================
+     CORE BRAND PALETTE (from brand sheet)
+     ==================================================== */
+  --connecta-coral:      #F35F49;   /* primary action / signature */
+  --connecta-lime:       #DEFB50;   /* secondary accent / "go" */
+  --connecta-pale-lime:  #ECFDA8;   /* tertiary tint */
+  --connecta-olive:      #424F1A;   /* deep alt accent */
+  --connecta-plum:       #571B32;   /* dark accent / serious tones */
+  --connecta-sky:        #BAE6FD;   /* kid-friendly soft blue surface */
+  --connecta-pink:       #FBE1FD;   /* pale lavender-pink — Teacher Tasks ground (paired with olive) */
+  --connecta-ink:        #0F1A24;   /* near-black ground */
+  --connecta-paper:      #FFFFFF;   /* clean white surface */
+
+  /* ====================================================
+     NEUTRALS (cool, slightly desaturated — calm, not clinical)
+     ==================================================== */
+  --neutral-0:   #FFFFFF;
+  --neutral-50:  #F7F8F9;
+  --neutral-100: #EEF1F3;
+  --neutral-200: #DDE2E7;
+  --neutral-300: #C3CBD3;
+  --neutral-400: #98A2AD;
+  --neutral-500: #6B7682;
+  --neutral-600: #4D5762;
+  --neutral-700: #343C46;
+  --neutral-800: #1E2630;
+  --neutral-900: #0F1A24;
+
+  /* ====================================================
+     BRAND TINTS — pale washes derived from the core hues.
+     These are the ONLY non-core surface colors allowed. Each is a
+     light tint of a brand hue (no invented blues / greens). Use them
+     as semantic grounds; pair with the matching deep hue for type.
+     ==================================================== */
+  --tint-coral: #FDEAE5;   /* pale coral — error / check / important grounds */
+  --tint-lime:  var(--connecta-pale-lime); /* #ECFDA8 — highlight / lab grounds */
+  --tint-olive: #EDF1DA;   /* pale olive — learning / Cosmo grounds */
+  --tint-sky:   #E4F3FC;   /* pale sky — teacher / school / task grounds */
+  --tint-pink:  var(--connecta-pink);      /* #FBE1FD — social / friends grounds */
+  --tint-plum:  #F6ECF0;   /* pale plum — parent / guardian grounds */
+  --tint-ink:   var(--neutral-100);        /* neutral ink wash — calm / cooldown */
+
+  /* ====================================================
+     SEMANTIC FOREGROUND / BACKGROUND
+     "Private by default" → light, airy ground, ink type.
+     INK is the primary color: actions, writing, contours, bubbles.
+     ==================================================== */
+  --bg-page:       var(--neutral-0);
+  --bg-subtle:     var(--neutral-50);
+  --bg-muted:      var(--neutral-100);
+  --bg-inverse:    var(--connecta-ink);
+  --bg-card:       var(--neutral-0);
+  --bg-card-soft:  var(--neutral-50);
+
+  --fg-1:          var(--connecta-ink);     /* primary text */
+  --fg-2:          var(--neutral-700);      /* secondary text */
+  --fg-3:          var(--neutral-500);      /* tertiary / meta */
+  --fg-4:          var(--neutral-400);      /* placeholders, hairline labels */
+  --fg-on-ink:     var(--connecta-paper);
+  --fg-on-coral:   var(--connecta-paper);
+  --fg-on-lime:    var(--connecta-ink);
+
+  --border-1:      var(--neutral-200);
+  --border-2:      var(--neutral-300);
+  --border-strong: var(--connecta-ink);     /* contour = ink */
+
+  /* ====================================================
+     PRIMARY ACTION — INK
+     One primary everywhere: ink ground, paper type. Coral is no longer
+     a primary; it is reserved for error / check / important (below).
+     ==================================================== */
+  --action-primary-bg:    var(--connecta-ink);
+  --action-primary-fg:    var(--connecta-paper);
+  --action-primary-hover: var(--neutral-800);
+  --action-ghost-fg:      var(--connecta-ink);
+  --action-ghost-border:  var(--border-1);
+  --action-muted-bg:      var(--neutral-100);
+  --action-muted-fg:      var(--connecta-ink);
+
+  /* ====================================================
+     IMPORTANT / CHECK / ERROR — CORAL
+     GoodTalk safety (check), destructive actions, validation errors.
+     Calm by default; coral signals "worth a look", not panic.
+     ==================================================== */
+  --important-bg:     var(--tint-coral);
+  --important-fg:     var(--connecta-ink);
+  --important-accent: var(--connecta-coral);
+  --important-strong-bg: var(--connecta-coral);  /* solid coral chip / badge */
+  --important-strong-fg: var(--connecta-paper);
+
+  /* HIGHLIGHT — LIME (underline, highlight, experimental, lab) */
+  --highlight-bg:     var(--connecta-lime);
+  --highlight-fg:     var(--connecta-ink);
+  --highlight-soft:   var(--tint-lime);
+
+  /* ====================================================
+     INTERVENTION STATES (GoodTalk — coral family)
+     GoodTalk checks messages: nudge → warn → alert escalate within
+     coral. Repair-complete resolves to lime ("go"). Cooldown is a
+     calm ink wash. No red, no invented hues.
+     ==================================================== */
+  --state-nudge-bg:     var(--tint-coral);     /* gentle: "want to rephrase?" */
+  --state-nudge-fg:     var(--connecta-ink);
+  --state-nudge-accent: var(--connecta-coral);
+
+  --state-pause-bg:     var(--tint-ink);       /* slow mode / cooldown — calm */
+  --state-pause-fg:     var(--connecta-ink);
+  --state-pause-accent: var(--neutral-500);
+
+  --state-warn-bg:      var(--tint-coral);     /* warn — stronger coral accent */
+  --state-warn-fg:      var(--connecta-ink);
+  --state-warn-accent:  var(--connecta-coral);
+
+  --state-alert-bg:     var(--tint-coral);     /* reserved: real risk only */
+  --state-alert-fg:     var(--connecta-plum);  /* plum = gravity, parent-facing */
+  --state-alert-accent: var(--connecta-coral);
+
+  --state-ok-bg:        var(--tint-lime);      /* repair complete — "go" */
+  --state-ok-fg:        var(--connecta-olive);
+  --state-ok-accent:    var(--connecta-lime);
+
+  /* ====================================================
+     COSMO AI — learning palette (OLIVE)
+     Cosmo is the EOES lab coach: subjects, studies, science, learning.
+     Olive ground + lime "lab / experimental" accents. Cosmo never gives
+     the answer; it asks the next question. Visually distinct from
+     GoodTalk (coral) so kids learn which AI is talking.
+     ==================================================== */
+  --cosmo-bg:        var(--tint-olive);         /* Cosmo reply bubble / panel */
+  --cosmo-bg-strong: var(--connecta-olive);     /* hero / onboarding "chalkboard" */
+  --cosmo-fg:        var(--connecta-olive);      /* readable on cosmo-bg */
+  --cosmo-fg-strong: var(--connecta-lime);       /* type on the olive ground */
+  --cosmo-accent:    var(--connecta-lime);       /* lab / experimental highlight */
+  --cosmo-ink:       var(--connecta-ink);
+  /* Cosmo's learning-feedback states (never alarmist) */
+  --state-learn-bg:     var(--tint-olive);       /* "checking your work" */
+  --state-learn-fg:     var(--connecta-olive);
+  --state-learn-accent: var(--connecta-lime);
+  --state-progress-bg:     var(--tint-lime);     /* "good start — go deeper" */
+  --state-progress-fg:     var(--connecta-olive);
+  --state-progress-accent: var(--connecta-lime);
+
+  /* ====================================================
+     AUDIENCE SURFACE SCOPES
+     The user groups get distinct ambient surfaces so a viewer knows
+     immediately *whose* product they're inside. Scope is signaled by
+     ground color (the semantic hue), not by chrome change.
+       child   → pink (social / friends world)
+       teacher → sky  (teachers & schools)
+       parent  → plum (guardians)
+       school  → sky  (institutional)
+       cosmo   → olive (learning)
+       tasks   → sky  (Teacher Tasks)
+     ==================================================== */
+  --scope-child-bg:    var(--neutral-0);     /* kids: clean white ground */
+  --scope-child-tint:  var(--tint-pink);     /* social / friends accent */
+  --scope-teacher-bg:  var(--neutral-50);    /* teachers: workmanlike off-white */
+  --scope-teacher-tint:var(--tint-sky);
+  --scope-parent-bg:   var(--neutral-0);     /* parents: white + plum reassurance */
+  --scope-parent-tint: var(--tint-plum);
+  --scope-school-bg:   var(--neutral-50);    /* school admin: institutional */
+  --scope-school-tint: var(--tint-sky);
+  --scope-cosmo-bg:    var(--tint-olive);    /* learning canvases (Lab Circles, homework) */
+  --scope-tasks-bg:    var(--tint-sky);      /* Teacher Tasks: sky ground */
+  --scope-tasks-fg:    var(--connecta-ink);  /* Teacher Tasks: ink type */
+  --scope-tasks-accent:var(--connecta-ink);  /* Teacher Tasks: ink action */
+
+  /* ====================================================
+     MESSAGE BUBBLE TOKENS — one color language for chat
+     Who is speaking is read from the bubble color:
+       self     → ink   (your writing / primary)
+       incoming → neutral
+       friend   → pink  (social / voice messages from friends)
+       teacher  → sky
+       parent   → plum
+       cosmo    → olive (learning)
+       goodtalk → coral (check / important)
+     ==================================================== */
+  --bubble-self-bg:     var(--connecta-ink);
+  --bubble-self-fg:     var(--connecta-paper);
+  --bubble-other-bg:    var(--neutral-100);
+  --bubble-other-fg:    var(--connecta-ink);
+  --bubble-friend-bg:   var(--tint-pink);
+  --bubble-friend-fg:   var(--connecta-ink);
+  --bubble-teacher-bg:  var(--tint-sky);
+  --bubble-teacher-fg:  var(--connecta-ink);
+  --bubble-parent-bg:   var(--tint-plum);
+  --bubble-parent-fg:   var(--connecta-plum);
+  --bubble-cosmo-bg:    var(--connecta-olive);
+  --bubble-cosmo-fg:    var(--connecta-lime);
+  --bubble-goodtalk-bg: var(--tint-coral);
+  --bubble-goodtalk-fg: var(--connecta-ink);
+
+  /* ====================================================
+     ROLE BADGE TOKENS — school graph identity
+     school → class → circle → child → parent → teacher
+     Used for tiny role tags next to names in chat, dashboards, audit logs.
+     ==================================================== */
+  --role-child-bg:    var(--tint-pink);
+  --role-child-fg:    var(--connecta-ink);
+  --role-teacher-bg:  var(--connecta-sky);
+  --role-teacher-fg:  var(--connecta-ink);
+  --role-parent-bg:   var(--tint-plum);
+  --role-parent-fg:   var(--connecta-plum);
+  --role-school-bg:   var(--connecta-sky);
+  --role-school-fg:   var(--connecta-ink);
+  --role-cosmo-bg:    var(--connecta-olive);
+  --role-cosmo-fg:    var(--connecta-lime);
+  --role-goodtalk-bg: var(--connecta-coral);
+  --role-goodtalk-fg: var(--connecta-paper);
+
+  /* ====================================================
+     TYPOGRAPHY
+     DM Sans for everything text — covers Latin Extended + full Cyrillic
+     (Bulgarian is the launch locale; localized country packs will add
+     more European scripts). JetBrains Mono for UI metadata, code,
+     status timestamps, IDs. The wordmark is its own custom mark.
+     ==================================================== */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* --font-mono retired: aliases the sans stack so legacy references render DM Sans.
+     Category / metadata labels use .eyebrow (uppercase, tracked DM Sans). */
+  --font-mono: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Type scale — generous, accessibility-first. Ratio ~1.2 */
+  --t-display-lg: 64px;
+  --t-display:    48px;
+  --t-h1:         36px;
+  --t-h2:         28px;
+  --t-h3:         22px;
+  --t-h4:         18px;
+  --t-body-lg:    18px;
+  --t-body:       16px;
+  --t-body-sm:    14px;
+  --t-caption:    13px;
+  --t-micro:      11px;
+
+  --lh-tight:  1.1;   /* @kind font */
+  --lh-snug:   1.25;  /* @kind font */
+  --lh-normal: 1.45;  /* @kind font */
+  --lh-loose:  1.6;   /* @kind font */
+
+  --w-regular: 400;   /* @kind font */
+  --w-medium:  500;   /* @kind font */
+  --w-semi:    600;   /* @kind font */
+  --w-bold:    700;   /* @kind font */
+
+  /* ====================================================
+     RADII — soft geometry, never sharp
+     ==================================================== */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
+  --r-2xl:  28px;
+  --r-pill: 9999px;
+
+  /* ====================================================
+     SHADOWS — soft, low contrast, "trustworthy" not "floaty"
+     ==================================================== */
+  --shadow-1: 0 1px 2px rgba(15, 26, 36, 0.04), 0 1px 1px rgba(15, 26, 36, 0.03);
+  --shadow-2: 0 4px 12px rgba(15, 26, 36, 0.06), 0 1px 2px rgba(15, 26, 36, 0.04);
+  --shadow-3: 0 12px 32px rgba(15, 26, 36, 0.10), 0 2px 6px rgba(15, 26, 36, 0.05);
+  --shadow-pop: 0 18px 48px rgba(15, 26, 36, 0.14);
+  --shadow-inset: inset 0 0 0 1px rgba(15, 26, 36, 0.06);
+
+  /* ====================================================
+     SPACING — 4pt grid
+     ==================================================== */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-7:  32px;
+  --s-8:  40px;
+  --s-9:  56px;
+  --s-10: 72px;
+  --s-11: 96px;
+
+  /* ====================================================
+     BRAND WASHES — two-stop, brand-locked
+     Marketing-only. Never use in product UI chrome (buttons, cards, etc.).
+     Names match preview/brand-gradients.html.
+     ==================================================== */
+  --wash-sunrise:   linear-gradient(135deg, #DEFB50 0%, #F35F49 100%);  /* @kind other */
+  --wash-dusk:      linear-gradient(135deg, #F35F49 0%, #571B32 100%);  /* @kind other */
+  --wash-night:     linear-gradient(180deg, #571B32 0%, #0F1A24 100%);  /* @kind other */
+  --wash-cosmo:     linear-gradient(160deg, #BAE6FD 0%, #0F1A24 110%);  /* @kind other */
+  --wash-meadow:    linear-gradient(180deg, #ECFDA8 0%, #424F1A 100%);  /* @kind other */
+  --wash-paper:     linear-gradient(180deg, #FFFFFF 0%, #BAE6FD 100%);  /* @kind other */
+  --wash-heat:      linear-gradient(160deg, #F35F49 0%, #0F1A24 100%);  /* @kind other */
+  --wash-calm:      linear-gradient(180deg, #FFFFFF 0%, #F6ECF0 100%);  /* @kind other */
+
+  /* Photo scrims — the only gradients allowed on photography */
+  --scrim-bottom:   linear-gradient(180deg, transparent 0%, rgba(15,26,36,.60) 100%);  /* @kind other */
+  --scrim-top:      linear-gradient(0deg,   transparent 0%, rgba(15,26,36,.55) 100%);  /* @kind other */
+  --scrim-vignette: radial-gradient(120% 90% at 50% 50%, transparent 50%, rgba(15,26,36,.45) 100%);  /* @kind other */
+
+  /* ====================================================
+     BACKGROUND PATTERNS — quiet, learning-room textures
+     For full-bleed page / section grounds only. Never on cards, buttons,
+     chat bubbles, or any active product chrome — the grid is ambient, not UI.
+     ==================================================== */
+  --pattern-grid-bg:   #FBFBFA;                          /* almost-white paper */
+  --pattern-grid-line: rgba(15, 26, 36, 0.035);          /* one ink hairline */
+  --pattern-grid-size: 40px;                             /* cell size */
+  --pattern-grid:
+    linear-gradient(var(--pattern-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-grid-line) 1px, transparent 1px);  /* @kind other */
+
+  /* ====================================================
+     MOTION — calm, never bouncy
+     ==================================================== */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);    /* @kind other */
+  --ease-emphasis: cubic-bezier(0.3, 0, 0, 1);    /* @kind other */
+  --ease-exit:     cubic-bezier(0.4, 0, 1, 1);    /* @kind other */
+  --dur-fast:   140ms;  /* @kind other */
+  --dur-base:   220ms;  /* @kind other */
+  --dur-slow:   360ms;  /* @kind other */
+}
+
+/* ============================================================
+   Semantic element styles
+   Apply to bare HTML when this stylesheet is the only one in play.
+   ============================================================ */
+html, body {
+  font-family: var(--font-sans);
+  color: var(--fg-1);
+  background: var(--bg-page);
+  font-size: var(--t-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 { font-size: var(--t-h1); font-weight: var(--w-bold); line-height: var(--lh-tight); letter-spacing: -0.02em; }
+h2, .h2 { font-size: var(--t-h2); font-weight: var(--w-bold); line-height: var(--lh-snug);  letter-spacing: -0.015em; }
+h3, .h3 { font-size: var(--t-h3); font-weight: var(--w-semi); line-height: var(--lh-snug);  letter-spacing: -0.01em; }
+h4, .h4 { font-size: var(--t-h4); font-weight: var(--w-semi); line-height: var(--lh-snug); }
+
+p          { font-size: var(--t-body); line-height: var(--lh-normal); text-wrap: pretty; }
+small, .meta { font-size: var(--t-caption); color: var(--fg-3); }
+code, kbd, pre, samp {
+  font-family: var(--font-sans);
+  font-size: 0.92em;
+}
+
+/* Display style for marketing: tighter, larger */
+.display    { font-size: var(--t-display);    font-weight: var(--w-bold); line-height: var(--lh-tight); letter-spacing: -0.025em; }
+.display-lg { font-size: var(--t-display-lg); font-weight: var(--w-bold); line-height: var(--lh-tight); letter-spacing: -0.03em; }
+
+/* "Eyebrow" — short uppercased label seen on marketing tiles */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: var(--w-semi);
+  color: var(--fg-3);
+}
+
+::selection { background: var(--connecta-lime); color: var(--connecta-ink); }
+
+/* Lime is the highlight / underline color — for emphasized words in body copy */
+mark, .highlight {
+  background: var(--connecta-lime);
+  color: var(--connecta-ink);
+  padding: 0 0.12em;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.underline-lime {
+  text-decoration: underline;
+  text-decoration-color: var(--connecta-lime);
+  text-decoration-thickness: 0.18em;
+  text-underline-offset: 0.1em;
+}
+
+/* ============================================================
+   Background pattern utility
+   Apply to a page wrapper or section. Adds the soft notebook grid
+   with an optional radial fade so type sits on a calmer center.
+   ============================================================ */
+.soft-grid-bg {
+  background-color: var(--pattern-grid-bg);
+  background-image: var(--pattern-grid);
+  background-size: var(--pattern-grid-size) var(--pattern-grid-size);
+  background-position: center top;
+}
+.soft-grid-bg.faded {
+  position: relative;
+  overflow: hidden;
+}
+.soft-grid-bg.faded::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.35), rgba(255,255,255,0.85));
+}
+.soft-grid-bg > * { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

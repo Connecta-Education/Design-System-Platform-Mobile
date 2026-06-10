@@ -1,0 +1,88 @@
+<!doctype html>
+<!-- @dsCard group="Atoms" name="Colors — Primary" subtitle="Coral, Lime, Sky, Ink — the four core brand hues" viewport="700x160" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:760px">
+<style>
+  .swatches { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  h4 { font:600 12px var(--font-sans); color:var(--fg-2); margin: 22px 0 12px 0; padding-bottom:6px; border-bottom:1px solid var(--border-1); display:flex; align-items:center; gap:8px; }
+  h4 .dot { width:8px; height:8px; border-radius:9999px; background:var(--connecta-coral); }
+  h4 small { font-weight:400; color:var(--fg-3); }
+  .combos { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+  .surface { aspect-ratio: 1.05/1; border-radius: 18px; display:flex; align-items:center; justify-content:center; box-shadow: 0 1px 0 rgba(15,26,36,.04), inset 0 0 0 1px rgba(15,26,36,.04); }
+  .surface img { width: 70%; height:auto; }
+  .surface.dark { box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+  .icons { display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+  .icon-cell { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .icon-cell img { width:96px; height:96px; border-radius:22px; box-shadow:0 6px 18px rgba(15,26,36,.10); }
+  .meta { font-family:var(--font-mono); font-size:10px; color:var(--fg-3); text-align:center; line-height:1.4; }
+  .pair { font:500 11px var(--font-sans); color:var(--fg-2); text-align:center; }
+</style>
+
+<div class="swatches">
+  <div class="swatch"><div class="swatch-chip" style="background:#F35F49"></div><div class="swatch-name">Coral</div><div class="swatch-meta">#F35F49</div></div>
+  <div class="swatch"><div class="swatch-chip" style="background:#DEFB50"></div><div class="swatch-name">Lime</div><div class="swatch-meta">#DEFB50</div></div>
+  <div class="swatch"><div class="swatch-chip" style="background:#571B32"></div><div class="swatch-name">Plum</div><div class="swatch-meta">#571B32</div></div>
+  <div class="swatch"><div class="swatch-chip" style="background:#0F1A24"></div><div class="swatch-name">Ink</div><div class="swatch-meta">#0F1A24</div></div>
+</div>
+
+<h4><span class="dot"></span>Wordmark combinations <small>— the six ship-approved surfaces</small></h4>
+<div class="combos">
+  <div>
+    <div class="surface dark" style="background:#0F1A24"><img src="../assets/logo-wordmark-lime.svg" alt=""/></div>
+    <div class="pair" style="margin-top:6px">Ink · Lime</div>
+    <div class="meta">#0F1A24 · #DEFB50</div>
+  </div>
+  <div>
+    <div class="surface" style="background:#FFFFFF"><img src="../assets/logo-wordmark-black.svg" alt=""/></div>
+    <div class="pair" style="margin-top:6px">Paper · Ink</div>
+    <div class="meta">#FFFFFF · #0F1A24</div>
+  </div>
+  <div>
+    <div class="surface" style="background:#DEFB50"><img src="../assets/logo-wordmark-black.svg" alt=""/></div>
+    <div class="pair" style="margin-top:6px">Lime · Ink</div>
+    <div class="meta">#DEFB50 · #0F1A24</div>
+  </div>
+  <div>
+    <div class="surface" style="background:#F35F49"><img src="../assets/logo-wordmark-white.svg" alt=""/></div>
+    <div class="pair" style="margin-top:6px">Coral · Paper</div>
+    <div class="meta">#F35F49 · #FFFFFF</div>
+  </div>
+  <div>
+    <div class="surface dark" style="background:#571B32"><img src="../assets/logo-wordmark-pink.svg" alt=""/></div>
+    <div class="pair" style="margin-top:6px">Plum · Pink</div>
+    <div class="meta">#571B32 · #FBE1FD</div>
+  </div>
+  <div>
+    <div class="surface" style="background:#FBE1FD"><img src="../assets/logo-wordmark-olive.svg" alt=""/></div>
+    <div class="pair" style="margin-top:6px">Pink · Olive</div>
+    <div class="meta">#FBE1FD · #424F1A</div>
+  </div>
+</div>
+
+<h4><span class="dot" style="background:var(--connecta-lime)"></span>App icon combinations <small>— glyph pairings carry across product surfaces</small></h4>
+<div class="icons">
+  <div class="icon-cell">
+    <img src="../assets/app-icon-coral.svg" alt=""/>
+    <div class="pair">Coral · Lime</div>
+    <div class="meta">bg #F35F49<br/>glyph #DEFB50</div>
+  </div>
+  <div class="icon-cell">
+    <img src="../assets/app-icon-lime.svg" alt=""/>
+    <div class="pair">Lime · Coral</div>
+    <div class="meta">bg #DEFB50<br/>glyph #F35F49</div>
+  </div>
+  <div class="icon-cell">
+    <img src="../assets/app-icon-olive-pink.svg" alt=""/>
+    <div class="pair">Olive · Pink</div>
+    <div class="meta">bg #424F1A<br/>glyph #FBE1FD</div>
+  </div>
+  <div class="icon-cell">
+    <img src="../assets/app-icon-dark.svg" alt=""/>
+    <div class="pair">Plum · Coral</div>
+    <div class="meta">bg #571B32<br/>glyph #F35F49</div>
+  </div>
+</div>
+
+<div style="margin-top:18px; padding-top:14px; border-top:1px solid var(--border-1); display:flex; justify-content:space-between; align-items:center">
+  <div class="label-eyebrow">primary palette · canon combinations from brand sheet</div>
+  <div class="swatch-meta">one coral per view · lime accent · plum for serious surfaces</div>
+</div>
+</body></html>

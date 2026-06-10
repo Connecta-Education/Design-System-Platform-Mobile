@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- @dsCard group="Molecules" name="Molecules — Button" subtitle="Ink primary · coral important · ghost · muted · pill CTA" viewport="700x180" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .btn{
+    border:0;border-radius:var(--r-md);
+    padding:10px 18px;font:600 14px var(--font-sans);cursor:pointer;
+  }
+  .btn.ink{background:var(--action-primary-bg);color:var(--action-primary-fg)}
+  .btn.coral{background:var(--important-strong-bg);color:var(--important-strong-fg)}
+  .btn.ghost{background:transparent;color:var(--connecta-ink);border:1px solid var(--border-1)}
+  .btn.muted{background:var(--neutral-100);color:var(--connecta-ink);font-weight:500}
+  .btn[disabled]{background:var(--neutral-100);color:var(--neutral-400);cursor:not-allowed}
+  /* marketing CTAs — same rectangular shape, larger */
+  .btn.lg{padding:13px 22px;font-size:15px;border-radius:var(--r-md)}
+  .btn.lime{background:var(--connecta-lime);color:var(--connecta-ink)}
+</style>
+<div style="display:flex;flex-direction:column;gap:16px">
+
+  <div class="row">
+    <button class="btn ink">Send</button>
+    <button class="btn ghost">Cancel</button>
+    <button class="btn muted">Try a rewrite</button>
+    <button class="btn coral">Report</button>
+    <button class="btn" disabled>Disabled</button>
+    <span class="label-eyebrow" style="margin-left:auto">product · ink primary · coral = important</span>
+  </div>
+
+  <div class="row">
+    <button class="btn lime lg">Chat freely</button>
+    <button class="btn ink lg">Download the app</button>
+    <span class="label-eyebrow" style="margin-left:auto">marketing · same rectangular shape</span>
+  </div>
+
+  <div class="label-eyebrow">ink is the one primary everywhere. coral is reserved for important / check / error — never a default action. pills are for role badges &amp; status tags only.</div>
+</div>
+</body></html>

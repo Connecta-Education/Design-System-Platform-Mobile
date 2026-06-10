@@ -1,0 +1,192 @@
+<!doctype html>
+<!-- @dsCard group="Cells" name="Cells — Voice message" subtitle="VoiceMessage · four voices: Kid, Teacher, Socrat, GoodTalk" -->
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Connecta — Voice Messages</title>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  html, body { margin:0; padding:0; min-height:100%; background:#0F1A24; color:#fff; }
+  body { font-family: "DM Sans", system-ui, sans-serif; padding:48px 24px 96px; box-sizing:border-box; }
+  .wrap { max-width: 1480px; margin: 0 auto; }
+  .hero { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px; }
+  .h1 { font-size: 36px; font-weight: 700; letter-spacing:-0.02em; line-height:1.1; margin:0; }
+  .lede { font-size: 15px; color:#98A2AD; max-width:620px; margin:0; line-height:1.45; }
+  .mono { font-family:"DM Sans", system-ui, sans-serif; font-weight:600; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#98A2AD; }
+  .legend { display:flex; gap:18px; flex-wrap:wrap; margin-top:6px; }
+  .legend span { display:inline-flex; align-items:center; gap:8px; color:#C3CBD3; font-size:12px; }
+  .swatch { width:10px; height:10px; border-radius:3px; }
+  .row { display:flex; gap:32px; flex-wrap:wrap; align-items:flex-start; }
+  @keyframes slideDown { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform:none; } }
+  @keyframes cosmoPulse { 0%,100% { opacity:.4; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="mono">Connecta · component preview</div>
+      <h1 class="h1">Voice messages.</h1>
+      <p class="lede" style="margin-top:8px">One <code style="font:500 12px/1 var(--font-mono); color:#DEFB50; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:4px">VoiceMessage</code> component, four voices. Waveform fills as the message plays; a role chip appears on Teacher / Socrat / GoodTalk so kids never confuse who's speaking. Kid voices have no chip — name + bubble shape is enough.</p>
+      <div class="legend">
+        <span><span class="swatch" style="background:#F35F49"></span>Kid · ink / coral</span>
+        <span><span class="swatch" style="background:#2A6FA8"></span>Teacher · dark blue</span>
+        <span><span class="swatch" style="background:#0F1A24; outline:1px solid #DEFB50"></span>Socrat · black + lime</span>
+        <span><span class="swatch" style="background:#ECFDA8"></span>GoodTalk · green + black</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="root"></div>
+</div>
+
+<script type="text/babel" src="ui_kits/chat-app/components.jsx"></script>
+<script type="text/babel" src="ui_kits/chat-app/preview-voices.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function PhonePanel({ label, accent, children, width = 380 }) {
+  return (
+    <div style={{display:'flex', flexDirection:'column', gap:12}}>
+      <div style={{display:'flex', alignItems:'center', gap:8}}>
+        <span style={{width:10, height:10, borderRadius:9999, background:accent}}/>
+        <span style={{
+          fontFamily:MONO, fontSize:11, letterSpacing:'.08em',
+          textTransform:'uppercase', color:'#fff', opacity:.9,
+        }}>{label}</span>
+      </div>
+      <div style={{
+        width, height:780, background:C.paper, borderRadius:36, overflow:'hidden',
+        boxShadow:'0 24px 60px rgba(0,0,0,.25), 0 0 0 1px rgba(255,255,255,.06)',
+        display:'flex', flexDirection:'column',
+      }}>{children}</div>
+    </div>
+  );
+}
+
+function App() {
+  const [progress, setProgress] = useState({ kid:0.42, teacher:0.30, cosmo:0.65, goodtalk:0.22 });
+  const [playing, setPlaying] = useState({ kid:true, teacher:false, cosmo:false, goodtalk:false });
+
+  useEffect(() => {
+    const tick = () => window.lucide && lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+    tick(); const id = setInterval(tick, 400); return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setProgress(p => {
+        const next = { ...p };
+        Object.keys(playing).forEach(k => {
+          if (playing[k]) next[k] = Math.min(1, (p[k] || 0) + 0.012);
+        });
+        return next;
+      });
+    }, 120);
+    return () => clearInterval(id);
+  }, [playing]);
+
+  const toggle = (k) => setPlaying(s => ({ ...s, [k]: !s[k] }));
+
+  return (
+    <div className="row">
+      {/* ── KID ─────────────────────────────────────── */}
+      <PhonePanel label="Kid · chat voice" accent="#F35F49">
+        <MiniHeader title="Best 3" subtitle="3 членове · private" kind="friends"/>
+        <div style={{flex:1, overflowY:'auto', padding:'14px 14px', background:C.paper}}>
+          <Bubble sender="Сара" time="14:30">Чу ли за утре?</Bubble>
+          <VoiceMessage
+            voice="kid"
+            sender="Лео"
+            duration={9}
+            progress={progress.kid}
+            playing={playing.kid}
+            onTogglePlay={()=>toggle('kid')}
+            time="14:31"
+          />
+          <VoiceMessage
+            voice="kid-mine"
+            duration={14}
+            progress={0}
+            playing={false}
+            onTogglePlay={()=>{}}
+            time="14:32"
+          />
+          <Bubble mine time="14:33">пращам ти и снимка</Bubble>
+        </div>
+        <MiniComposer value="Напиши съобщение" icon="mic"/>
+      </PhonePanel>
+
+      {/* ── TEACHER ─────────────────────────────────── */}
+      <PhonePanel label="Teacher · voice memo" accent="#2A6FA8">
+        <MiniHeader title="7А клас — Общ чат" subtitle="12 членове · private" kind="school"/>
+        <div style={{flex:1, overflowY:'auto', padding:'14px 14px', background:C.paper}}>
+          <Bubble sender="Мая" time="08:10">Г-н Девос, кога е изпитът?</Bubble>
+          <VoiceMessage
+            voice="teacher"
+            sender="г-н Девос"
+            duration={42}
+            progress={progress.teacher}
+            playing={playing.teacher}
+            onTogglePlay={()=>toggle('teacher')}
+            caption="План за петък"
+            time="08:12"
+          />
+          <Bubble sender="София" time="08:13">Благодаря!</Bubble>
+        </div>
+        <MiniComposer value="Напиши съобщение" icon="mic"/>
+      </PhonePanel>
+
+      {/* ── COSMO ─────────────────────────────────── */}
+      <PhonePanel label="Socrat · voice prompt" accent="#DEFB50">
+        <MiniHeader title="Лаб 7А — Хвърляне на топче" subtitle="физика · със Socrat" kind="lab"/>
+        <div style={{flex:1, overflowY:'auto', padding:'14px 14px', background:C.paper}}>
+          <Bubble system>Socrat помага в тази задача</Bubble>
+          <Bubble mine time="14:20">не разбирам втората част</Bubble>
+          <VoiceMessage
+            voice="cosmo"
+            sender="Socrat"
+            duration={22}
+            progress={progress.cosmo}
+            playing={playing.cosmo}
+            onTogglePlay={()=>toggle('cosmo')}
+            caption="Започни от какво е дадено…"
+            time="14:21"
+          />
+          <Bubble mine time="14:23">ок, ще пробвам</Bubble>
+        </div>
+        <MiniComposer value="Запиши какво опита" icon="mic"/>
+      </PhonePanel>
+
+      {/* ── GOODTALK ────────────────────────────────── */}
+      <PhonePanel label="GoodTalk · voice nudge" accent="#DEFB50">
+        <MiniHeader title="7А клас — Общ чат" subtitle="12 членове · private" kind="school"/>
+        <div style={{flex:1, overflowY:'auto', padding:'14px 14px', background:C.paper}}>
+          <Bubble sender="Лео" time="13:58">пак ли се правиш на много умна</Bubble>
+          <Bubble mine time="13:58">млъкни вече</Bubble>
+          <VoiceMessage
+            voice="goodtalk"
+            sender="GoodTalk"
+            duration={11}
+            progress={progress.goodtalk}
+            playing={playing.goodtalk}
+            onTogglePlay={()=>toggle('goodtalk')}
+            caption="Защо този тон не помага"
+            time="13:59"
+          />
+          <Bubble system>Същото правило важи за цялата група.</Bubble>
+        </div>
+        <MiniComposer value="Опитай по-спокойно" icon="mic"/>
+      </PhonePanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

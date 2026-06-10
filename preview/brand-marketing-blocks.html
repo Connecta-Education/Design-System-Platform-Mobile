@@ -1,0 +1,219 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:780px">
+<style>
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+
+  /* The block: full-bleed brand color with glyph as dimensional ground */
+  .block{position:relative;overflow:hidden;border-radius:20px;aspect-ratio:3/4;box-shadow:var(--shadow-2);display:flex;flex-direction:column}
+
+  /* Giant glyph backdrop — sits as a dimensional shadow on the ground,
+     positioned so it peeks out from BEHIND the photo on at least two edges */
+  .nn{position:absolute;z-index:1;pointer-events:none}
+  .nn svg{display:block;width:100%;height:auto}
+  /* hero version — anchor lower-left, bleeds off-frame */
+  .nn.hero{width:140%;left:-22%;bottom:-6%}
+  /* compact version — small accent in a corner */
+  .nn.acc{width:75%;right:-6%;top:-2%}
+
+  /* photo strip — DOES NOT cover the full block. Leaves the bottom 35% as
+     pure brand-color ground where the glyph backdrop reads + wordmark sits. */
+  .photo{position:relative;z-index:2;margin:14px 14px 0;border-radius:14px;overflow:hidden;height:55%}
+  .photo .layer{position:absolute;inset:0}
+  .ph-warm{background:radial-gradient(120% 90% at 30% 28%, #f5c8a8 0%, #e89a72 30%, #b86a4d 60%, #5a2f1e 100%)}
+  .ph-park{background:radial-gradient(70% 90% at 50% 30%, #d4d8aa 0%, #8a8c52 50%, #2c2d18 100%)}
+  .ph-window{background:radial-gradient(80% 80% at 70% 35%, #f5dcb8 0%, #c98b5e 50%, #4a2818 100%)}
+  .ph-studio{background:radial-gradient(70% 80% at 50% 40%, #f7d6b2 0%, #d99670 50%, #6b3a23 100%)}
+  .ph-pink  {background:radial-gradient(70% 70% at 50% 40%, #ffd7c8 0%, #e8967a 50%, #8a4a32 100%)}
+  .grain{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.16;background-image:radial-gradient(rgba(255,255,255,.6) .5px, transparent .8px);background-size:3px 3px}
+
+  .body{position:relative;z-index:3;padding:14px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1;justify-content:flex-end}
+  .line{font:700 17px/1.18 var(--font-sans);letter-spacing:-.01em;text-wrap:balance}
+  .wm{height:24px;align-self:flex-start}
+
+  /* color blocks + matching darker glyph tints */
+  .b-lime    { background: #DEFB50; }
+  .b-lime  .nn svg path{ fill:#bcdb2c; }
+  .b-lime  .line { color: var(--connecta-ink); }
+
+  .b-coral   { background: #F35F49; }
+  .b-coral .nn svg path{ fill:#cf4732; }
+  .b-coral .line { color: var(--connecta-ink); }
+
+  .b-sky     { background: #BAE6FD; }
+  .b-sky   .nn svg path{ fill:#8dcfe8; }
+  .b-sky   .line { color: var(--connecta-ink); }
+
+  .b-plum    { background: #571B32; }
+  .b-plum  .nn svg path{ fill:#3d0e1f; }
+  .b-plum  .line { color: var(--connecta-pale-lime); }
+
+  .b-ink     { background: #0F1A24; }
+  .b-ink   .nn svg path{ fill:#1d2a38; }
+  .b-ink   .line { color: var(--connecta-lime); }
+
+  .b-palelime{ background: #ECFDA8; }
+  .b-palelime .nn svg path{ fill:#d4e88a; }
+  .b-palelime .line { color: var(--connecta-olive); }
+
+  .b-olive   { background: #424F1A; }
+  .b-olive .nn svg path{ fill:#2b3411; }
+  .b-olive .line { color: var(--connecta-pale-lime); }
+
+  .meta{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);text-align:center;margin-top:6px}
+  h4.sec{font:600 14px var(--font-sans);color:var(--fg-1);margin:18px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border-1)}
+  h4.sec:first-child{margin-top:0}
+</style>
+
+<!-- Reusable inline SVG glyph as a symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="nn" viewBox="0 0 122 122">
+    <g transform="translate(-2049 -446)">
+      <path d="M2138.24 484C2148.61 484 2156.22 489.018 2159.4 497.66L2171.23 485.533C2171.31 485.457 2171.38 485.387 2171.46 485.322V498.901L2160.93 510.066V527.212C2160.93 528.745 2160.1 530 2158.44 530H2151.52C2150.27 530 2149.17 528.885 2149.17 527.212V506.722C2149.17 499.473 2144.88 494.733 2138.24 494.733C2131.6 494.734 2127.31 499.473 2127.31 506.722V527.212C2127.31 528.885 2126.2 530 2124.96 530H2118.04C2116.38 530 2115.55 528.745 2115.55 527.212V510.764L2106.83 520.66V527.212C2106.83 528.745 2106 530 2104.34 530H2097.42C2096.18 530 2095.07 528.885 2095.07 527.212V506.722C2095.07 499.473 2090.78 494.734 2084.14 494.733C2077.5 494.733 2073.21 499.473 2073.21 506.722V527.212C2073.21 528.885 2072.1 530 2070.86 530H2063.94C2062.28 530 2061.45 528.745 2061.45 527.212V510.764L2049 524.214V510.437L2066.02 492.085C2070.44 487.206 2076.26 484 2084.14 484C2097.56 484 2106.69 492.922 2106.69 506.582L2120.11 492.085C2124.68 487.206 2130.35 484 2138.24 484Z"></path>
+    </g>
+  </symbol>
+</svg>
+
+<div style="font:600 16px var(--font-sans);color:var(--fg-1);margin-bottom:4px">Marketing blocks — solid color + glyph backdrop + photo</div>
+<div style="font:400 13px var(--font-sans);color:var(--fg-2);margin-bottom:14px;text-wrap:pretty">A full-bleed brand-color canvas with the "nn" glyph living behind everything as a dimensional ground tone, a contained photo, and the wordmark below. The signature for store listings, social cards, and printed posters. Photo never bleeds to the block edge — the colored ground is the brand.</div>
+
+<h4 class="sec">Hero layouts — official colorways</h4>
+<div class="row">
+  <div>
+    <div class="block b-lime">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-pink"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-white.svg"/>
+        <div class="line">Download the app.</div>
+      </div>
+    </div>
+    <div class="meta">lime · darker-lime glyph · white wordmark</div>
+  </div>
+  <div>
+    <div class="block b-coral">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-park"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-lime.svg"/>
+        <div class="line">Freedom to chat. Protection that cares.</div>
+      </div>
+    </div>
+    <div class="meta">coral · darker-coral glyph · lime wordmark</div>
+  </div>
+  <div>
+    <div class="block b-sky">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-window"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-coral.svg"/>
+        <div class="line">A safer place to be a kid online.</div>
+      </div>
+    </div>
+    <div class="meta">sky · soft-sky glyph · coral wordmark</div>
+  </div>
+  <div>
+    <div class="block b-plum">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-warm"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-lime.svg"/>
+        <div class="line">Safety without spying.</div>
+      </div>
+    </div>
+    <div class="meta">plum · deep-plum glyph · lime wordmark</div>
+  </div>
+</div>
+
+<h4 class="sec">Hero layouts — extended colorways</h4>
+<div class="row">
+  <div>
+    <div class="block b-ink">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-studio"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-lime.svg"/>
+        <div class="line">Private by default.</div>
+      </div>
+    </div>
+    <div class="meta">ink · soft-ink glyph · lime wordmark</div>
+  </div>
+  <div>
+    <div class="block b-olive">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-warm"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-lime.svg"/>
+        <div class="line">High-signal alerts only.</div>
+      </div>
+    </div>
+    <div class="meta">olive · deep-olive glyph · lime wordmark</div>
+  </div>
+  <div>
+    <div class="block b-palelime">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-park"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-black.svg"/>
+        <div class="line">Built around the school graph.</div>
+      </div>
+    </div>
+    <div class="meta">pale-lime · soft-olive glyph · black wordmark</div>
+  </div>
+  <div>
+    <div class="block b-sky" style="background:#ECFDA8">
+      <div class="nn hero"><svg><use href="#nn"/></svg></div>
+      <div class="photo"><div class="layer ph-studio"></div><div class="grain"></div></div>
+      <div class="body">
+        <img class="wm" src="../assets/logo-wordmark-coral.svg"/>
+        <div class="line">Teaches better thinking.</div>
+      </div>
+    </div>
+    <div class="meta">pale-lime · coral wordmark — Socrat AI launch</div>
+  </div>
+</div>
+
+<h4 class="sec">Compact text-only variants — social / square / horizontal</h4>
+<div class="row3">
+  <div>
+    <div class="block b-ink" style="aspect-ratio:16/10">
+      <div class="nn acc"><svg><use href="#nn"/></svg></div>
+      <div style="position:relative;z-index:3;padding:18px;display:flex;flex-direction:column;gap:8px;height:100%;justify-content:space-between">
+        <img src="../assets/logo-wordmark-lime.svg" style="height:20px;align-self:flex-start"/>
+        <div style="font:700 17px/1.15 var(--font-sans);color:var(--connecta-lime);letter-spacing:-.01em;text-wrap:balance">Private by default.</div>
+      </div>
+    </div>
+    <div class="meta">ink · text-only · top-right glyph</div>
+  </div>
+  <div>
+    <div class="block b-palelime" style="aspect-ratio:16/10">
+      <div class="nn acc"><svg><use href="#nn"/></svg></div>
+      <div style="position:relative;z-index:3;padding:18px;display:flex;flex-direction:column;gap:8px;height:100%;justify-content:space-between">
+        <img src="../assets/logo-wordmark-black.svg" style="height:20px;align-self:flex-start"/>
+        <div style="font:700 17px/1.15 var(--font-sans);color:var(--connecta-olive);letter-spacing:-.01em;text-wrap:balance">Teaches better thinking.</div>
+      </div>
+    </div>
+    <div class="meta">pale-lime · text-only</div>
+  </div>
+  <div>
+    <div class="block b-coral" style="aspect-ratio:16/10">
+      <div class="nn acc"><svg><use href="#nn"/></svg></div>
+      <div style="position:relative;z-index:3;padding:18px;display:flex;flex-direction:column;gap:8px;height:100%;justify-content:space-between">
+        <img src="../assets/logo-wordmark-lime.svg" style="height:20px;align-self:flex-start"/>
+        <div style="font:700 17px/1.15 var(--font-sans);color:var(--connecta-ink);letter-spacing:-.01em;text-wrap:balance">Same rule for the whole group.</div>
+      </div>
+    </div>
+    <div class="meta">coral · text-only</div>
+  </div>
+</div>
+
+<div style="margin-top:18px;background:var(--neutral-50);border:1px solid var(--border-1);border-radius:14px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">glyph backdrop</span>Single brand color, slightly <b>darker</b> than the block ground (~12–18% darker). Never a different hue — it should feel like the ground is dimensional, not collaged.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">scale</span>80–140% of the short edge for hero blocks; ~75% for compact accents. Always bleeds off at least one edge — the glyph reads as <b>space</b>, not a logo.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">photo</span>Inset 14–16px on all sides, 12–14px radius. Photo content contained — never bleeds to the block edge. Leaves the bottom third as colored ground for wordmark + line.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">wordmark</span>Below the photo, left-aligned, 22–28px tall depending on block size. Color follows the same contrast rules as the photo-card system.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">text-only blocks</span>For compact / social use, drop the photo. The glyph becomes a small accent in the upper-right (~75% short edge). Tagline below the wordmark.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">don't</span>Don't outline the glyph. Don't gradient the glyph. Don't put the glyph over the photo. Don't mix two glyphs on one block. Don't fully contain the glyph — it must bleed.</div>
+</div>
+
+<div style="margin-top:12px" class="label-eyebrow">marketing blocks · solid color · glyph as dimensional ground · photo nested inside</div>
+</body></html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- @dsCard group="Atoms" name="Type — Headings" subtitle="H1–H4 · desktop + mobile sizes" viewport="700x250" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .ch{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid var(--border-1)}
+  .row{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;color:#0F1A24}
+  .row .m{margin-left:auto;font:500 11px var(--font-mono);color:var(--fg-3);white-space:nowrap}
+</style>
+<div class="cols">
+  <div>
+    <div class="ch">Desktop</div>
+    <div class="row"><span style="font:700 36px/1.1 var(--font-sans);letter-spacing:-.02em">Heading one</span><span class="m">36</span></div>
+    <div class="row"><span style="font:700 28px/1.2 var(--font-sans);letter-spacing:-.015em">Heading two</span><span class="m">28</span></div>
+    <div class="row"><span style="font:600 22px/1.25 var(--font-sans);letter-spacing:-.01em">Heading three</span><span class="m">22</span></div>
+    <div class="row"><span style="font:600 18px/1.25 var(--font-sans)">Heading four</span><span class="m">18</span></div>
+  </div>
+  <div>
+    <div class="ch">Mobile</div>
+    <div class="row"><span style="font:700 28px/1.1 var(--font-sans);letter-spacing:-.02em">Heading one</span><span class="m">28</span></div>
+    <div class="row"><span style="font:700 23px/1.2 var(--font-sans);letter-spacing:-.015em">Heading two</span><span class="m">23</span></div>
+    <div class="row"><span style="font:600 20px/1.25 var(--font-sans);letter-spacing:-.01em">Heading three</span><span class="m">20</span></div>
+    <div class="row"><span style="font:600 17px/1.25 var(--font-sans)">Heading four</span><span class="m">17</span></div>
+  </div>
+</div>
+<div style="margin-top:8px" class="label-eyebrow">headings · DM Sans bold/semibold · mobile steps down ~1 stop, tightens line-height</div>
+</body></html>

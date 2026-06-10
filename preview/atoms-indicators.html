@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- @dsCard group="Molecules" name="Molecules — Indicators & feedback" subtitle="Status dot/badge · Counter · Spinner · Progress · Skeleton" viewport="760x420" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .blk{display:flex;flex-direction:column;gap:12px}
+  .h{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);padding-bottom:6px;border-bottom:1px solid var(--border-1)}
+  .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .lab{font:500 12px var(--font-sans);color:var(--fg-3)}
+  .dot{width:9px;height:9px;border-radius:9999px;flex:none}
+  .sbadge{display:inline-flex;align-items:center;gap:6px;font:600 11px var(--font-sans);padding:5px 10px;border-radius:9999px}
+  .counter{min-width:20px;height:20px;padding:0 6px;border-radius:9999px;background:var(--connecta-coral);color:#fff;font:700 11px/20px var(--font-sans);text-align:center;display:inline-block}
+  .spin{width:22px;height:22px;border-radius:50%;border:2.5px solid var(--neutral-200);border-top-color:var(--connecta-ink);animation:spin .8s linear infinite}
+  .bar{width:200px;height:8px;border-radius:9999px;background:var(--neutral-200);overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:9999px;background:var(--connecta-ink)}
+  .sk{border-radius:8px;background:linear-gradient(90deg,var(--neutral-100) 25%,var(--neutral-200) 37%,var(--neutral-100) 63%);background-size:200% 100%;animation:shimmer 1.4s linear infinite}
+</style>
+<div class="grid">
+  <div class="blk">
+    <div class="h">Status dot</div>
+    <div class="row"><span class="dot" style="background:var(--connecta-olive)"></span><span class="lab">active</span><span class="dot" style="background:var(--neutral-400)"></span><span class="lab">idle</span><span class="dot" style="background:var(--connecta-coral)"></span><span class="lab">attention</span></div>
+    <div class="h" style="margin-top:6px">Status badge</div>
+    <div class="row">
+      <span class="sbadge" style="background:var(--tint-lime);color:var(--connecta-olive)"><span class="dot" style="background:var(--connecta-olive)"></span>Active now</span>
+      <span class="sbadge" style="background:var(--neutral-100);color:var(--fg-2)">Quiet</span>
+      <span class="sbadge" style="background:var(--tint-coral);color:var(--connecta-plum)">Needs a look</span>
+    </div>
+    <div class="h" style="margin-top:6px">Counter</div>
+    <div class="row"><span class="counter">3</span><span class="counter">12</span><span class="counter" style="background:var(--connecta-ink)">99+</span></div>
+  </div>
+  <div class="blk">
+    <div class="h">Spinner</div>
+    <div class="row"><span class="spin"></span><span class="lab">working…</span></div>
+    <div class="h" style="margin-top:6px">Progress bar</div>
+    <div class="row"><div class="bar"><i style="width:38%"></i></div><span class="lab">38%</span></div>
+    <div class="row"><div class="bar"><i style="width:72%;background:var(--connecta-olive)"></i></div><span class="lab">72% · learning</span></div>
+    <div class="h" style="margin-top:6px">Skeleton</div>
+    <div class="row" style="flex-direction:column;align-items:stretch;gap:8px;width:240px">
+      <div class="sk" style="height:12px;width:70%"></div>
+      <div class="sk" style="height:12px;width:100%"></div>
+      <div class="sk" style="height:12px;width:45%"></div>
+    </div>
+  </div>
+</div>
+<div style="margin-top:14px" class="label-eyebrow">indicators · olive = learning/active · coral = attention · ink = neutral progress</div>
+</body></html>

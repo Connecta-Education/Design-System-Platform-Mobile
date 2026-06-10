@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- @dsCard group="Molecules" name="Molecules — Tag" subtitle="Selectable word tags — lime underline marks active" viewport="700x150" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  /* Tags read as words; the lime underline does the work — no filled chips. */
+  .tag-eyebrow{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin:0 0 10px}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center}
+  .tag{
+    background:none;border:0;padding:2px 0;cursor:pointer;white-space:nowrap;
+    font:600 15px/1.2 var(--font-sans);color:var(--fg-3);
+    border-bottom:3px solid transparent;
+  }
+  .tag:hover{color:var(--connecta-ink)}
+  .tag[aria-selected="true"]{color:var(--connecta-ink);border-bottom-color:var(--connecta-lime)}
+  .tag-add{
+    background:none;border:0;padding:2px 0;cursor:pointer;white-space:nowrap;
+    font:600 15px/1.2 var(--font-sans);color:var(--fg-4);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .tag-add svg{width:15px;height:15px;stroke-width:2.2}
+</style>
+
+<div class="tag-eyebrow">Your circles</div>
+<div class="tag-row">
+  <button class="tag" aria-selected="false">Family</button>
+  <button class="tag" aria-selected="true">Class 7B</button>
+  <button class="tag" aria-selected="false">Football</button>
+  <button class="tag" aria-selected="false">Best friends</button>
+  <button class="tag-add">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    Add circle
+  </button>
+</div>
+
+<div style="margin-top:18px" class="label-eyebrow">tags are words · lime underline marks the active one · no filled chips</div>
+</body></html>

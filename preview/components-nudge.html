@@ -1,0 +1,420 @@
+<!doctype html>
+<!-- @dsCard group="Organisms" name="Organisms — GoodTalk nudge banner" subtitle="Full rewrite lifecycle · web + mobile" viewport="760x980" -->
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="_card.css">
+<style>
+  body { width: 760px; }
+  [hidden] { display: none !important; }
+  .seclabel{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin:0 0 12px}
+  .webchat{width:560px;background:#fff;border:1px solid var(--border-1);border-radius:18px;box-shadow:var(--shadow-2);overflow:hidden;margin-bottom:28px}
+  .web-thread{padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--bg-page)}
+  .web-held{align-self:flex-end;max-width:78%;background:#fff;border:1.5px dashed #571B32;color:rgba(15,26,36,.62);padding:11px 15px;border-radius:16px 16px 5px 16px;font:400 14.5px/1.4 var(--font-sans)}
+  .web-held .m{font:500 10.5px/1 var(--font-mono);color:#571B32;margin-top:6px}
+  .web-composer{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--border-1);background:#fff}
+  .web-composer .ci{flex:1;height:42px;border-radius:9999px;background:var(--neutral-100);border:1px solid var(--border-1);padding:0 16px;display:flex;align-items:center;font:400 14px var(--font-sans);color:var(--fg-4)}
+  .web-send{background:var(--connecta-ink);color:#fff;border:0;border-radius:9999px;padding:0 18px;height:42px;font:600 13px var(--font-sans);cursor:pointer}
+  .nudge-grid {
+    display: grid;
+    grid-template-columns: minmax(330px, 360px);
+    gap: 16px;
+    align-items: start;
+  }
+  .variant { display: flex; flex-direction: column; gap: 8px; }
+  .vlabel {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--fg-3);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .vlabel b { color: var(--fg-1); font-weight: 600; }
+  /* native mobile screen */
+  .scene {
+    width: 340px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-1);
+    border-radius: 34px;
+    box-shadow: var(--shadow-3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .statusbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 24px 5px;
+    font: 600 13px/1 var(--font-mono); color: #0F1A24;
+  }
+  .statusbar .sb-icons { display: flex; align-items: center; gap: 6px; }
+  .statusbar .sb-icons svg { width: 15px; height: 15px; }
+  .appbar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 16px 11px; border-bottom: 1px solid var(--border-1);
+  }
+  .appbar .ab-back svg { width: 22px; height: 22px; color: var(--fg-2); }
+  .appbar .ab-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--connecta-sky); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 13px var(--font-sans); color: #0F1A24;
+  }
+  .appbar .ab-name { font: 600 15px/1.1 var(--font-sans); color: var(--fg-1); }
+  .appbar .ab-sub { font: 500 11px/1.2 var(--font-mono); color: var(--fg-3); margin-top: 2px; }
+  .appbar .ab-info { margin-left: auto; display: flex; }
+  .appbar .ab-info svg { width: 20px; height: 20px; color: var(--fg-3); }
+  .thread {
+    flex: 1; padding: 16px 14px 12px; min-height: 270px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 12px;
+    background: var(--bg-page);
+  }
+  .composer {
+    display: flex; align-items: center; gap: 9px;
+    padding: 10px 14px 18px; border-top: 1px solid var(--border-1);
+    background: #FFFFFF;
+  }
+  .composer .ci {
+    flex: 1; height: 40px; border-radius: 9999px;
+    background: var(--neutral-100); border: 1px solid var(--border-1);
+    padding: 0 15px; display: flex; align-items: center;
+    font: 400 14px var(--font-sans); color: var(--fg-4);
+  }
+  .composer .cs {
+    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+    background: var(--neutral-200); display: flex;
+    align-items: center; justify-content: center; color: var(--neutral-500);
+  }
+  .composer .cs svg { width: 18px; height: 18px; }
+  /* held draft */
+  .held { display: flex; flex-direction: column; align-items: flex-end; }
+  .held-bubble {
+    max-width: 84%;
+    background: #FFFFFF;
+    color: rgba(15,26,36,.62);
+    padding: 11px 15px;
+    border-radius: 18px 18px 5px 18px;
+    font: 400 14.5px/1.4 var(--font-sans);
+    word-wrap: break-word;
+    border: 1.5px dashed #571B32;
+  }
+  .held-meta {
+    display: flex; align-items: center; gap: 5px;
+    margin: 6px 6px 0 0;
+  }
+  .held-meta i, .held-meta svg { width: 11px; height: 11px; color: #571B32; }
+  .held-meta span {
+    font: 500 10.5px/1 var(--font-mono);
+    color: #571B32; letter-spacing: .02em;
+  }
+  /* nudge */
+  .nudge { border-radius: 20px; padding: 16px 16px 15px; }
+  .nudge-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: 600 10px/1 var(--font-mono);
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 6px 10px; border-radius: 9999px;
+  }
+  .nudge-badge i, .nudge-badge svg { width: 12px; height: 12px; stroke-width: 2; }
+  .nudge-head {
+    font: 600 16px/1.4 var(--font-sans);
+    letter-spacing: -0.005em;
+    margin: 11px 0 6px;
+  }
+  .why-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: transparent; border: 0; padding: 0; cursor: pointer;
+    font: 600 12px/1.3 var(--font-sans);
+  }
+  .why-btn .lucide-help { width: 14px; height: 14px; }
+  .why-btn .lucide-chev { width: 13px; height: 13px; opacity: .7; }
+  .why-body {
+    margin-top: 9px;
+    background: rgba(255,255,255,.8);
+    border-radius: 12px;
+    padding: 11px 13px;
+    color: #0F1A24;
+    font: 400 12.5px/1.5 var(--font-sans);
+  }
+  .why-eyebrow {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 5px; color: rgba(15,26,36,.55);
+  }
+  .why-eyebrow i, .why-eyebrow svg { width: 12px; height: 12px; }
+  .why-eyebrow span {
+    font: 600 10px/1 var(--font-mono);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+  .nudge-actions { display: flex; gap: 9px; margin-top: 14px; }
+  .btn-primary {
+    flex: 1; border: 0; border-radius: 12px;
+    padding: 12px 14px; font: 600 13.5px/1 var(--font-sans);
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 7px;
+  }
+  .btn-primary i, .btn-primary svg { width: 15px; height: 15px; stroke-width: 2; }
+  .btn-icon {
+    background: transparent; border-radius: 12px;
+    padding: 12px; width: 46px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .btn-icon i, .btn-icon svg { width: 16px; height: 16px; }
+  /* suggested state */
+  .nudge-suggested { margin-top: 14px; border-radius: 14px; padding: 12px 13px 13px; }
+  .sugg-eyebrow {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+  }
+  .sugg-eyebrow i, .sugg-eyebrow svg { width: 12px; height: 12px; stroke-width: 2; }
+  .sugg-eyebrow span {
+    font: 600 10px/1 var(--font-mono);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+  .sugg-bubble {
+    background: rgba(255,255,255,.6);
+    border-radius: 14px 14px 14px 5px;
+    padding: 11px 14px;
+    font: 500 14.5px/1.4 var(--font-sans);
+    color: #0F1A24; margin-bottom: 10px;
+  }
+  .sugg-actions { display: flex; gap: 9px; }
+  .btn-send {
+    flex: 1; border: 0; border-radius: 11px;
+    padding: 11px 14px; font: 600 13px/1 var(--font-sans);
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 7px;
+  }
+  .btn-send i, .btn-send svg { width: 14px; height: 14px; }
+  .btn-refresh {
+    background: transparent; border-radius: 11px;
+    padding: 11px; width: 44px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .btn-refresh i, .btn-refresh svg { width: 15px; height: 15px; }
+  /* sent state */
+  .held-bubble.sent {
+    border: 1px solid var(--border-1);
+    border-style: solid;
+    color: #0F1A24;
+  }
+  .held-meta.sent i, .held-meta.sent svg { color: #424F1A; }
+  .held-meta.sent span { color: #424F1A; }
+  .nudge-sent { display: flex; align-items: center; gap: 11px; }
+  .nudge-sent .sent-check { width: 22px; height: 22px; flex-shrink: 0; }
+  .sent-title { font: 700 15px/1.2 var(--font-sans); }
+  .sent-sub { font: 400 12.5px/1.4 var(--font-sans); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="seclabel">Web</div>
+<div class="webchat" id="webchat">
+  <div class="web-thread">
+    <div class="web-held" id="webHeld"><span id="webHeldText">Леле колко си грозен на тази снимка, изтрий я</span>
+      <div class="m" id="webHeldMeta">задържано · не е изпратено</div>
+    </div>
+    <div class="nudge" id="webNudge" style="background:#FBE1FD;box-shadow:0 12px 32px rgba(87,27,50,.16)">
+      <span class="nudge-badge" data-wbadge style="background:#571B32;color:#FBE1FD"><i data-lucide="sparkles"></i>Неизпратено</span>
+      <div data-wprompt>
+        <div class="nudge-head" style="color:#571B32">Това може да нарани нечии чувства. Искаш ли да сменим отговора ти?</div>
+        <button class="why-btn" style="color:#571B32" data-wwhy><i data-lucide="help-circle" class="lucide-help"></i>Защо?<i data-lucide="chevron-down" class="lucide-chev"></i></button>
+        <div class="why-body" hidden data-wwhybody>
+          <div class="why-eyebrow"><i data-lucide="corner-left-up"></i><span>Защо този nudge</span></div>
+          Спри за момент. Това съобщение може да накара някого да се почувства изключен или засрамен.
+        </div>
+        <div class="nudge-actions" data-wactions>
+          <button class="btn-primary" data-wsuggest style="background:#571B32;color:#FFFFFF"><i data-lucide="sparkles"></i>Предложи ми</button>
+          <button class="btn-icon" data-wedit aria-label="Редактирай" title="Редактирай сам" style="color:#571B32;border:1.5px solid rgba(87,27,50,.8)"><i data-lucide="pencil"></i></button>
+        </div>
+        <div class="nudge-suggested" hidden data-wsuggested style="background:rgba(87,27,50,.08)">
+          <div class="sugg-eyebrow" style="color:rgba(87,27,50,.6)"><i data-lucide="sparkles"></i><span>Предложение от GoodTalk</span></div>
+          <div class="sugg-bubble">Може ли да поговорим какво се случи?</div>
+          <div class="sugg-actions">
+            <button class="btn-send" data-wsend style="background:#571B32;color:#FFFFFF"><i data-lucide="send-horizontal"></i>Изпрати</button>
+            <button class="btn-refresh" data-wreroll aria-label="Друго предложение" title="Друго предложение" style="color:#571B32;border:1.5px solid rgba(87,27,50,.8)"><i data-lucide="refresh-cw"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="nudge-sent" hidden data-wsent>
+        <i data-lucide="check-circle" class="sent-check" style="color:#571B32"></i>
+        <div><div class="sent-title" style="color:#571B32">Изпратено</div><div class="sent-sub" style="color:rgba(87,27,50,.6)">Виждат само новата версия.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="web-composer">
+    <span class="ci" id="webCi">Съобщение…</span>
+    <button class="web-send">Изпрати</button>
+  </div>
+</div>
+
+<div class="seclabel">Mobile</div>
+<div class="nudge-grid" id="grid"></div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  var WHY = 'Спри за момент. Това съобщение може да накара някого да се почувства изключен или засрамен. Ако нещо днес ти се е сторило несправедливо, кажи как си се почувствал, без да караш другите да отхвърлят някого.';
+  var SUGGESTION = 'Може ли да поговорим какво се случи?';
+
+  var THEMES = [
+    { id:'pink',  name:'Pink · GoodTalk',  token:'--connecta-pink ground · plum type',
+      bg:'#FBE1FD', fg:'#571B32', badgeBg:'#571B32', badgeFg:'#FBE1FD',
+      primaryBg:'#571B32', primaryFg:'#FFFFFF', secBorder:'rgba(87,27,50,.8)', secFg:'#571B32',
+      shadow:'0 12px 32px rgba(87,27,50,.16)', sub:'rgba(87,27,50,.6)', whyBg:'rgba(87,27,50,.08)',
+      held:'Леле колко си грозен на тази снимка, изтрий я' }
+  ];
+
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var grid = document.getElementById('grid');
+  THEMES.forEach(function(t){
+    var el = document.createElement('div');
+    el.className = 'variant';
+    el.innerHTML =
+      '<div class="vlabel"><b>' + esc(t.name) + '</b><span>' + esc(t.token) + '</span></div>' +
+      '<div class="scene">' +
+        '<div class="statusbar">' +
+          '<span>9:41</span>' +
+          '<span class="sb-icons"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span>' +
+        '</div>' +
+        '<div class="appbar">' +
+          '<span class="ab-back"><i data-lucide="chevron-left"></i></span>' +
+          '<span class="ab-avatar">5а</span>' +
+          '<span><span class="ab-name">Класен кръг · 5а</span><span class="ab-sub" style="display:block">26 ученика</span></span>' +
+          '<span class="ab-info"><i data-lucide="circle-dot"></i></span>' +
+        '</div>' +
+        '<div class="thread">' +
+        '<div class="held">' +
+          '<div class="held-bubble">' + esc(t.held) + '</div>' +
+          '<div class="held-meta"><i data-lucide="clock"></i><span>задържано · не е изпратено</span></div>' +
+        '</div>' +
+        '<div class="nudge" style="background:' + t.bg + ';box-shadow:' + t.shadow + '">' +
+          '<span class="nudge-badge" data-badge style="background:' + t.badgeBg + ';color:' + t.badgeFg + '">' +
+            '<i data-lucide="sparkles"></i>Неизпратено</span>' +
+          '<div data-prompt>' +
+          '<div class="nudge-head" style="color:' + t.fg + '">Това може да нарани нечии чувства. Искаш ли да сменим отговора ти?</div>' +
+          '<button class="why-btn" style="color:' + t.fg + '" data-why>' +
+            '<i data-lucide="help-circle" class="lucide-help"></i>Защо?' +
+            '<i data-lucide="chevron-down" class="lucide-chev"></i></button>' +
+          '<div class="why-body" hidden data-whybody>' +
+            '<div class="why-eyebrow"><i data-lucide="corner-left-up"></i><span>Защо този nudge</span></div>' +
+            esc(WHY) +
+          '</div>' +
+          '<div class="nudge-actions">' +
+            '<button class="btn-primary" data-suggest style="background:' + t.primaryBg + ';color:' + t.primaryFg + '">' +
+              '<i data-lucide="sparkles"></i>Предложи ми</button>' +
+            '<button class="btn-icon" aria-label="Редактирай" title="Редактирай" style="color:' + t.secFg + ';border:1.5px solid ' + t.secBorder + '">' +
+              '<i data-lucide="pencil"></i></button>' +
+          '</div>' +
+          '<div class="nudge-suggested" hidden data-suggested style="background:' + t.whyBg + '">' +
+            '<div class="sugg-eyebrow" style="color:' + t.sub + '"><i data-lucide="sparkles"></i><span>Предложение от GoodTalk</span></div>' +
+            '<div class="sugg-bubble">' + esc(SUGGESTION) + '</div>' +
+            '<div class="sugg-actions">' +
+              '<button class="btn-send" data-send style="background:' + t.primaryBg + ';color:' + t.primaryFg + '"><i data-lucide="send-horizontal"></i>Изпрати</button>' +
+              '<button class="btn-refresh" data-reroll aria-label="Друго предложение" title="Друго предложение" style="color:' + t.secFg + ';border:1.5px solid ' + t.secBorder + '"><i data-lucide="refresh-cw"></i></button>' +
+            '</div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="nudge-sent" hidden data-sent>' +
+            '<i data-lucide="check-circle" class="sent-check" style="color:' + t.fg + '"></i>' +
+            '<div><div class="sent-title" style="color:' + t.fg + '">Изпратено</div>' +
+            '<div class="sent-sub" style="color:' + t.sub + '">Виждат само новата версия.</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="composer">' +
+          '<span class="ci">Съобщение…</span>' +
+          '<span class="cs"><i data-lucide="arrow-up"></i></span>' +
+        '</div>' +
+      '</div>';
+    grid.appendChild(el);
+  });
+
+  // "Защо?" expander + suggest flow
+  grid.addEventListener('click', function(e){
+    var why = e.target.closest('[data-why]');
+    if (why) {
+      var body = why.parentNode.querySelector('[data-whybody]');
+      var chev = why.querySelector('.lucide-chev');
+      var open = body.hasAttribute('hidden');
+      if (open) { body.removeAttribute('hidden'); } else { body.setAttribute('hidden',''); }
+      if (chev) chev.setAttribute('data-lucide', open ? 'chevron-up' : 'chevron-down');
+      lucide.createIcons({ attrs:{ 'stroke-width':1.75 } });
+      return;
+    }
+    var suggest = e.target.closest('[data-suggest]');
+    if (suggest) {
+      var nudge = suggest.closest('.nudge');
+      nudge.querySelector('.nudge-actions').setAttribute('hidden','');
+      nudge.querySelector('[data-suggested]').removeAttribute('hidden');
+      return;
+    }
+    var reroll = e.target.closest('[data-reroll]');
+    if (reroll) {
+      var n = reroll.closest('.nudge');
+      n.querySelector('[data-suggested]').setAttribute('hidden','');
+      n.querySelector('.nudge-actions').removeAttribute('hidden');
+      return;
+    }
+    var send = e.target.closest('[data-send]');
+    if (send) {
+      var scene = send.closest('.scene');
+      var nd = send.closest('.nudge');
+      // the held draft becomes the delivered message — only the rewrite is sent
+      var bubble = scene.querySelector('.held-bubble');
+      bubble.textContent = SUGGESTION;
+      bubble.classList.add('sent');
+      var meta = scene.querySelector('.held-meta');
+      meta.classList.add('sent');
+      meta.innerHTML = '<i data-lucide="check"></i><span>изпратено · 14:32</span>';
+      // nudge collapses to a calm confirmation
+      nd.querySelector('[data-badge]').setAttribute('hidden','');
+      nd.querySelector('[data-prompt]').setAttribute('hidden','');
+      nd.querySelector('[data-sent]').removeAttribute('hidden');
+      lucide.createIcons({ attrs:{ 'stroke-width':1.75 } });
+      return;
+    }
+  });
+
+  lucide.createIcons({ attrs:{ 'stroke-width':1.75 } });
+</script>
+<script>
+  (function(){
+    var wc = document.getElementById('webchat');
+    if(!wc) return;
+    var SUG = 'Може ли да поговорим какво се случи?';
+    function show(el,on){ if(el){ if(on) el.removeAttribute('hidden'); else el.setAttribute('hidden',''); } }
+    wc.addEventListener('click', function(e){
+      var t = e.target;
+      if(t.closest('[data-wwhy]')){
+        var body = wc.querySelector('[data-wwhybody]');
+        var chev = t.closest('[data-wwhy]').querySelector('.lucide-chev');
+        var open = body.hasAttribute('hidden');
+        show(body, open);
+        if(chev) chev.setAttribute('data-lucide', open ? 'chevron-up' : 'chevron-down');
+        if(window.lucide) lucide.createIcons({ attrs:{ 'stroke-width':1.75 } });
+        return;
+      }
+      if(t.closest('[data-wsuggest]')){ show(wc.querySelector('[data-wactions]'),false); show(wc.querySelector('[data-wsuggested]'),true); return; }
+      if(t.closest('[data-wreroll]')){ show(wc.querySelector('[data-wsuggested]'),false); show(wc.querySelector('[data-wactions]'),true); return; }
+      if(t.closest('[data-wedit]')){
+        var ci = document.getElementById('webCi');
+        ci.textContent = document.getElementById('webHeldText').textContent;
+        ci.style.color = 'var(--connecta-ink)';
+        document.getElementById('webNudge').style.display = 'none';
+        return;
+      }
+      if(t.closest('[data-wsend]')){
+        document.getElementById('webHeldText').textContent = SUG;
+        var held = document.getElementById('webHeld');
+        held.style.borderStyle = 'solid'; held.style.borderColor = 'var(--border-1)'; held.style.color = '#0F1A24';
+        document.getElementById('webHeldMeta').textContent = 'изпратено · 14:32';
+        show(wc.querySelector('[data-wbadge]'),false);
+        show(wc.querySelector('[data-wprompt]'),false);
+        show(wc.querySelector('[data-wsent]'),true);
+        if(window.lucide) lucide.createIcons({ attrs:{ 'stroke-width':1.75 } });
+        return;
+      }
+    });
+  })();
+</script>
+</body>
+</html>

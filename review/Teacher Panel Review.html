@@ -1,0 +1,485 @@
+<!doctype html>
+<!-- @dsCard group="Species" name="Species — Teacher panel (web + mobile)" subtitle="School-scoped task composer · web + mobile" -->
+<html lang="bg">
+<head>
+<meta charset="utf-8" />
+<title>School panel</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  body {
+    background: var(--neutral-100);
+    padding: var(--s-9) var(--s-7);
+    color: var(--fg-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-6);
+  }
+  .doc-head { max-width: 420px; width: 100%; display: grid; gap: var(--s-2); }
+  .doc-head .eyebrow { color: var(--fg-3); }
+  .doc-head h1 {
+    font-size: var(--t-h3);
+    font-weight: var(--w-bold);
+    letter-spacing: -0.015em;
+    line-height: var(--lh-tight);
+    margin: 0;
+  }
+
+  /* phone frame */
+  .frame {
+    width: 420px;
+    border-radius: var(--r-2xl);
+    background: var(--scope-school-bg);     /* school admin: institutional off-white */
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+  }
+
+  /* top app bar */
+  .a-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border-1);
+    padding: var(--s-4) var(--s-5);
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: var(--s-3);
+    align-items: center;
+  }
+  .a-avatar {
+    width: 36px; height: 36px;
+    border-radius: var(--r-md);
+    background: var(--connecta-ink);
+    color: #fff;
+    display: grid; place-items: center;
+    font-family: var(--font-sans);
+    font-weight: var(--w-semi);
+    font-size: var(--t-body-sm);
+    letter-spacing: -0.02em;
+  }
+  .a-who { display: grid; gap: 2px; min-width: 0; }
+  .a-who .name { font-size: var(--t-body-sm); font-weight: var(--w-semi); color: var(--fg-1); }
+  .a-who .role-pill {
+    display: inline-flex; align-items: center;
+    background: var(--role-school-bg);
+    color: var(--role-school-fg);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: var(--r-xs);
+    width: max-content;
+  }
+  /* close is a text control — no icon */
+  .a-bar .close {
+    border: 1px solid var(--border-1);
+    background: #fff;
+    color: var(--fg-2);
+    border-radius: var(--r-sm);
+    padding: 7px 12px;
+    font: var(--w-medium) var(--t-caption)/1 var(--font-sans);
+    cursor: pointer;
+  }
+
+  /* school-graph crumb (labels, not buttons — icons allowed here) */
+  .a-crumb {
+    background: #fff;
+    border-bottom: 1px solid var(--border-1);
+    padding: var(--s-3) var(--s-5);
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.06em;
+    color: var(--fg-2);
+    text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .a-crumb b { color: var(--fg-1); font-weight: var(--w-medium); }
+  .a-crumb .sep { color: var(--fg-4); }
+
+  .a-h1-row {
+    padding: var(--s-5) var(--s-5) var(--s-2);
+    display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3);
+  }
+  .a-h1-row h2 { font-size: var(--t-h3); font-weight: var(--w-bold); letter-spacing: -0.015em; margin: 0; }
+  .a-step {
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    color: var(--fg-3);
+    text-transform: uppercase;
+  }
+
+  .a-body { padding: var(--s-3) var(--s-5) var(--s-5); display: grid; gap: var(--s-5); }
+
+  .a-field { display: grid; gap: 6px; }
+  .a-field > label {
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    font-weight: var(--w-medium);
+  }
+  .a-field .help { font-size: var(--t-caption); color: var(--fg-3); }
+  .a-input, .a-textarea {
+    font-family: var(--font-sans);
+    font-size: var(--t-body);
+    color: var(--fg-1);
+    background: #fff;
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: var(--shadow-inset);
+    line-height: var(--lh-snug);
+  }
+  .a-textarea { min-height: 96px; line-height: var(--lh-normal); resize: vertical; }
+  .a-input.title { font-size: var(--t-h4); font-weight: var(--w-semi); padding: 14px; }
+
+  .a-attach {
+    display: flex; gap: var(--s-2); align-items: center;
+    border: 1px dashed var(--border-2);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    color: var(--fg-3);
+    font-size: var(--t-body-sm);
+    background: var(--neutral-0);
+  }
+  .a-attach .icon-btn {
+    width: 32px; height: 32px;
+    border-radius: var(--r-sm);
+    background: var(--neutral-100);
+    display: grid; place-items: center;
+    color: var(--fg-2);
+  }
+
+  /* AI assist group — identity on the badge */
+  .a-group { display: grid; gap: var(--s-2); }
+  .a-group-head {
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  .a-assist {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+  }
+  .a-assist.cosmo .badge { background: var(--role-cosmo-bg); color: var(--role-cosmo-fg); }
+  .a-assist.goodtalk .badge { background: var(--connecta-plum); color: var(--connecta-pink); }
+  .a-assist.workflow .badge { background: var(--neutral-200); color: var(--fg-2); }
+  .a-assist .badge { width: 28px; height: 28px; border-radius: var(--r-sm); display: grid; place-items: center; }
+  .a-assist .text { display: grid; gap: 2px; min-width: 0; }
+  .a-assist .text .t { font-size: var(--t-body-sm); font-weight: var(--w-semi); }
+  .a-assist .text .s { font-size: var(--t-caption); color: var(--fg-3); }
+
+  .switch {
+    width: 36px; height: 22px;
+    border-radius: var(--r-pill);
+    background: var(--neutral-300);
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .switch::after {
+    content: ""; position: absolute;
+    width: 16px; height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px; left: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .switch.on { background: var(--connecta-ink); }
+  .switch.on::after { left: 17px; }
+
+  .a-meta {
+    border-top: 1px solid var(--border-1);
+    border-bottom: 1px solid var(--border-1);
+    padding: var(--s-4) 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+  }
+  .a-meta .cell { display: grid; gap: 6px; }
+  .a-meta label {
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  .a-meta .v { font-size: var(--t-body); font-weight: var(--w-medium); display: inline-flex; align-items: center; gap: 8px; }
+  .a-meta .v .mono { font-family: var(--font-mono); font-weight: var(--w-regular); }
+
+  /* primary action — black; secondary follows the same button system */
+  .a-send-row { display: grid; gap: 8px; }
+  .a-send {
+    background: var(--connecta-ink);
+    color: #fff;
+    border: 0;
+    border-radius: var(--r-md);
+    padding: 14px 18px;
+    font-family: var(--font-sans);
+    font-size: var(--t-body-lg);
+    font-weight: var(--w-semi);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    width: 100%;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+  .a-send:hover { background: var(--action-primary-hover); }
+  .a-send2 {
+    background: #fff;
+    color: var(--connecta-ink);
+    border: 1px solid var(--action-ghost-border);
+    border-radius: var(--r-md);
+    padding: 13px 18px;
+    font-family: var(--font-sans);
+    font-size: var(--t-body-lg);
+    font-weight: var(--w-semi);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    width: 100%;
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+  .a-send2:hover { background: var(--neutral-50); }
+  .a-send .count { font-family: var(--font-mono); font-size: var(--t-caption); opacity: 0.9; font-weight: var(--w-regular); }
+  .a-confirm { font-size: var(--t-caption); color: var(--fg-3); text-align: center; }
+
+  .caption { max-width: 420px; color: var(--fg-3); font-size: var(--t-caption); text-align: center; }
+
+  /* ---------- WEB version — teacher workspace ---------- */
+  .seclabel { width: 1040px; max-width: 100%; font: 600 11px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin: 0 0 2px; }
+  .web { width: 1040px; max-width: 100%; display: flex; background: #fff; border: 1px solid var(--border-1); border-radius: var(--r-2xl); overflow: hidden; box-shadow: var(--shadow-2); }
+  .web-side { width: 226px; flex-shrink: 0; background: #fff; border-right: 1px solid var(--border-1); padding: 22px 14px; display: flex; flex-direction: column; gap: 22px; }
+  .web-brand { display: flex; align-items: center; gap: 9px; padding: 0 8px; }
+  .web-brand img.g { width: 26px; height: 26px; } .web-brand img.w { height: 18px; }
+  .web-nav { display: flex; flex-direction: column; gap: 2px; }
+  .web-nav a { display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: 10px; color: var(--fg-2); font: 500 14px/1 var(--font-sans); cursor: pointer; }
+  .web-nav a.sel { background: var(--neutral-100); color: var(--fg-1); font-weight: 600; }
+  .web-nav a svg { width: 18px; height: 18px; }
+  .web-eu { margin-top: auto; padding: 12px; background: var(--neutral-50); border-radius: 12px; }
+  .web-eu .k { font: 500 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 6px; }
+  .web-eu .v { font: 500 12px/1.4 var(--font-sans); color: var(--fg-1); }
+  .web-main { flex: 1; background: var(--neutral-50); padding: 26px 28px; min-width: 0; }
+  .web-crumb { display: flex; align-items: center; gap: 6px; font: 500 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); margin-bottom: 14px; flex-wrap: wrap; }
+  .web-crumb svg { width: 12px; height: 12px; color: var(--fg-3); } .web-crumb .sep { color: var(--fg-4); }
+  .web-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+  .web-head h2 { font: 700 26px/1.1 var(--font-sans); letter-spacing: -.02em; color: var(--fg-1); margin: 0; }
+  .web-head .step { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+  .web-card { background: #fff; border: 1px solid var(--border-1); border-radius: var(--r-lg); padding: 22px; display: grid; gap: 20px; max-width: 660px; }
+  .web-actions { display: flex; gap: 10px; align-items: center; max-width: 660px; margin-top: 18px; }
+  .web-actions .grow { flex: 1; }
+  .web-btn { border-radius: var(--r-md); padding: 12px 22px; font: 600 15px/1 var(--font-sans); cursor: pointer; border: 0; }
+  .web-btn.primary { background: var(--connecta-ink); color: #fff; }
+  .web-btn.secondary { background: #fff; color: var(--connecta-ink); border: 1px solid var(--action-ghost-border); }
+  .web-confirm { font: 500 13px/1 var(--font-sans); color: var(--fg-3); margin-left: auto; }
+</style>
+</head>
+<body>
+
+  <header class="doc-head">
+    <div class="eyebrow">design system · school · panel</div>
+    <h1>School panel</h1>
+  </header>
+
+  <div class="seclabel">Уеб · изглед на учителя</div>
+  <div class="web" data-screen-label="Teacher workspace (web)">
+    <aside class="web-side">
+      <div class="web-brand"><img class="g" src="../assets/glyph-nn-coral.svg"/><img class="w" src="../assets/logo-wordmark-black.svg"/></div>
+      <nav class="web-nav">
+        <a><i data-lucide="layout-dashboard"></i>Табло</a>
+        <a class="sel"><i data-lucide="clipboard-list"></i>Задачи</a>
+        <a><i data-lucide="school"></i>Класове</a>
+        <a><i data-lucide="users"></i>Ученици</a>
+        <a><i data-lucide="file-check-2"></i>Проверка</a>
+        <a><i data-lucide="settings"></i>Настройки</a>
+      </nav>
+      <div class="web-eu"><div class="k">EU residency</div><div class="v">Данните стоят на EU сървъри. Не четем съобщения.</div></div>
+    </aside>
+    <div class="web-main">
+      <div class="web-crumb">
+        <i data-lucide="school"></i><b>СУ „Иван Вазов"</b><span class="sep">·</span>8Б<span class="sep">·</span>Физика<span class="sep">·</span><i data-lucide="flask-conical"></i>STEM кръг
+      </div>
+      <div class="web-head"><h2>Нова задача</h2><span class="step">Стъпка 1 от 1</span></div>
+      <div class="web-card">
+        <div class="a-field">
+          <label>Заглавие</label>
+          <input class="a-input title" value="Измери скоростта на топка по наклонена равнина"/>
+        </div>
+        <div class="a-field">
+          <label>Инструкции</label>
+          <textarea class="a-textarea">Проектирайте експеримент за измерване как ъгълът на наклонената равнина влияе върху скоростта на търкаляща се топка. Документирайте хипотезата, метода и резултатите.</textarea>
+          <span class="help">Сократов тон. Без готови отговори.</span>
+        </div>
+        <div class="a-field">
+          <label>Материали</label>
+          <div class="a-attach"><div class="icon-btn"><i data-lucide="paperclip"></i></div><div class="icon-btn"><i data-lucide="image"></i></div><span>Добави изображение, документ или линк</span></div>
+        </div>
+        <div class="a-group">
+          <div class="a-group-head">Помощ по време на задачата</div>
+          <div class="a-assist cosmo">
+            <div class="badge"><i data-lucide="compass" style="width:16px;height:16px"></i></div>
+            <div class="text"><span class="t">Socrat насочва учениците</span><span class="s">Задава въпроси, не дава отговори</span></div>
+            <div class="switch on" role="switch" aria-checked="true"></div>
+          </div>
+          <div class="a-assist goodtalk">
+            <div class="badge"><i data-lucide="wand-2" style="width:16px;height:16px"></i></div>
+            <div class="text"><span class="t">GoodTalk следи разговора</span><span class="s">Меки подсещания при риск. Без следене.</span></div>
+            <div class="switch on" role="switch" aria-checked="true"></div>
+          </div>
+        </div>
+        <div class="a-meta">
+          <div class="cell"><label>Краен срок</label><span class="v"><i data-lucide="calendar" style="width:14px;height:14px;color:var(--fg-3)"></i>Петък, <span class="mono">23.05</span> · <span class="mono">10:00</span></span></div>
+          <div class="cell"><label>Видимост</label><span class="v"><i data-lucide="circle-dot" style="width:14px;height:14px;color:var(--fg-3)"></i>Само 8Б</span></div>
+        </div>
+      </div>
+      <div class="web-actions">
+        <button class="web-btn primary">Изпрати на 8Б</button>
+        <button class="web-btn secondary">Запази като чернова</button>
+        <span class="web-confirm">Socrat и GoodTalk ще бъдат активни през задачата.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="seclabel" style="margin-top:10px">Мобилно</div>
+  <div class="frame" data-screen-label="School panel">
+
+    <!-- top app bar -->
+    <div class="a-bar">
+      <div class="a-avatar">ИВ</div>
+      <div class="a-who">
+        <div class="name">СУ „Иван Вазов"</div>
+        <div class="role-pill">School</div>
+      </div>
+      <button class="close">Затвори</button>
+    </div>
+
+    <!-- school-graph crumb -->
+    <div class="a-crumb">
+      <i data-lucide="school" style="width:12px;height:12px;color:var(--fg-3)"></i>
+      <b>СУ „Иван Вазов"</b>
+      <span class="sep">·</span>
+      <b>8Б</b>
+      <span class="sep">·</span>
+      <b>Физика</b>
+      <span class="sep">·</span>
+      <i data-lucide="flask-conical" style="width:12px;height:12px;color:var(--fg-3)"></i>
+      <b>STEM кръг</b>
+    </div>
+
+    <!-- step label + h1 -->
+    <div class="a-h1-row">
+      <h2>Нова задача</h2>
+      <span class="a-step">Стъпка 1 от 1</span>
+    </div>
+
+    <div class="a-body">
+
+      <div class="a-field">
+        <label>Заглавие</label>
+        <input class="a-input title" value="Измери скоростта на топка по наклонена равнина" />
+      </div>
+
+      <div class="a-field">
+        <label>Инструкции</label>
+        <textarea class="a-textarea">Проектирайте експеримент за измерване как ъгълът на наклонената равнина влияе върху скоростта на търкаляща се топка. Документирайте хипотезата, метода и резултатите.</textarea>
+        <span class="help">Сократов тон. Без готови отговори.</span>
+      </div>
+
+      <div class="a-field">
+        <label>Материали</label>
+        <div class="a-attach">
+          <div class="icon-btn"><i data-lucide="paperclip"></i></div>
+          <div class="icon-btn"><i data-lucide="image"></i></div>
+          <span>Добави изображение, документ или линк</span>
+        </div>
+      </div>
+
+      <!-- AI assist group -->
+      <div class="a-group">
+        <div class="a-group-head">Помощ по време на задачата</div>
+
+        <div class="a-assist cosmo">
+          <div class="badge"><i data-lucide="compass" style="width:16px;height:16px"></i></div>
+          <div class="text">
+            <span class="t">Socrat насочва учениците</span>
+            <span class="s">Задава въпроси, не дава отговори</span>
+          </div>
+          <div class="switch on" role="switch" aria-checked="true"></div>
+        </div>
+
+        <div class="a-assist goodtalk">
+          <div class="badge"><i data-lucide="wand-2" style="width:16px;height:16px"></i></div>
+          <div class="text">
+            <span class="t">GoodTalk следи разговора</span>
+            <span class="s">Меки подсещания при риск. Без следене.</span>
+          </div>
+          <div class="switch on" role="switch" aria-checked="true"></div>
+        </div>
+      </div>
+
+      <div class="a-group">
+        <div class="a-group-head">Подаване и преглед</div>
+        <div class="a-assist workflow">
+          <div class="badge"><i data-lucide="users" style="width:16px;height:16px"></i></div>
+          <div class="text">
+            <span class="t">Работа по екипи</span>
+            <span class="s">Един отговор на група. Същото правило за всички.</span>
+          </div>
+          <div class="switch" role="switch" aria-checked="false"></div>
+        </div>
+        <div class="a-assist workflow">
+          <div class="badge"><i data-lucide="file-check-2" style="width:16px;height:16px"></i></div>
+          <div class="text">
+            <span class="t">Преглед от учителя</span>
+            <span class="s">Виждаш отговорите преди да са финални</span>
+          </div>
+          <div class="switch" role="switch" aria-checked="false"></div>
+        </div>
+      </div>
+
+      <!-- meta -->
+      <div class="a-meta">
+        <div class="cell">
+          <label>Краен срок</label>
+          <span class="v">
+            <i data-lucide="calendar" style="width:14px;height:14px;color:var(--fg-3)"></i>
+            Петък, <span class="mono">23.05</span> · <span class="mono">10:00</span>
+          </span>
+        </div>
+        <div class="cell">
+          <label>Видимост</label>
+          <span class="v">
+            <i data-lucide="circle-dot" style="width:14px;height:14px;color:var(--fg-3)"></i>
+            Само 8Б
+          </span>
+        </div>
+      </div>
+
+      <!-- send: black primary + secondary, same button system -->
+      <div class="a-send-row">
+        <button class="a-send">Изпрати на 8Б</button>
+        <button class="a-send2">Запази като чернова</button>
+        <div class="a-confirm">Socrat и GoodTalk ще бъдат активни през задачата.</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="caption">School scope · institutional ground · school-graph crumb · text-only buttons</div>
+
+<script>
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

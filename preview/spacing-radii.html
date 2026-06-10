@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- @dsCard group="Atoms" name="Spacing — Radii" subtitle="Token scale + Web & Mobile-native usage" viewport="700x420" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:680px">
+<style>
+  .scale{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end}
+  .sw{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .sw .r{width:48px;height:48px;background:#EEF1F3;box-shadow:inset 0 0 0 1px #DDE2E7}
+  h5{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin:0 0 12px}
+  .platforms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .plat{background:var(--bg-card-soft);border:1px solid var(--border-1);border-radius:16px;padding:16px 16px 18px}
+  .plat .ptitle{display:flex;align-items:center;gap:8px;font:600 13px var(--font-sans);color:var(--fg-1);margin-bottom:14px}
+  .plat .dot{width:8px;height:8px;border-radius:9999px}
+  .specrow{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .specrow:last-child{margin-bottom:0}
+  .shape{background:#fff;box-shadow:inset 0 0 0 1.5px var(--border-2);flex:none}
+  .spec-txt{display:flex;flex-direction:column;gap:2px;min-width:0;white-space:nowrap}
+  .spec-txt b{font:600 13px var(--font-sans);color:var(--fg-1)}
+  .spec-txt span{font:500 11px var(--font-sans);color:var(--fg-3)}
+  section{margin-bottom:24px}
+</style>
+
+<section>
+  <h5>Token scale</h5>
+  <div class="scale">
+    <div class="sw"><div class="r" style="border-radius:4px"></div><div class="swatch-meta">xs · 4</div></div>
+    <div class="sw"><div class="r" style="border-radius:8px"></div><div class="swatch-meta">sm · 8</div></div>
+    <div class="sw"><div class="r" style="border-radius:12px"></div><div class="swatch-meta">md · 12</div></div>
+    <div class="sw"><div class="r" style="border-radius:16px"></div><div class="swatch-meta">lg · 16</div></div>
+    <div class="sw"><div class="r" style="border-radius:20px"></div><div class="swatch-meta">xl · 20</div></div>
+    <div class="sw"><div class="r" style="border-radius:28px"></div><div class="swatch-meta">2xl · 28</div></div>
+    <div class="sw"><div class="r" style="width:80px;height:32px;border-radius:9999px"></div><div class="swatch-meta">pill</div></div>
+  </div>
+</section>
+
+<section style="margin-bottom:6px">
+  <h5>Applied — same tokens, two platforms</h5>
+  <div class="platforms">
+
+    <div class="plat">
+      <div class="ptitle"><span class="dot" style="background:var(--connecta-ink)"></span>Web</div>
+      <div class="specrow">
+        <div class="shape" style="width:64px;height:30px;border-radius:8px"></div>
+        <div class="spec-txt"><b>Buttons · inputs</b><span>sm 8 — md 12</span></div>
+      </div>
+      <div class="specrow">
+        <div class="shape" style="width:64px;height:40px;border-radius:16px"></div>
+        <div class="spec-txt"><b>Cards · panels</b><span>lg 16</span></div>
+      </div>
+      <div class="specrow">
+        <div class="shape" style="width:64px;height:40px;border-radius:20px"></div>
+        <div class="spec-txt"><b>Dialogs · menus</b><span>xl 20</span></div>
+      </div>
+    </div>
+
+    <div class="plat">
+      <div class="ptitle"><span class="dot" style="background:var(--connecta-sky)"></span>Mobile native</div>
+      <div class="specrow">
+        <div class="shape" style="width:64px;height:30px;border-radius:9999px"></div>
+        <div class="spec-txt"><b>Buttons · chips</b><span>pill — lg 16</span></div>
+      </div>
+      <div class="specrow">
+        <div class="shape" style="width:64px;height:40px;border-radius:20px"></div>
+        <div class="spec-txt"><b>Cards · list rows</b><span>xl 20</span></div>
+      </div>
+      <div class="specrow">
+        <div class="shape" style="width:64px;height:40px;border-radius:28px 28px 8px 8px"></div>
+        <div class="spec-txt"><b>Sheets · modals</b><span>2xl 28 (top)</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="label-eyebrow">corner radii · soft geometry, never sharp · native goes one step rounder than web</div>
+</body></html>

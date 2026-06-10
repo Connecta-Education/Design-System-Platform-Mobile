@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- @dsCard group="Molecules" name="Molecules — Utility" subtitle="Divider · Label · Kbd · Icon button" viewport="760x320" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .blk{display:flex;flex-direction:column;gap:14px}
+  .h{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);padding-bottom:6px;border-bottom:1px solid var(--border-1)}
+  .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .label{font:600 10px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+  .kbd{font:600 12px var(--font-mono);color:var(--fg-1);background:var(--neutral-50);border:1px solid var(--border-1);border-bottom-width:2px;border-radius:6px;padding:3px 8px}
+  .divider{height:1px;background:var(--border-1);width:100%}
+  .vdiv{width:1px;height:28px;background:var(--border-1)}
+  .ib{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0}
+  .ib svg{width:18px;height:18px}
+  .ib.primary{background:var(--connecta-ink);color:#fff}
+  .ib.ghost{background:transparent;color:var(--fg-2);box-shadow:inset 0 0 0 1px var(--border-1)}
+  .ib.muted{background:var(--neutral-100);color:var(--fg-2)}
+</style>
+<div class="grid">
+  <div class="blk">
+    <div class="h">Label</div>
+    <div class="row"><span class="label">Краен срок</span><span class="label">Visibility</span><span class="label">EU residency</span></div>
+    <div class="h" style="margin-top:6px">Kbd</div>
+    <div class="row"><span class="kbd">⌘</span><span class="kbd">K</span><span class="lab" style="color:var(--fg-4);font-size:12px">to search</span><span class="kbd">Esc</span></div>
+    <div class="h" style="margin-top:6px">Divider</div>
+    <div class="divider"></div>
+    <div class="row" style="height:28px">text <span class="vdiv"></span> text <span class="vdiv"></span> text</div>
+  </div>
+  <div class="blk">
+    <div class="h">Icon button</div>
+    <div class="row">
+      <button class="ib primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+      <button class="ib ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button class="ib muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+      <span class="lab" style="color:var(--fg-4);font-size:12px">primary · ghost · muted</span>
+    </div>
+  </div>
+</div>
+<div style="margin-top:14px" class="label-eyebrow">utility atoms · labels use tracked DM Sans · icon buttons share button colour roles</div>
+</body></html>

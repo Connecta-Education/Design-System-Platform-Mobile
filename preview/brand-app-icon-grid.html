@@ -1,0 +1,151 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Brand · App Icon" subtitle="Animated thinking glyph + 3 official colorways" viewport="760x1180" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:760px">
+<style>
+  h4{font:600 12px var(--font-sans);color:var(--fg-2);margin:0 0 14px 0;padding-bottom:6px;border-bottom:1px solid var(--border-1)}
+  h4 .tag{font-weight:400;color:var(--fg-3)}
+
+  /* ---- masked glyph engine: the real "nn" mark, fill animated behind it ---- */
+  body{--gmask:url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%20122%20122%27%3E%3Cpath%20transform=%27translate(-2049%20-446)%27%20d=%27M2138.24%20484C2148.61%20484%202156.22%20489.018%202159.4%20497.66L2171.23%20485.533C2171.31%20485.457%202171.38%20485.387%202171.46%20485.322V498.901L2160.93%20510.066V527.212C2160.93%20528.745%202160.1%20530%202158.44%20530H2151.52C2150.27%20530%202149.17%20528.885%202149.17%20527.212V506.722C2149.17%20499.473%202144.88%20494.733%202138.24%20494.733C2131.6%20494.734%202127.31%20499.473%202127.31%20506.722V527.212C2127.31%20528.885%202126.2%20530%202124.96%20530H2118.04C2116.38%20530%202115.55%20528.745%202115.55%20527.212V510.764L2106.83%20520.66V527.212C2106.83%20528.745%202106%20530%202104.34%20530H2097.42C2096.18%20530%202095.07%20528.885%202095.07%20527.212V506.722C2095.07%20499.473%202090.78%20494.734%202084.14%20494.733C2077.5%20494.733%202073.21%20499.473%202073.21%20506.722V527.212C2073.21%20528.885%202072.1%20530%202070.86%20530H2063.94C2062.28%20530%202061.45%20528.745%202061.45%20527.212V510.764L2049%20524.214V510.437L2066.02%20492.085C2070.44%20487.206%202076.26%20484%202084.14%20484C2097.56%20484%202106.69%20492.922%202106.69%20506.582L2120.11%20492.085C2124.68%20487.206%202130.35%20484%202138.24%20484Z%27%20fill=%27%23000%27/%3E%3C/svg%3E")}
+  .glyph{
+    -webkit-mask:var(--gmask) center/contain no-repeat;
+            mask:var(--gmask) center/contain no-repeat;
+    background:var(--connecta-coral);
+    will-change:transform,opacity,background-position;
+  }
+
+  /* 1 · PULSE — calm breathing blink (recommended) */
+  @keyframes g-pulse{0%,100%{opacity:.32;transform:scale(.93)}50%{opacity:1;transform:scale(1)}}
+  .anim-pulse{animation:g-pulse 1.5s var(--ease-standard) infinite}
+
+  /* 2 · SIGNAL — a bright pulse travels the connection, L→R */
+  .anim-signal{
+    background:linear-gradient(100deg,
+      var(--connecta-coral) 0%, var(--connecta-coral) 38%,
+      #FFE2DA 50%, var(--connecta-coral) 62%, var(--connecta-coral) 100%);
+    background-size:280% 100%;
+    animation:g-signal 1.3s linear infinite;
+  }
+  @keyframes g-signal{0%{background-position:180% 0}100%{background-position:-80% 0}}
+
+  /* 3 · REACH — the two halves part, then reach in and touch (connection) */
+  .reach{position:relative}
+  .reach .gh{position:absolute;inset:0;background:var(--connecta-coral);
+    -webkit-mask:var(--gmask) center/contain no-repeat;mask:var(--gmask) center/contain no-repeat}
+  .reach .gh.l{clip-path:inset(0 50% 0 0);animation:reach-l 1.9s var(--ease-emphasis) infinite}
+  .reach .gh.r{clip-path:inset(0 0 0 50%);animation:reach-r 1.9s var(--ease-emphasis) infinite}
+  @keyframes reach-l{0%,100%{transform:translateX(-11%)}46%,60%{transform:translateX(0)}}
+  @keyframes reach-r{0%,100%{transform:translateX(11%)}46%,60%{transform:translateX(0)}}
+
+  /* 4 · BLINK — mostly open, a quick eye-blink each cycle */
+  @keyframes g-blink{0%,42%{opacity:1}46%{opacity:.05}50%{opacity:1}100%{opacity:1}}
+  .anim-blink{animation:g-blink 2.4s var(--ease-standard) infinite}
+
+  .opt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .opt{display:flex;flex-direction:column;align-items:center;gap:10px;
+       background:var(--bg-card-soft);border:1px solid var(--border-1);
+       border-radius:var(--r-xl);padding:22px 12px 16px}
+  .opt .stage{width:108px;height:64px;display:flex;align-items:center;justify-content:center}
+  .opt .glyph,.opt .reach{width:108px;height:64px}
+  .opt .name{font:600 13px var(--font-sans);color:var(--fg-1)}
+  .opt .desc{font-size:11px;color:var(--fg-3);text-align:center;line-height:1.35;text-wrap:pretty}
+  .opt.rec{border-color:var(--connecta-ink);box-shadow:var(--shadow-2)}
+  .rec-tag{font:600 9px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;
+           color:var(--connecta-paper);background:var(--connecta-ink);
+           border-radius:var(--r-pill);padding:3px 8px;margin-top:-2px}
+
+  /* ---- in-context: chat composer "Connecta is thinking…" ---- */
+  .demo{display:flex;flex-direction:column;gap:12px}
+  .composer{display:flex;align-items:center;gap:12px;background:var(--bg-card);
+            border:1px solid var(--border-1);border-radius:var(--r-pill);
+            padding:10px 12px 10px 16px;box-shadow:var(--shadow-1)}
+  .composer .think{display:flex;align-items:center;gap:9px;color:var(--fg-3);font-size:14px;white-space:nowrap}
+  .composer .think .glyph,.composer .think .reach{width:30px;height:20px}
+  .composer .grow{flex:1}
+  .send{width:36px;height:36px;border-radius:var(--r-pill);background:var(--action-muted-bg);
+        display:flex;align-items:center;justify-content:center;color:var(--fg-4);flex:none}
+  .send svg{width:16px;height:16px}
+  .ctx-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3)}
+
+  /* compact inline chip variant */
+  .think-chip{display:inline-flex;align-items:center;gap:8px;background:var(--tint-coral);
+              border-radius:var(--r-pill);padding:7px 14px 7px 10px;
+              color:var(--connecta-ink);font-size:13px;font-weight:500}
+  .think-chip .glyph{width:26px;height:18px}
+
+  /* mobile composer (same animation, input size) */
+  .m-composer{width:300px;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border-1);border-radius:var(--r-pill);padding:9px 10px 9px 14px;box-shadow:var(--shadow-1);box-sizing:border-box}
+  .m-composer .think{display:flex;align-items:center;gap:8px;color:var(--fg-3);font-size:13px;white-space:nowrap}
+  .m-composer .think .reach{width:26px;height:18px}
+  .m-composer .grow{flex:1}
+  .m-composer .send{width:32px;height:32px;border-radius:var(--r-pill);background:var(--action-muted-bg);display:flex;align-items:center;justify-content:center;color:var(--fg-4);flex:none}
+  .m-composer .send svg{width:15px;height:15px}
+  .ctx-note{font-size:12px;color:var(--fg-3);max-width:520px;line-height:1.45}
+
+  /* colorways */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:560px}
+  .cell{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .ico{width:118px;height:118px;border-radius:24px;box-shadow:0 6px 18px rgba(15,26,36,.10)}
+  .cname{font:600 13px var(--font-sans);color:var(--fg-1);text-align:center}
+  .cmeta{font-family:var(--font-mono);font-size:10px;color:var(--fg-3);text-align:center}
+  section{margin-bottom:30px}
+</style>
+
+<section>
+  <h4>Thinking glyph — animated states <span class="tag">— the “nn” mark in motion, shown ≈full size</span></h4>
+  <div class="opt-grid">
+    <div class="opt rec">
+      <div class="stage"><div class="reach"><span class="gh l"></span><span class="gh r"></span></div></div>
+      <div class="name">Reach</div>
+      <div class="rec-tag">default</div>
+      <div class="desc">The two halves part, then reach in and touch — a connection forming.</div>
+    </div>
+    <div class="opt">
+      <div class="stage"><div class="glyph anim-blink"></div></div>
+      <div class="name">Blink</div>
+      <div class="desc">Mostly open, a quick eye-blink each beat. Alive, attentive.</div>
+    </div>
+    <div class="opt">
+      <div class="stage"><div class="glyph anim-pulse"></div></div>
+      <div class="name">Pulse</div>
+      <div class="desc">Calm breathing fade. Reads as “awake &amp; processing”.</div>
+    </div>
+    <div class="opt">
+      <div class="stage"><div class="glyph anim-signal"></div></div>
+      <div class="name">Signal</div>
+      <div class="desc">A bright pulse travels the connection, left → right.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h4>In context <span class="tag">— composer state while Connecta thinks (uses Reach)</span></h4>
+  <div class="demo">
+    <div class="ctx-label" style="margin-bottom:2px">Web composer · thinking</div>
+    <div class="composer">
+      <div class="think"><div class="reach"><span class="gh l"></span><span class="gh r"></span></div><span>Connecta is thinking…</span></div>
+      <div class="grow"></div>
+      <div class="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+    </div>
+    <div class="ctx-label" style="margin:8px 0 2px">Mobile composer · thinking</div>
+    <div class="m-composer">
+      <div class="think"><div class="reach"><span class="gh l"></span><span class="gh r"></span></div><span>Connecta is thinking…</span></div>
+      <div class="grow"></div>
+      <div class="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+    </div>
+    <div class="ctx-note" style="margin-top:8px">Same animations on web and mobile — the glyph is CSS-driven and scales to the input height, so there are no platform-specific variants. Below: per-AI thinking states.</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:4px">
+      <span class="think-chip" style="background:var(--tint-olive)"><span class="glyph anim-pulse" style="background:var(--connecta-olive)"></span>Socrat AI is working it out…</span>
+      <span class="think-chip" style="background:var(--tint-pink)"><span class="glyph anim-pulse" style="background:var(--connecta-plum)"></span>GoodTalk is checking…</span>
+    </div>
+  </div>
+</section>
+
+<section style="margin-bottom:6px">
+  <h4>Official colorways <span class="tag">— canon, ship-approved · same “nn” glyph</span></h4>
+  <div class="grid">
+    <div class="cell"><img class="ico" src="../assets/app-icon-lime.svg"/><div class="cname">lime</div><div class="cmeta">ink · lime</div></div>
+    <div class="cell"><img class="ico" src="../assets/app-icon-coral.svg"/><div class="cname">coral</div><div class="cmeta">lime · coral</div></div>
+    <div class="cell"><img class="ico" src="../assets/app-icon-dark.svg"/><div class="cname">dark</div><div class="cmeta">plum · coral</div></div>
+  </div>
+</section>
+</body></html>

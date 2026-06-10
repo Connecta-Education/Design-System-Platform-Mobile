@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Brand · Image Principles" subtitle="Warm, candid, situated · never staged or cool-graded" viewport="760x620" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:760px">
+<style>
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .tile{border-radius:14px;padding:14px;border:1px solid var(--border-1);display:flex;flex-direction:column;gap:8px;min-height:88px}
+  .tile h5{font:600 13px var(--font-sans);color:var(--fg-1);margin:0;display:flex;align-items:center;gap:8px}
+  .tile p{font:400 12.5px/1.45 var(--font-sans);color:var(--fg-2);margin:0;text-wrap:pretty}
+  .do{background:var(--state-ok-bg);border-color:#bfe1b6}
+  .do h5{color:var(--state-ok-fg)}
+  .do .dot{width:8px;height:8px;border-radius:999px;background:var(--state-ok-accent)}
+  .dont{background:var(--state-alert-bg);border-color:#e9b9c4}
+  .dont h5{color:var(--state-alert-fg)}
+  .dont .dot{width:8px;height:8px;border-radius:999px;background:var(--state-alert-accent)}
+
+  /* Stand-in photos — abstract warm-toned painted blocks (no stock) */
+  .photo{aspect-ratio:4/3;border-radius:14px;position:relative;overflow:hidden;border:1px solid var(--border-1)}
+  .ph-warm{background:
+    radial-gradient(120% 80% at 20% 30%, #f5c8a8 0%, #e89a72 35%, #b86a4d 70%, #6b3826 100%)}
+  .ph-bus{background:
+    radial-gradient(80% 60% at 80% 25%, #f3d9b1 0%, #d9a672 40%, #7a4a2d 80%, #2e1d12 100%)}
+  .ph-bright{background:
+    linear-gradient(180deg, #fdeac4 0%, #f5b06f 60%, #c87649 100%)}
+  .ph-cool-bad{background:
+    linear-gradient(180deg, #b9c6d2 0%, #7a92ab 50%, #2f4459 100%)}
+  .ph-staged-bad{background:
+    radial-gradient(60% 40% at 50% 50%, #ffd9c2 0%, #f2a987 60%, #d6855f 100%);
+    filter:saturate(1.6) contrast(1.1)}
+  .ph-blur-bad{background:
+    radial-gradient(50% 40% at 30% 70%, #f3c19a 0%, #c97c52 100%);
+    filter:blur(0.5px) saturate(0.7)}
+  .photo .ovl{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,.25), transparent 55%)}
+  .photo .grain{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.18;
+    background-image:radial-gradient(rgba(255,255,255,.6) .5px, transparent .8px);
+    background-size:3px 3px}
+  .badge{position:absolute;top:10px;left:10px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.85);color:var(--fg-1);font-weight:600}
+  .badge.bad{background:rgba(15,26,36,.7);color:#fff}
+</style>
+
+<div style="font:600 16px var(--font-sans);color:var(--fg-1);margin-bottom:4px">Image direction</div>
+<div style="font:400 13px var(--font-sans);color:var(--fg-2);margin-bottom:14px;text-wrap:pretty">Candid lifestyle. Warm, natural light. Photography earns its place — never decoration. Faces are not the primary hook (per brief).</div>
+
+<div class="row" style="margin-bottom:14px">
+  <div class="photo"><div class="ph-warm"></div><div class="ovl"></div><div class="grain"></div><div class="badge">do · warm, natural</div></div>
+  <div class="photo"><div class="ph-bus"></div><div class="ovl"></div><div class="grain"></div><div class="badge">do · candid, situated</div></div>
+  <div class="photo"><div class="ph-cool-bad"></div><div class="ovl"></div><div class="badge bad">don't · cool blue grade</div></div>
+  <div class="photo"><div class="ph-staged-bad"></div><div class="ovl"></div><div class="badge bad">don't · staged stock</div></div>
+</div>
+
+<div class="row">
+  <div class="tile do">
+    <h5><span class="dot"></span>Do</h5>
+    <p>Warm, natural light. Candid moments (a teen on a bus, a kid at a desk, hands on a notebook). Real classroom textures. Grain acceptable. Black-and-white OK for editorial pieces — never for product chrome.</p>
+  </div>
+  <div class="tile dont">
+    <h5><span class="dot"></span>Don't</h5>
+    <p>Cool / teal grading. Posed family-on-couch stock. Heavy filters or blur. Faces front-and-center as the hero. Staged classroom scenes. Generic "education" stock photography.</p>
+  </div>
+  <div class="tile do">
+    <h5><span class="dot"></span>Do — for children</h5>
+    <p>Shoulders, hands, devices, environments. Backs-of-heads. Anonymity-respectful framing — kids look like themselves, never like models. EU schools, EU streets, EU light.</p>
+  </div>
+  <div class="tile dont">
+    <h5><span class="dot"></span>Don't</h5>
+    <p>Identifiable close-ups of named children without consent docs in `assets/`. Kids holding the product like an ad. American suburb aesthetics. Forced diversity quotas — cast real, cast local.</p>
+  </div>
+</div>
+
+<div style="margin-top:14px" class="label-eyebrow">image principles · warm, candid, situated · never staged, never cool-graded</div>
+</body></html>

@@ -1,0 +1,6 @@
+/* ============================================================
+   Connecta Design System — single entry point
+   Consumers link THIS file. It pulls in the token + type
+   foundation so you don't have to link each stylesheet by hand.
+   ============================================================ */
+@import url("./colors_and_type.css");

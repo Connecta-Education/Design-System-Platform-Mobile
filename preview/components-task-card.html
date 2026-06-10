@@ -1,0 +1,139 @@
+<!doctype html>
+<!-- @dsCard group="Cells" name="Cells — Teacher task" subtitle="Class-circle task · desktop + mobile" viewport="900x540" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:900px">
+<style>
+  .wrap{display:flex;gap:32px;align-items:flex-start}
+  .col-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
+
+  .card{
+    background:var(--scope-tasks-bg);color:var(--scope-tasks-fg);
+    border-radius:var(--r-lg);padding:18px 20px;display:flex;flex-direction:column;gap:12px;
+    width:500px;box-sizing:border-box;
+  }
+  .head{display:flex;align-items:center;gap:9px}
+  /* simplified tag — small, soft, sentence case */
+  .tag{
+    display:inline-flex;align-items:center;
+    background:rgba(15,26,36,.08);color:var(--scope-tasks-fg);
+    font:600 11px/1 var(--font-sans);
+    padding:5px 10px;border-radius:9999px;
+  }
+  .meta-class{font:500 11px var(--font-sans);color:var(--scope-tasks-fg);opacity:.6}
+  .from{font:500 11px var(--font-sans);letter-spacing:.02em;color:var(--scope-tasks-fg);opacity:.65}
+  .title{font:700 18px var(--font-sans);color:var(--scope-tasks-fg);line-height:1.3;letter-spacing:-0.005em;margin-top:4px}
+  .body{font:400 14px var(--font-sans);color:var(--scope-tasks-fg);opacity:.85;line-height:1.5}
+  .meta{
+    display:flex;flex-wrap:wrap;align-items:center;
+    font:500 11px var(--font-sans);letter-spacing:.02em;
+    color:var(--scope-tasks-fg);opacity:.75;
+    border-top:1px solid rgba(15,26,36,.14);padding-top:12px;
+  }
+  .meta span{padding:0 12px;border-left:1px solid rgba(15,26,36,.16)}
+  .meta span:first-child{padding-left:0;border-left:0}
+  .meta b{font-weight:600;opacity:1}
+  .actions{display:flex;align-items:center;gap:10px;margin-top:2px}
+  .btn{border:0;border-radius:var(--r-sm);padding:10px 16px;font:600 13px/1 var(--font-sans);cursor:pointer}
+  .btn.primary{background:var(--scope-tasks-accent);color:#FFFFFF}
+  .btn.ghost{background:#FFFFFF;color:var(--scope-tasks-fg);box-shadow:inset 0 0 0 1px rgba(15,26,36,.22)}
+  .details{margin-left:auto;color:var(--scope-tasks-accent);font:500 13px var(--font-sans);background:transparent;border:0;cursor:pointer}
+
+  /* Why-now expander — organized like the GoodTalk nudge */
+  .why-btn{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:transparent;border:0;padding:0;cursor:pointer;color:var(--scope-tasks-fg);font:600 12px/1.3 var(--font-sans)}
+  .why-btn svg{width:14px;height:14px}
+  .why-btn .chev{width:13px;height:13px;opacity:.7;transition:transform var(--dur-base) var(--ease-standard)}
+  .why-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .why-body{background:#FFFFFF;border-radius:12px;padding:11px 13px;color:var(--scope-tasks-fg);font:400 12.5px/1.5 var(--font-sans);box-shadow:inset 0 0 0 1px rgba(15,26,36,.1)}
+  .why-body[hidden]{display:none}
+  .why-eyebrow{display:flex;align-items:center;gap:6px;margin-bottom:5px;color:rgba(15,26,36,.5);font:600 10px/1 var(--font-sans);letter-spacing:.1em;text-transform:uppercase}
+  .why-eyebrow svg{width:12px;height:12px;flex:none}
+
+  /* phone */
+  .phone{
+    width:300px;background:#FFFFFF;border:1px solid var(--border-1);
+    border-radius:36px;box-shadow:var(--shadow-3);overflow:hidden;
+  }
+  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 6px;font:600 12px var(--font-sans);color:var(--fg-1)}
+  .phone .sb .dots{display:flex;gap:4px}
+  .phone .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
+  .phone .screen{background:#FFFFFF;padding:14px}
+  .phone .card{width:100%;border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-1);background:var(--scope-tasks-bg)}
+  .phone .title{font-size:16px}
+  .phone .body{font-size:13px}
+  .phone .actions{flex-direction:column;align-items:stretch;gap:8px}
+  .phone .btn{width:100%;text-align:center;padding:12px}
+  .phone .details{margin-left:0;text-align:center;padding-top:2px}
+</style>
+
+<div class="wrap">
+  <div>
+    <div class="col-label">Desktop</div>
+    <div class="card">
+      <div class="head">
+        <span class="tag">Задача</span>
+        <span class="meta-class">клас 7А · физика</span>
+      </div>
+      <div>
+        <div class="from">г-жа Петрова · Teacher</div>
+        <div class="title">Измерване на скорост на топче по рампа</div>
+      </div>
+      <div class="body">Опишете как ще измерите скоростта на топче, спускащо се по рампа. Включете възможните грешки при измерване и как ще ги намалите.</div>
+      <button class="why-btn" aria-expanded="false" data-why>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        Детайли
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="why-body" hidden data-whybody>
+        <div class="why-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg>Детайли по задачата</div>
+        Срок: петък, 20 септ · 10 точки · предай като снимка или кратък текст в класния кръг.
+      </div>
+      <div class="actions">
+        <button class="btn primary">Виж задачата</button>
+        <button class="btn ghost">Маркирай прочетено</button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="col-label">Mobile</div>
+    <div class="phone">
+      <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="screen">
+        <div class="card">
+          <div class="head">
+            <span class="tag">Задача</span>
+            <span class="meta-class">7А · физика</span>
+          </div>
+          <div>
+            <div class="from">г-жа Петрова · Teacher</div>
+            <div class="title">Измерване на скорост на топче по рампа</div>
+          </div>
+          <div class="body">Опишете как ще измерите скоростта на топче по рампа и как ще намалите грешките при измерване.</div>
+          <button class="why-btn" aria-expanded="false" data-why>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            Детайли
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="why-body" hidden data-whybody>
+            <div class="why-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg>Детайли</div>
+            Срок: петък · 10 точки · предай снимка или текст.
+          </div>
+          <div class="actions">
+            <button class="btn primary">Виж задачата</button>
+            <button class="btn ghost">Маркирай прочетено</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:14px" class="label-eyebrow">teacher task · sky ground + ink type · same palette as teacher bubble &amp; voice</div>
+<script>
+  document.querySelectorAll('[data-why]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      btn.parentNode.querySelector('[data-whybody]').toggleAttribute('hidden', open);
+    });
+  });
+</script>
+</body></html>

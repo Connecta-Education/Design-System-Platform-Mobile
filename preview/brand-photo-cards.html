@@ -1,0 +1,140 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:780px">
+<style>
+  /* Photo card composition — rounded photo on solid brand color block with wordmark + CTA below.
+     Mirrors the app-icon colorway set. */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .frame{aspect-ratio:3/4;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;position:relative;box-shadow:var(--shadow-2)}
+  .frame .photo{flex:1;border-radius:12px;overflow:hidden;position:relative;background:#3a2418}
+  .frame .photo::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.6) .5px, transparent .8px);background-size:3px 3px;mix-blend-mode:overlay;opacity:.16}
+  .ph-warm{background:radial-gradient(120% 90% at 30% 28%, #f5c8a8 0%, #e89a72 30%, #b86a4d 60%, #5a2f1e 100%)}
+  .ph-park{background:radial-gradient(70% 90% at 50% 30%, #d4d8aa 0%, #8a8c52 50%, #2c2d18 100%)}
+  .ph-window{background:radial-gradient(80% 80% at 70% 35%, #f5dcb8 0%, #c98b5e 50%, #4a2818 100%)}
+  .ph-studio{background:radial-gradient(70% 80% at 50% 40%, #f7d6b2 0%, #d99670 50%, #6b3a23 100%)}
+
+  .frame .line{font:700 14px/1.2 var(--font-sans);letter-spacing:-.01em;text-wrap:balance}
+  .frame .wm{height:22px;margin-top:auto;align-self:flex-start}
+  .frame .cta{align-self:flex-start;font:600 11px var(--font-sans);padding:6px 12px;border-radius:999px;border:1.5px solid currentColor;text-decoration:none;display:inline-block}
+
+  /* ----- 4 official colorways ----- */
+  .f-coral{background:var(--connecta-coral)}
+  .f-coral .line{color:var(--connecta-olive)}
+  .f-coral .cta{color:var(--connecta-ink)}
+
+  .f-light{background:var(--connecta-sky)}
+  .f-light .line{color:var(--connecta-ink)}
+  .f-light .cta{color:var(--connecta-ink)}
+
+  .f-lime{background:var(--connecta-ink)}
+  .f-lime .line{color:var(--connecta-lime)}
+  .f-lime .cta{color:var(--connecta-lime)}
+
+  .f-dark{background:var(--connecta-plum)}
+  .f-dark .line{color:var(--connecta-pale-lime)}
+  .f-dark .cta{color:var(--connecta-lime)}
+
+  /* extended colorways */
+  .f-olive{background:var(--connecta-olive)}
+  .f-olive .line{color:var(--connecta-pale-lime)}
+  .f-olive .cta{color:var(--connecta-lime)}
+
+  .f-paleLime{background:var(--connecta-pale-lime)}
+  .f-paleLime .line{color:var(--connecta-olive)}
+  .f-paleLime .cta{color:var(--connecta-olive)}
+
+  .f-skyPlum{background:var(--connecta-sky)}
+  .f-skyPlum .line{color:var(--connecta-plum)}
+  .f-skyPlum .cta{color:var(--connecta-plum)}
+
+  .f-coralInk{background:var(--connecta-coral)}
+  .f-coralInk .line{color:var(--connecta-ink)}
+  .f-coralInk .cta{color:var(--connecta-ink)}
+
+  .meta{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);text-align:center;margin-top:6px}
+  h4.sec{font:600 14px var(--font-sans);color:var(--fg-1);margin:18px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border-1)}
+  h4.sec:first-child{margin-top:0}
+</style>
+
+<div style="font:600 16px var(--font-sans);color:var(--fg-1);margin-bottom:4px">Photo cards — rounded photo on brand-color block</div>
+<div style="font:400 13px var(--font-sans);color:var(--fg-2);margin-bottom:14px;text-wrap:pretty">A solid brand-color frame, an inner rounded photo, a single tagline, the wordmark, and one CTA. Use for app-store posters, social cards, school-presentation slides, parent-portal launches. Colorways mirror the official app-icon set so the brand reads consistently from icon → poster → tile.</div>
+
+<h4 class="sec">Official colorways (mirror the 4 app icons)</h4>
+<div class="grid">
+  <div>
+    <div class="frame f-coral">
+      <div class="photo ph-park"></div>
+      <div class="line">Freedom to chat. Protection that cares.</div>
+      <img class="wm" src="../assets/logo-wordmark-lime.svg" style="height:22px"/>
+    </div>
+    <div class="meta">coral · lime wordmark · olive copy</div>
+  </div>
+  <div>
+    <div class="frame f-light">
+      <div class="photo ph-warm"></div>
+      <div class="line">A safer place to be a kid online.</div>
+      <img class="wm" src="../assets/logo-wordmark-coral.svg" style="height:22px"/>
+    </div>
+    <div class="meta">sky · coral wordmark · ink copy</div>
+  </div>
+  <div>
+    <div class="frame f-lime">
+      <div class="photo ph-window"></div>
+      <div class="line">Same rule for the whole group.</div>
+      <img class="wm" src="../assets/logo-wordmark-lime.svg" style="height:22px"/>
+    </div>
+    <div class="meta">ink · lime wordmark · lime copy</div>
+  </div>
+  <div>
+    <div class="frame f-dark">
+      <div class="photo ph-studio"></div>
+      <div class="line">Safety without spying.</div>
+      <img class="wm" src="../assets/logo-wordmark-lime.svg" style="height:22px"/>
+    </div>
+    <div class="meta">plum · lime wordmark · pale-lime copy</div>
+  </div>
+</div>
+
+<h4 class="sec">Extended colorways</h4>
+<div class="grid">
+  <div>
+    <div class="frame f-olive">
+      <div class="photo ph-warm"></div>
+      <div class="line">High-signal alerts only.</div>
+      <img class="wm" src="../assets/logo-wordmark-lime.svg" style="height:22px"/>
+    </div>
+    <div class="meta">olive · lime wordmark</div>
+  </div>
+  <div>
+    <div class="frame f-paleLime">
+      <div class="photo ph-park"></div>
+      <div class="line">Built around the school graph.</div>
+      <img class="wm" src="../assets/logo-wordmark-black.svg" style="height:22px"/>
+    </div>
+    <div class="meta">pale-lime · ink wordmark</div>
+  </div>
+  <div>
+    <div class="frame f-skyPlum">
+      <div class="photo ph-window"></div>
+      <div class="line">Reacts only on risk.</div>
+      <img class="wm" src="../assets/logo-wordmark-black.svg" style="height:22px"/>
+    </div>
+    <div class="meta">sky · ink wordmark · plum copy</div>
+  </div>
+  <div>
+    <div class="frame f-coralInk">
+      <div class="photo ph-studio"></div>
+      <div class="line">No feeds. No followers.</div>
+      <img class="wm" src="../assets/logo-wordmark-black.svg" style="height:22px"/>
+    </div>
+    <div class="meta">coral · ink wordmark</div>
+  </div>
+</div>
+
+<div style="margin-top:18px;background:var(--neutral-50);border:1px solid var(--border-1);border-radius:14px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">photo inset</span>14px from the frame edge. Photo radius 12px, frame radius 18px — soft nested geometry.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">tagline</span>Sentence case, one signature line, balanced wrap. Pulls from the brand's canonical phrases.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">wordmark</span>22px tall on a 4:3 card. Coral on light. Lime on coral/ink/plum/olive. Black on pale-lime/sky.</div>
+  <div style="font:500 12.5px/1.4 var(--font-sans);color:var(--fg-1)"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px">cta (optional)</span>Pill, hairline border, no fill. Reserved for app-store / download surfaces. Omit for editorial cards.</div>
+</div>
+
+<div style="margin-top:12px" class="label-eyebrow">photo cards · 4 official + 4 extended · mirrors the app-icon system</div>
+</body></html>

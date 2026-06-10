@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Connecta — Chat app (print)</title>
+<link rel="stylesheet" href="../../colors_and_type.css"/>
+<style>
+  html, body { margin:0; padding:0; background:#0F1A24; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; min-height: 100vh; }
+  .stage { display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
+  .label { font-family: var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#98A2AD; margin-top:14px; text-align:center; }
+  @page { size: landscape; margin: 0.5cm; }
+  @media print {
+    html, body { background:#0F1A24 !important; }
+    body { padding: 0; min-height: auto; }
+    .stage > div { break-inside: avoid; }
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const SAMPLE_CIRCLES = [
+  { id:'family',  name:'Family',     members:'5 people', lastMsg:"Mum: dinner at 7", time:'14:32', badge:2, kind:'family' },
+  { id:'class7b', name:'Class 7B',   members:'28 people', lastMsg:'Mr Devos: PE moved to Friday', time:'12:04', kind:'school' },
+  { id:'football',name:'Football',   members:'9 people',  lastMsg:'Leo: bring the ball', time:'Mon', kind:'sports' },
+  { id:'best3',   name:'Best 3',     members:'3 people',  lastMsg:'Sara: see you tomorrow', time:'Mon', kind:'friends' },
+  { id:'art',     name:'Art club',   members:'12 people', lastMsg:'Ms Lefèvre: bring brushes', time:'Sun', kind:'school' },
+];
+
+const INITIAL_MESSAGES = [
+  { sender:'Leo',  text:'Coming to football tomorrow?', mine:false, time:'14:30' },
+  { sender:'Leo',  text:'Mum says I have to ask', mine:false, time:'14:30' },
+  { text:'yeah deffo, 4pm', mine:true, time:'14:31' },
+  { text:'bring the ball', mine:true, time:'14:31' },
+  { sender:'Sara', text:'I can\u2019t come, you guys never include me anyway', mine:false, time:'14:32' },
+];
+
+function App() {
+  useEffect(()=>{ if(window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.75 } }); });
+
+  return (
+    <div className="stage">
+      <div>
+        <IOSDevice>
+          <div style={{flex:1, display:'flex', flexDirection:'column', background:'#fff'}}>
+            <IOSStatusBar/>
+            <CirclesScreen circles={SAMPLE_CIRCLES} onOpen={()=>{}}/>
+          </div>
+        </IOSDevice>
+        <div className="label">Circles · approved-only</div>
+      </div>
+
+      <div>
+        <IOSDevice>
+          <div style={{flex:1, display:'flex', flexDirection:'column', background:'#fff'}}>
+            <IOSStatusBar/>
+            <ChatScreen
+              circle={SAMPLE_CIRCLES[2]}
+              messages={INITIAL_MESSAGES}
+              draft="you're so stupid lol"
+              setDraft={()=>{}}
+              onSend={()=>{}}
+              intervention="nudge"
+              onRewrite={()=>{}} onEdit={()=>{}} onWhy={()=>{}}
+              onBack={()=>{}}
+            />
+          </div>
+        </IOSDevice>
+        <div className="label">Nudge banner state</div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+
+(async () => {
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
+  setTimeout(() => { window.print(); }, 800);
+})();
+</script>
+</body>
+</html>

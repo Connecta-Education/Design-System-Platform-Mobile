@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- @dsCard group="Atoms" name="Colors · Audience Scopes" subtitle="Ground color signals whose product you're in" viewport="700x460" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:700px">
+<style>
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .scope{border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:8px;min-height:130px;box-shadow:inset 0 0 0 1px rgba(15,26,36,.06)}
+  .lbl{font:600 17px var(--font-sans);letter-spacing:-0.01em}
+  .desc{font:400 13px/1.45 var(--font-sans);opacity:.72;text-wrap:pretty}
+  .meta{font-family:var(--font-mono);font-size:11px;letter-spacing:.03em;margin-top:auto;opacity:.85}
+  .chip{display:inline-flex;align-self:flex-start;align-items:center;gap:7px;font-family:var(--font-sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+  .chip::before{content:"";width:8px;height:8px;border-radius:2px;background:currentColor}rder-radius:9999px}
+</style>
+<div class="grid">
+
+  <div class="scope" style="background:var(--scope-child-tint)">
+    <span class="chip" style="color:var(--connecta-ink)">scope · child</span>
+    <div class="lbl" style="color:var(--connecta-ink)">Friends &amp; circles</div>
+    <div class="desc" style="color:var(--connecta-ink)">Pink — love, social, voice messages from friends.</div>
+    <div class="meta" style="color:var(--connecta-ink)">--scope-child-tint · pink</div>
+  </div>
+
+  <div class="scope" style="background:var(--scope-teacher-tint)">
+    <span class="chip" style="color:var(--connecta-ink)">scope · teacher / school</span>
+    <div class="lbl" style="color:var(--connecta-ink)">Teachers &amp; tasks</div>
+    <div class="desc" style="color:var(--connecta-ink)">Sky — teachers, schools, Teacher Tasks.</div>
+    <div class="meta" style="color:var(--connecta-ink)">--scope-teacher-tint · sky</div>
+  </div>
+
+  <div class="scope" style="background:var(--scope-parent-tint)">
+    <span class="chip" style="color:var(--connecta-plum)">scope · parent</span>
+    <div class="lbl" style="color:var(--connecta-plum)">Parents &amp; guardians</div>
+    <div class="desc" style="color:var(--connecta-plum)">Plum — guardians, exercises set by a parent.</div>
+    <div class="meta" style="color:var(--connecta-plum)">--scope-parent-tint · plum</div>
+  </div>
+
+  <div class="scope" style="background:var(--cosmo-bg-strong)">
+    <span class="chip" style="color:var(--connecta-lime)">scope · socrat ai &amp; learning</span>
+    <div class="lbl" style="color:var(--connecta-lime)">Lab Circles &amp; homework</div>
+    <div class="desc" style="color:#FFFFFF;opacity:.8">Olive — subjects, studies, science, the EOES lab coach. Lime is the experimental / lab accent.</div>
+    <div class="meta" style="color:var(--connecta-lime)">--cosmo-bg-strong · olive + lime</div>
+  </div>
+
+</div>
+<div style="margin-top:14px" class="label-eyebrow">audience surface scope · the ground color is the semantic hue — same chrome everywhere else</div>
+</body></html>

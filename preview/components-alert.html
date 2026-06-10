@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- @dsCard group="Cells" name="Cells — Parent alert" subtitle="High-signal alert · web + mobile" viewport="820x360" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:820px">
+<style>
+  .wrap{display:flex;gap:32px;align-items:flex-start}
+  .col-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
+  .alert{background:var(--state-alert-bg);border:1px solid var(--tint-coral);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+  .alert .top{display:flex;align-items:center;gap:8px}
+  .alert .dot{width:7px;height:7px;border-radius:9999px;background:var(--connecta-coral);flex:none}
+  .alert .for{font:500 13px var(--font-sans);color:var(--connecta-plum)}
+  .alert .time{font:400 12px var(--font-sans);color:var(--connecta-plum);opacity:.55;margin-left:auto}
+  .alert .title{font:600 16px var(--font-sans);color:var(--connecta-plum);letter-spacing:-.005em}
+  .alert .body{font:400 14px var(--font-sans);color:var(--connecta-plum);line-height:1.45;opacity:.85}
+  .alert .actions{display:flex;gap:8px;margin-top:4px}
+  .alert .btn{border:0;border-radius:10px;padding:8px 14px;font:600 13px var(--font-sans);cursor:pointer}
+  .alert .btn.primary{background:var(--connecta-ink);color:var(--connecta-paper)}
+  .alert .btn.ghost{background:transparent;color:var(--connecta-plum);border:1px solid var(--connecta-plum)}
+
+  .desk .alert{width:480px;box-sizing:border-box}
+
+  /* phone */
+  .phone{width:300px;background:#fff;border:1px solid var(--border-1);border-radius:34px;box-shadow:var(--shadow-3);overflow:hidden}
+  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 6px;font:600 12px var(--font-sans);color:var(--fg-1)}
+  .phone .sb .dots{display:flex;gap:4px}.phone .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
+  .phone .hdr{padding:6px 18px 12px;border-bottom:1px solid var(--border-1);display:flex;align-items:center;gap:9px}
+  .phone .hdr img{width:22px;height:22px}
+  .phone .hdr .t{font:600 14px var(--font-sans);color:var(--fg-1)}
+  .phone .screen{padding:14px;background:var(--bg-page);min-height:200px}
+  .phone .alert{width:100%;box-sizing:border-box;border-radius:14px;padding:16px}
+  .phone .alert .title{font-size:15px}
+  .phone .alert .actions{flex-direction:column;align-items:stretch}
+  .phone .alert .btn{width:100%;text-align:center;padding:11px}
+</style>
+
+<div class="wrap">
+  <div class="desk">
+    <div class="col-label">Web</div>
+    <div class="alert">
+      <div class="top"><span class="dot"></span><span class="for">for you</span><span class="time">today, 14:32</span></div>
+      <div class="title">A pattern in Mia's circle is worth a look.</div>
+      <div class="body">We don't read messages — we noticed repeated risk language and a cooldown that was ignored.</div>
+      <div class="actions">
+        <button class="btn primary">Open guidance</button>
+        <button class="btn ghost">Mark reviewed</button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="col-label">Mobile</div>
+    <div class="phone">
+      <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="hdr"><img src="../assets/glyph-nn-coral.svg"/><span class="t">Alerts</span></div>
+      <div class="screen">
+        <div class="alert">
+          <div class="top"><span class="dot"></span><span class="for">for you</span><span class="time">14:32</span></div>
+          <div class="title">A pattern in Mia's circle is worth a look.</div>
+          <div class="body">We don't read messages — we noticed repeated risk language.</div>
+          <div class="actions">
+            <button class="btn primary">Open guidance</button>
+            <button class="btn ghost">Mark reviewed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:14px" class="label-eyebrow">parent alert · calm coral dot · plum type for gravity · ink primary action</div>
+</body></html>

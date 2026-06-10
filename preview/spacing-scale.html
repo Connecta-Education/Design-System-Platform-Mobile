@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- @dsCard group="Atoms" name="Spacing — 4pt scale" subtitle="Token scale + web & mobile layout spacing" viewport="700x300" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  h5{font:600 11px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin:0 0 12px}
+  .scale{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end}
+  .sw{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .platforms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+  .plat{background:var(--bg-card-soft);border:1px solid var(--border-1);border-radius:16px;padding:16px}
+  .plat .ptitle{display:flex;align-items:center;gap:8px;font:600 13px var(--font-sans);color:var(--fg-1);margin-bottom:12px}
+  .plat .dot{width:8px;height:8px;border-radius:9999px}
+  .srow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font:500 13px var(--font-sans);color:var(--fg-2)}
+  .srow:last-child{margin-bottom:0}
+  .srow b{font:600 13px var(--font-mono);color:var(--fg-1)}
+  section{margin-bottom:24px}
+</style>
+
+<section>
+  <h5>Token scale · 4pt grid</h5>
+  <div class="scale">
+    <div class="sw"><div style="width:4px;height:4px;background:#0F1A24;border-radius:1px"></div><div class="swatch-meta">4</div></div>
+    <div class="sw"><div style="width:8px;height:8px;background:#0F1A24;border-radius:1px"></div><div class="swatch-meta">8</div></div>
+    <div class="sw"><div style="width:12px;height:12px;background:#0F1A24;border-radius:2px"></div><div class="swatch-meta">12</div></div>
+    <div class="sw"><div style="width:16px;height:16px;background:#0F1A24;border-radius:2px"></div><div class="swatch-meta">16</div></div>
+    <div class="sw"><div style="width:24px;height:24px;background:#0F1A24;border-radius:3px"></div><div class="swatch-meta">24</div></div>
+    <div class="sw"><div style="width:40px;height:40px;background:#0F1A24;border-radius:4px"></div><div class="swatch-meta">40</div></div>
+    <div class="sw"><div style="width:72px;height:72px;background:#0F1A24;border-radius:6px"></div><div class="swatch-meta">72</div></div>
+  </div>
+</section>
+
+<section style="margin-bottom:6px">
+  <h5>Applied — same grid, two platforms</h5>
+  <div class="platforms">
+    <div class="plat">
+      <div class="ptitle"><span class="dot" style="background:var(--connecta-ink)"></span>Web</div>
+      <div class="srow">Page gutter <b>32</b></div>
+      <div class="srow">Section gap <b>24</b></div>
+      <div class="srow">Card padding <b>24</b></div>
+      <div class="srow">Control gap <b>12</b></div>
+    </div>
+    <div class="plat">
+      <div class="ptitle"><span class="dot" style="background:var(--connecta-sky)"></span>Mobile</div>
+      <div class="srow">Screen gutter <b>16</b></div>
+      <div class="srow">Section gap <b>16</b></div>
+      <div class="srow">Card padding <b>16</b></div>
+      <div class="srow">Control gap <b>8</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="label-eyebrow">spacing · same 4pt tokens everywhere · mobile pulls gutters in one stop for tighter screens</div>
+</body></html>

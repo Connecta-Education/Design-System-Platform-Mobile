@@ -1,0 +1,146 @@
+<!doctype html>
+<!-- @dsCard group="Species" name="Species — Chat app (mobile)" subtitle="Login → Circles → Chat + voice composer" viewport="900x900" -->
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Connecta — Chat app</title>
+<link rel="stylesheet" href="../../colors_and_type.css"/>
+<style>
+  html, body { margin:0; padding:0; height:100%; background:#0F1A24; }
+  body { display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; }
+  .stage { display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
+  .label { font-family: var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#98A2AD; margin-top:14px; text-align:center; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const SAMPLE_CIRCLES = [
+  { id:'family',  name:'Family',     members:'5 people', lastMsg:"Mum: dinner at 7", time:'14:32', badge:2, kind:'family' },
+  { id:'class7b', name:'Class 7B',   members:'28 people', lastMsg:'Mr Devos: PE moved to Friday', time:'12:04', kind:'school' },
+  { id:'football',name:'Football',   members:'9 people',  lastMsg:'Leo: bring the ball', time:'Mon', kind:'sports' },
+  { id:'best3',   name:'Best 3',     members:'3 people',  lastMsg:'Sara: see you tomorrow', time:'Mon', kind:'friends' },
+  { id:'art',     name:'Art club',   members:'12 people', lastMsg:'Ms Lefèvre: bring brushes', time:'Sun', kind:'school' },
+];
+
+const INITIAL_MESSAGES = [
+  { sender:'Leo',  text:'Coming to football tomorrow?', mine:false, time:'14:30' },
+  { sender:'Leo',  text:'Mum says I have to ask', mine:false, time:'14:30' },
+  { text:'yeah deffo, 4pm', mine:true, time:'14:31' },
+  { text:'bring the ball', mine:true, time:'14:31' },
+  { sender:'Sara', text:'I can\u2019t come, you guys never include me anyway', mine:false, time:'14:32' },
+];
+
+const VOICE_MESSAGES = [
+  { sender:'Leo', text:'Coming to football tomorrow?', mine:false, time:'14:30' },
+  { kind:'voice', voice:'kid', sender:'Leo', duration:9, progress:0.4, playing:true, time:'14:31' },
+  { text:'on my way 🛴', mine:true, time:'14:31' },
+  { kind:'voice', voice:'kid-mine', duration:14, progress:0, playing:false, time:'14:32' },
+];
+
+// Words that trigger our toy nudge detector.
+const RISKY = /(stupid|hate|ugly|loser|kill yourself|shut up|nobody likes you|idiot|trash|noob|kys)/i;
+
+function App() {
+  const [screen, setScreen] = useState('login');     // login | circles | chat
+  const [activeCircle, setActiveCircle] = useState(null);
+  const [messages, setMessages] = useState(INITIAL_MESSAGES);
+  const [draft, setDraft] = useState('');
+  const [intervention, setIntervention] = useState(null); // null | 'nudge' | 'pause'
+  const [pendingDraft, setPendingDraft] = useState('');
+
+  useEffect(()=>{ if(window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.75 } }); });
+
+  const send = () => {
+    const text = draft.trim();
+    if (!text) return;
+    if (RISKY.test(text) && intervention !== 'nudge') {
+      setPendingDraft(text);
+      setIntervention('nudge');
+      return;
+    }
+    setMessages(m=>[...m, { text, mine:true, time:'now' }]);
+    setDraft('');
+    setIntervention(null);
+    // simulate cooldown when sent risky after rewrite skip
+  };
+
+  const rewrite = () => {
+    // suggest a calmer rewrite (toy)
+    const calmer = "I hear you. Want to come along? we'd like that.";
+    setDraft(calmer);
+    setIntervention(null);
+  };
+
+  const editSelf = () => { setIntervention(null); };
+
+  const why = () => {
+    alert("Connecta noticed words that often hurt — same rule for the whole group. We don't read your messages; we react in the moment to risk language.");
+  };
+
+  return (
+    <div className="stage">
+      <div>
+        <IOSDevice>
+          <div style={{flex:1, minHeight:0, display:'flex', flexDirection:'column', background:'#fff'}}>
+            <IOSStatusBar/>
+            { screen === 'login' && <LoginScreen onContinue={()=>setScreen('circles')}/> }
+            { screen === 'circles' && (
+              <CirclesScreen
+                circles={SAMPLE_CIRCLES}
+                onOpen={(c)=>{ setActiveCircle(c); setScreen('chat'); }}
+              />
+            )}
+            { screen === 'chat' && activeCircle && (
+              <ChatScreen
+                circle={activeCircle}
+                messages={messages}
+                draft={draft}
+                setDraft={(v)=>{ setDraft(v); if (intervention==='nudge' && !RISKY.test(v)) setIntervention(null); }}
+                onSend={send}
+                intervention={intervention}
+                onRewrite={rewrite}
+                onEdit={editSelf}
+                onWhy={why}
+                onBack={()=>setScreen('circles')}
+              />
+            )}
+          </div>
+        </IOSDevice>
+        <div className="label">Tap a circle · type "stupid" to trigger nudge</div>
+      </div>
+
+      <div>
+        <IOSDevice>
+          <div style={{flex:1, minHeight:0, display:'flex', flexDirection:'column', background:'#fff'}}>
+            <IOSStatusBar/>
+            <ChatScreen
+              circle={SAMPLE_CIRCLES[2]}
+              messages={VOICE_MESSAGES}
+              draft=""
+              setDraft={()=>{}}
+              onSend={()=>{}}
+              intervention={null}
+              onRewrite={()=>{}} onEdit={()=>{}} onWhy={()=>{}}
+              onBack={()=>{}}
+            />
+          </div>
+        </IOSDevice>
+        <div className="label">Voice + emoji composer · tap 😊 or 🎤</div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
