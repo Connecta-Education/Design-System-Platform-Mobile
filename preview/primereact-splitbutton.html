@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="SplitButton · SpeedDial" subtitle="Primary action + attached menu / quick actions" viewport="720x440" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:720px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Button &amp; Menu</div>
+<h2 class="pcat-title">SplitButton &amp; SpeedDial</h2>
+<p class="pcat-sub">Both lead with the ink primary. The split toggle keeps the same ink fill with a hairline divider; the SpeedDial FAB is ink, its actions paper tiles. Menus shown open.</p>
+
+<div class="pgrid pgrid-2">
+  <div class="pcell">
+    <span class="lab">SplitButton <code>p-splitbutton</code></span>
+    <div class="psplit">
+      <div class="psplit-row">
+        <button class="pbtn"><i data-lucide="send"></i> Send to 5а</button>
+        <button class="psplit-tog"><i data-lucide="chevron-down"></i></button>
+      </div>
+      <div class="psplit-menu">
+        <div class="it"><i data-lucide="clock"></i> Schedule for 08:00</div>
+        <div class="it"><i data-lucide="users"></i> Send to circle only</div>
+        <div class="it"><i data-lucide="file-text"></i> Save as draft</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pcell">
+    <span class="lab">SpeedDial <code>p-speeddial</code></span>
+    <div style="display:flex;align-items:flex-end;gap:40px;padding-top:6px">
+      <div class="pspeed">
+        <button class="fab"><i data-lucide="x"></i></button>
+        <button class="act" title="New task"><i data-lucide="clipboard-list"></i></button>
+        <button class="act" title="New message"><i data-lucide="message-square"></i></button>
+        <button class="act" title="New circle"><i data-lucide="users"></i></button>
+      </div>
+      <span style="font:400 12px/1.5 var(--font-sans);color:var(--fg-3);max-width:18ch;padding-bottom:8px">Teacher quick-create, opened upward</span>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

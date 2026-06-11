@@ -1,0 +1,60 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Dialog · ConfirmPopup" subtitle="Modal & destructive confirm" viewport="760x680" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Overlay</div>
+<h2 class="pcat-title">Dialog &amp; ConfirmPopup</h2>
+<p class="pcat-sub">Floating surfaces sit on an ink scrim and lift on shadow-3. The neutral Dialog keeps an ink primary; the ConfirmPopup is the one place coral becomes a button — destructive confirmation is the only time the brand’s “important” colour drives an action.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Dialog -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Dialog <code>p-dialog</code> · modal</span>
+    <div class="povl-stage" style="width:100%;display:grid;place-items:center;min-height:280px;padding:20px 0">
+      <div class="povl-scrim"></div>
+      <div class="pdlg" style="position:relative">
+        <div class="pdlg-head">
+          <span class="ic"><i data-lucide="user-plus"></i></span>
+          <span class="ttl">Invite a parent</span>
+          <button class="x"><i data-lucide="x"></i></button>
+        </div>
+        <div class="pdlg-body">
+          <p>Send a guardian invite for <b>Иван Петров</b>. They’ll get a link to join the class thread and see assignments.</p>
+          <div class="field">
+            <label>Parent email</label>
+            <div class="pr-trigger" style="max-width:none;width:100%;box-sizing:border-box;cursor:text"><span class="ph">maria.petrova@example.bg</span></div>
+          </div>
+        </div>
+        <div class="pdlg-foot">
+          <button class="pbtn pbtn--text">Cancel</button>
+          <button class="pbtn">Send invite</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ConfirmPopup -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">ConfirmPopup <code>p-confirm-popup</code> · destructive</span>
+    <div class="povl-stage" style="width:100%;min-height:230px;padding:24px;display:flex;align-items:flex-start;justify-content:center">
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;margin-top:6px">
+        <button class="pbtn pbtn--out pbtn--sm" style="margin-left:18px"><i data-lucide="trash-2"></i> Delete thread</button>
+        <div style="height:10px"></div>
+        <div class="pcpop">
+          <div class="row">
+            <span class="ic"><i data-lucide="alert-triangle"></i></span>
+            <div class="msg">Delete this thread?<small>All 18 messages will be removed for everyone. This can’t be undone.</small></div>
+          </div>
+          <div class="acts">
+            <button class="pbtn pbtn--text pbtn--sm">Cancel</button>
+            <button class="pbtn pbtn--danger pbtn--sm">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

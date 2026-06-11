@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Inplace · Terminal" subtitle="Edit-in-place & console" viewport="760x560" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Misc</div>
+<h2 class="pcat-title">Inplace &amp; Terminal</h2>
+<p class="pcat-sub">Two niche utilities. Inplace swaps a display value for an inline editor on click — the open field carries the same ink focus ring as every form control, with an ink confirm. Terminal is the one dark surface: ink ground, lime prompt &amp; cursor (the brand’s “go”).</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Inplace -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Inplace <code>p-inplace</code> · display ⇄ editor</span>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font:600 12px var(--font-sans);color:var(--fg-3);width:96px">Closed</span>
+        <span class="pinplace">
+          <span class="display">Class 5а — Lab report <span class="pen"><i data-lucide="pencil"></i></span></span>
+        </span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font:600 12px var(--font-sans);color:var(--fg-3);width:96px">Editing</span>
+        <span class="pinplace">
+          <span class="editor">
+            <span class="field">Class 5а — Lab report v2<span class="pterm-cursor" style="height:14px;margin-left:1px"></span></span>
+            <button class="ok"><i data-lucide="check"></i></button>
+            <button class="no"><i data-lucide="x"></i></button>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terminal -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Terminal <code>p-terminal</code></span>
+    <div class="pterm">
+      <div class="pterm-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ttl">connecta · cosmo-cli</span></div>
+      <div class="pterm-body">
+        <div class="pterm-line"><span class="pmt">cosmo&gt;</span><span>circles list --class 5a</span></div>
+        <div class="pterm-line"><span class="out">  3 circles · Lab Circles, Reading Buddies, GoodTalk Practice</span></div>
+        <div class="pterm-line"><span class="pmt">cosmo&gt;</span><span>tasks publish "Lab report" --due fri</span></div>
+        <div class="pterm-line"><span class="out">  ✓ published to 24 students</span></div>
+        <div class="pterm-line"><span class="pmt">cosmo&gt;</span><span class="pterm-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.9 } });</script>
+</body></html>

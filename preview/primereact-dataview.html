@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="DataView · Paginator" subtitle="Record collections & paging" viewport="760x620" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Data</div>
+<h2 class="pcat-title">DataView &amp; Paginator</h2>
+<p class="pcat-sub">A record collection that flips between list and grid (ink toggle = the active layout), with the paginator below: current page is the ink chip, coral is reserved for the count that needs a look — never page chrome.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- DataView: list -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">DataView · list <code>p-dataview</code></span>
+    <div class="pdv" style="width:100%">
+      <div class="pdv-head">
+        <span class="ttl">Class 5а — roster</span>
+        <span class="ct">24 students</span>
+        <div class="pdv-toggle">
+          <button class="on" title="List"><i data-lucide="list"></i></button>
+          <button title="Grid"><i data-lucide="layout-grid"></i></button>
+        </div>
+      </div>
+      <div class="pdv-row">
+        <span class="pav" style="background:var(--role-child-bg)">ИП</span>
+        <div class="meta"><b>Иван Петров</b><small>Circle 3 · homeroom</small></div>
+        <div class="end"><span class="prole" style="background:var(--role-child-bg);color:var(--role-child-fg)">Child</span></div>
+      </div>
+      <div class="pdv-row">
+        <span class="pav" style="background:var(--role-child-bg)">МП</span>
+        <div class="meta"><b>Мария Петрова</b><small>Circle 1 · homeroom</small></div>
+        <div class="end"><span class="prole" style="background:var(--role-child-bg);color:var(--role-child-fg)">Child</span></div>
+      </div>
+      <div class="pdv-row">
+        <span class="pav" style="background:var(--role-child-bg)">СД</span>
+        <div class="meta"><b>София Димитрова</b><small>Circle 2 · GoodTalk mentor</small></div>
+        <div class="end"><span class="prole" style="background:var(--important-strong-bg);color:var(--important-strong-fg)">2 flags</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DataView: grid -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">DataView · grid <code>layout="grid"</code></span>
+    <div class="pdv" style="width:100%">
+      <div class="pdv-head">
+        <span class="ttl">Class 5а — roster</span>
+        <span class="ct">24 students</span>
+        <div class="pdv-toggle">
+          <button title="List"><i data-lucide="list"></i></button>
+          <button class="on" title="Grid"><i data-lucide="layout-grid"></i></button>
+        </div>
+      </div>
+      <div class="pdv-grid">
+        <div class="pdv-card"><span class="pav lg" style="background:var(--role-child-bg)">ИП</span><b>Иван Петров</b><small>Circle 3</small></div>
+        <div class="pdv-card"><span class="pav lg" style="background:var(--role-child-bg)">МП</span><b>Мария Петрова</b><small>Circle 1</small></div>
+        <div class="pdv-card"><span class="pav lg" style="background:var(--role-child-bg)">СД</span><b>София Димитрова</b><small>Circle 2</small></div>
+        <div class="pdv-card"><span class="pav lg" style="background:var(--role-child-bg)">МК</span><b>Мартин Колев</b><small>Circle 3</small></div>
+        <div class="pdv-card"><span class="pav lg" style="background:var(--role-child-bg)">МС</span><b>Мая Стоянова</b><small>Circle 1</small></div>
+        <div class="pdv-card"><span class="pav lg" style="background:var(--role-child-bg)">СА</span><b>Сонер Ахмед</b><small>Circle 2</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginator -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Paginator <code>p-paginator</code></span>
+    <div class="pdv" style="width:100%">
+      <div class="ppag">
+        <div class="nav"><i data-lucide="chevrons-left"></i></div>
+        <div class="nav"><i data-lucide="chevron-left"></i></div>
+        <div class="pg on">1</div>
+        <div class="pg">2</div>
+        <div class="pg">3</div>
+        <span class="ell">…</span>
+        <div class="pg">9</div>
+        <div class="nav"><i data-lucide="chevron-right"></i></div>
+        <div class="nav"><i data-lucide="chevrons-right"></i></div>
+        <span class="rpp">Rows
+          <span class="sel">6 <i data-lucide="chevron-down"></i></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

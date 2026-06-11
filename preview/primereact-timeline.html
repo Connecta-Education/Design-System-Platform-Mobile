@@ -1,0 +1,107 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Timeline · OrgChart" subtitle="Event stream & hierarchy" viewport="760x720" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Data</div>
+<h2 class="pcat-title">Timeline &amp; OrgChart</h2>
+<p class="pcat-sub">Two connector-line layouts. Timeline runs a class's audit / GoodTalk events down an ink axis with brand-tinted markers (coral only when something needs a look). OrgChart draws the staff hierarchy — the root sits on ink, branches are hairline.</p>
+
+<div style="display:flex;flex-direction:column;gap:34px;margin-top:22px">
+
+  <!-- Timeline -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Timeline <code>p-timeline</code> · Class 5а activity</span>
+    <div class="ptl" style="width:100%;max-width:540px">
+      <div class="ptl-item">
+        <div class="when">09:14<small>today</small></div>
+        <div class="ptl-axis"><div class="ptl-marker" style="background:var(--connecta-sky)"><i data-lucide="clipboard-check"></i></div><div class="ptl-line"></div></div>
+        <div class="ptl-card">
+          <b>Task “Lab report” assigned</b>
+          <p>Due Friday · 24 students notified</p>
+          <span class="by"><span class="pav" style="width:20px;height:20px;border-radius:6px;font-size:9px;background:var(--role-teacher-bg)">ГИ</span>Георги Иванов · teacher</span>
+        </div>
+      </div>
+      <div class="ptl-item">
+        <div class="when">10:02<small>today</small></div>
+        <div class="ptl-axis"><div class="ptl-marker" style="background:var(--important-strong-bg);color:var(--connecta-paper)"><i data-lucide="shield-alert"></i></div><div class="ptl-line"></div></div>
+        <div class="ptl-card">
+          <b>GoodTalk flagged a message</b>
+          <p>Cosmo suggested a rephrase before sending — accepted by the student.</p>
+          <span class="by"><span class="pav" style="width:20px;height:20px;border-radius:6px;font-size:9px;background:var(--role-child-bg)">СД</span>София Д. · circle 2</span>
+        </div>
+      </div>
+      <div class="ptl-item">
+        <div class="when">11:30<small>today</small></div>
+        <div class="ptl-axis"><div class="ptl-marker" style="background:var(--connecta-lime)"><i data-lucide="message-circle"></i></div><div class="ptl-line"></div></div>
+        <div class="ptl-card">
+          <b>Parent thread opened</b>
+          <p>“Question about Friday’s deadline” · 2 replies</p>
+          <span class="by"><span class="pav" style="width:20px;height:20px;border-radius:6px;font-size:9px;background:var(--role-parent-bg);color:var(--connecta-plum)">МК</span>Мария К. · parent</span>
+        </div>
+      </div>
+      <div class="ptl-item">
+        <div class="when">13:05<small>today</small></div>
+        <div class="ptl-axis"><div class="ptl-marker" style="background:var(--connecta-pink)"><i data-lucide="check"></i></div></div>
+        <div class="ptl-card">
+          <b>Circle 3 completed “Measure” step</b>
+          <p>Lab Circles wizard · 6 students advanced</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OrgChart -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">OrganizationChart <code>p-organizationchart</code> · School staff</span>
+    <div class="porg" style="width:100%">
+      <div class="porg-sub">
+        <div class="porg-node root">
+          <span class="pav lg" style="background:var(--connecta-lime)">ДП</span>
+          <div><b>Даниела Петкова</b><small>Principal</small></div>
+        </div>
+        <div class="porg-stem"></div>
+        <div class="porg-kids">
+          <div class="porg-kid">
+            <div class="porg-link"><div class="h"></div><div class="v"></div></div>
+            <div class="porg-sub">
+              <div class="porg-node">
+                <span class="pav" style="background:var(--connecta-sky)">ГИ</span>
+                <div><b>Георги Иванов</b><small>Head · 5–7 grade</small></div>
+              </div>
+              <div class="porg-stem"></div>
+              <div class="porg-kids">
+                <div class="porg-kid">
+                  <div class="porg-link"><div class="h"></div><div class="v"></div></div>
+                  <div class="porg-node"><span class="pav" style="background:var(--role-teacher-bg)">МТ</span><div><b>Мария Тодорова</b><small>5а homeroom</small></div></div>
+                </div>
+                <div class="porg-kid">
+                  <div class="porg-link"><div class="h"></div><div class="v"></div></div>
+                  <div class="porg-node"><span class="pav" style="background:var(--role-teacher-bg)">ПС</span><div><b>Петър Стоев</b><small>7b homeroom</small></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="porg-kid">
+            <div class="porg-link"><div class="h"></div><div class="v"></div></div>
+            <div class="porg-sub">
+              <div class="porg-node">
+                <span class="pav" style="background:var(--connecta-pink)">ВН</span>
+                <div><b>Веселина Найденова</b><small>GoodTalk lead</small></div>
+              </div>
+              <div class="porg-stem"></div>
+              <div class="porg-kids">
+                <div class="porg-kid">
+                  <div class="porg-link"><div class="h"></div><div class="v"></div></div>
+                  <div class="porg-node"><span class="pav" style="background:var(--tint-olive)">КМ</span><div><b>Камен Маринов</b><small>Counselor</small></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

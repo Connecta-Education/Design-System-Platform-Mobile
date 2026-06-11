@@ -1,0 +1,71 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="OrderList · PickList" subtitle="Reorder & transfer" viewport="760x600" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Data</div>
+<h2 class="pcat-title">OrderList &amp; PickList</h2>
+<p class="pcat-sub">Reorder and transfer surfaces. OrderList ranks a single list (selected row picks up the lime ground); PickList moves records between Available and In-circle with ink transfer controls — the primary direction is the filled ink button.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- OrderList -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">OrderList <code>p-orderlist</code> · Pinned announcements</span>
+    <div class="pol" style="width:100%;max-width:520px">
+      <div class="pol-list">
+        <div class="pol-cap">Order shown to parents</div>
+        <div class="pol-it sel">
+          <span class="grip"><i data-lucide="grip-vertical"></i></span>
+          <div class="meta"><b>Friday — lab reports due</b><small>Pinned · Class 5а</small></div>
+          <span class="rank">1</span>
+        </div>
+        <div class="pol-it">
+          <span class="grip"><i data-lucide="grip-vertical"></i></span>
+          <div class="meta"><b>Parent–teacher evening</b><small>Apr 18 · 17:30</small></div>
+          <span class="rank">2</span>
+        </div>
+        <div class="pol-it">
+          <span class="grip"><i data-lucide="grip-vertical"></i></span>
+          <div class="meta"><b>Spring trip permission</b><small>Reply by Apr 12</small></div>
+          <span class="rank">3</span>
+        </div>
+        <div class="pol-it">
+          <span class="grip"><i data-lucide="grip-vertical"></i></span>
+          <div class="meta"><b>New GoodTalk guidelines</b><small>Info · all classes</small></div>
+          <span class="rank">4</span>
+        </div>
+      </div>
+      <div class="pol-rail">
+        <button title="To top"><i data-lucide="chevrons-up"></i></button>
+        <button title="Up"><i data-lucide="chevron-up"></i></button>
+        <button title="Down"><i data-lucide="chevron-down"></i></button>
+        <button title="To bottom"><i data-lucide="chevrons-down"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PickList -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">PickList <code>p-picklist</code> · Assign to Circle 3</span>
+    <div class="ppl" style="width:100%">
+      <div class="ppl-list">
+        <div class="pol-cap">Available · 5а</div>
+        <div class="ppl-it"><span class="pav" style="background:var(--role-child-bg);width:24px;height:24px;border-radius:7px;font-size:10px">МК</span><span class="nm">Мартин Колев</span></div>
+        <div class="ppl-it sel"><span class="pav" style="background:var(--role-child-bg);width:24px;height:24px;border-radius:7px;font-size:10px">МС</span><span class="nm">Мая Стоянова</span></div>
+        <div class="ppl-it"><span class="pav" style="background:var(--role-child-bg);width:24px;height:24px;border-radius:7px;font-size:10px">СА</span><span class="nm">Сонер Ахмед</span></div>
+      </div>
+      <div class="ppl-mid">
+        <button class="go" title="Add to circle"><i data-lucide="chevron-right"></i></button>
+        <button title="Remove"><i data-lucide="chevron-left"></i></button>
+      </div>
+      <div class="ppl-list">
+        <div class="pol-cap">In Circle 3</div>
+        <div class="ppl-it"><span class="pav" style="background:var(--role-child-bg);width:24px;height:24px;border-radius:7px;font-size:10px">ИП</span><span class="nm">Иван Петров</span></div>
+        <div class="ppl-it"><span class="pav" style="background:var(--role-child-bg);width:24px;height:24px;border-radius:7px;font-size:10px">СД</span><span class="nm">София Димитрова</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

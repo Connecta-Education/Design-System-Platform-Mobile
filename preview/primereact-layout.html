@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Toolbar · Divider · Splitter · ScrollPanel" subtitle="Layout scaffolding" viewport="760x700" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Panel</div>
+<h2 class="pcat-title">Toolbar, Divider, Splitter &amp; ScrollPanel</h2>
+<p class="pcat-sub">The structural plumbing. Toolbar groups actions left/right with a hairline rule; Divider separates with an optional centered label; Splitter shows a draggable gutter; ScrollPanel swaps the native bar for a slim ink thumb.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Toolbar -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Toolbar <code>p-toolbar</code></span>
+    <div class="ptbar" style="width:100%">
+      <div class="grp">
+        <button class="pbtn pbtn--sm"><i data-lucide="plus"></i> New task</button>
+        <span class="sepv"></span>
+        <button class="iconbtn"><i data-lucide="bold"></i></button>
+        <button class="iconbtn on"><i data-lucide="italic"></i></button>
+        <button class="iconbtn"><i data-lucide="link"></i></button>
+      </div>
+      <div class="grp right">
+        <button class="iconbtn"><i data-lucide="search"></i></button>
+        <button class="iconbtn"><i data-lucide="filter"></i></button>
+        <button class="iconbtn"><i data-lucide="settings-2"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Divider <code>p-divider</code></span>
+    <div style="width:100%;max-width:520px">
+      <p style="margin:0 0 4px;font:400 13px var(--font-sans);color:var(--fg-2)">Today’s threads</p>
+      <div class="pdiv-lbl">Earlier this week</div>
+      <p style="margin:0;font:400 13px var(--font-sans);color:var(--fg-2)">Older threads</p>
+      <hr class="pdiv dashed" />
+      <p style="margin:0;font:400 13px var(--font-sans);color:var(--fg-3)">Archived</p>
+    </div>
+  </div>
+
+  <!-- Splitter -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Splitter <code>p-splitter</code></span>
+    <div class="psplit2" style="width:100%">
+      <div class="pane" style="flex:0 0 38%">
+        <div class="ph">Threads</div>
+        Иван П. · “About Friday”<br>Мария К. · parent question<br>София Д. · circle 2
+      </div>
+      <div class="gutter"><span class="bar"></span></div>
+      <div class="pane" style="flex:1">
+        <div class="ph">Conversation</div>
+        Select a thread on the left to read it here. Cosmo keeps a running summary at the top of long parent threads.
+      </div>
+    </div>
+  </div>
+
+  <!-- ScrollPanel -->
+  <div class="pcell">
+    <span class="lab">ScrollPanel <code>p-scrollpanel</code></span>
+    <div class="pscroll" style="width:340px">
+      <div class="pscroll-inner">
+        <div class="pscroll-row"><span class="pav" style="background:var(--role-child-bg);width:26px;height:26px;border-radius:8px;font-size:10px">ИП</span><div><b>Иван Петров</b><br><small>Circle 3</small></div></div>
+        <div class="pscroll-row"><span class="pav" style="background:var(--role-child-bg);width:26px;height:26px;border-radius:8px;font-size:10px">МП</span><div><b>Мария Петрова</b><br><small>Circle 1</small></div></div>
+        <div class="pscroll-row"><span class="pav" style="background:var(--role-child-bg);width:26px;height:26px;border-radius:8px;font-size:10px">СД</span><div><b>София Димитрова</b><br><small>Circle 2</small></div></div>
+        <div class="pscroll-row"><span class="pav" style="background:var(--role-child-bg);width:26px;height:26px;border-radius:8px;font-size:10px">МК</span><div><b>Мартин Колев</b><br><small>Circle 3</small></div></div>
+      </div>
+      <div class="pscroll-track"><div class="pscroll-thumb"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

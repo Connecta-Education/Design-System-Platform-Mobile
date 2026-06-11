@@ -1,0 +1,70 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Sidebar · OverlayPanel · Tooltip" subtitle="Drawer, flyout & tip" viewport="760x720" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Overlay</div>
+<h2 class="pcat-title">Sidebar, OverlayPanel &amp; Tooltip</h2>
+<p class="pcat-sub">Edge and anchored overlays. The Sidebar/Drawer slides in over the ink scrim with an ink-marked active link; the OverlayPanel is a small anchored flyout (destructive items go coral); the Tooltip is solid ink with a paper label.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Sidebar / Drawer -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Sidebar / Drawer <code>p-sidebar</code> · right</span>
+    <div class="povl-stage" style="width:100%;min-height:300px">
+      <div class="povl-scrim"></div>
+      <div class="pdrawer">
+        <div class="pdrawer-head">
+          <span class="ttl">Class 5а</span>
+          <button class="x"><i data-lucide="x"></i></button>
+        </div>
+        <div class="pdrawer-body">
+          <div class="pdrawer-link on"><span class="ic"><i data-lucide="message-circle"></i></span> Threads</div>
+          <div class="pdrawer-link"><span class="ic"><i data-lucide="clipboard-list"></i></span> Tasks <span class="ct">4</span></div>
+          <div class="pdrawer-link"><span class="ic"><i data-lucide="users"></i></span> Circles</div>
+          <div class="pdrawer-link"><span class="ic"><i data-lucide="shield-check"></i></span> GoodTalk</div>
+          <div class="pdrawer-link"><span class="ic"><i data-lucide="settings-2"></i></span> Settings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:24px;flex-wrap:wrap">
+
+    <!-- OverlayPanel -->
+    <div class="pcell">
+      <span class="lab">OverlayPanel <code>p-overlaypanel</code></span>
+      <div style="display:flex;flex-direction:column;align-items:flex-start">
+        <button class="pbtn pbtn--out pbtn--sm" style="margin-left:14px"><i data-lucide="more-horizontal"></i> Actions</button>
+        <div style="height:10px"></div>
+        <div class="popanel">
+          <div class="popanel-cap">Thread</div>
+          <div class="popanel-it"><span class="ic"><i data-lucide="pin"></i></span> Pin to top</div>
+          <div class="popanel-it"><span class="ic"><i data-lucide="bell-off"></i></span> Mute</div>
+          <div class="popanel-it"><span class="ic"><i data-lucide="user-plus"></i></span> Add participant</div>
+          <div class="popanel-sep"></div>
+          <div class="popanel-it danger"><span class="ic"><i data-lucide="trash-2"></i></span> Delete thread</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="pcell" style="flex:1;min-width:280px">
+      <span class="lab">Tooltip <code>p-tooltip</code></span>
+      <div style="display:flex;flex-direction:column;gap:26px;padding:14px 6px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:max-content">
+          <div class="ptip top">Resolve &amp; archive thread</div>
+          <button class="iconbtn" style="width:38px;height:38px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2)"><i data-lucide="check-check"></i></button>
+        </div>
+        <div class="ptip-wrap" style="align-items:center;gap:12px">
+          <button class="iconbtn" style="width:38px;height:38px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2)"><i data-lucide="sparkles"></i></button>
+          <div class="ptip right">Ask Cosmo to summarise<kbd>⌘K</kbd></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Steps · Dock" subtitle="Wizard progress & app launcher" viewport="760x420" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Button &amp; Menu</div>
+<h2 class="pcat-title">Steps &amp; Dock</h2>
+<p class="pcat-sub">Steps: done is ink, the current node is lime ringed in ink (Connecta's "you are here"). Dock: ink glass tray with brand-tinted app tiles — the home for Cosmo and GoodTalk launchers.</p>
+
+<div style="display:flex;flex-direction:column;gap:38px;margin-top:24px">
+  <!-- Steps -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Steps <code>p-steps</code> · Lab Circles</span>
+    <div class="psteps">
+      <div class="pstep done"><div class="node"><div class="num"><i data-lucide="check"></i></div><div class="lbl">Hypothesis</div></div><div class="bar"></div></div>
+      <div class="pstep done"><div class="node"><div class="num"><i data-lucide="check"></i></div><div class="lbl">Variables</div></div><div class="bar"></div></div>
+      <div class="pstep now"><div class="node"><div class="num">3</div><div class="lbl">Measure</div></div><div class="bar"></div></div>
+      <div class="pstep"><div class="node"><div class="num">4</div><div class="lbl">Analysis</div></div><div class="bar"></div></div>
+      <div class="pstep"><div class="node"><div class="num">5</div><div class="lbl">Conclusion</div></div></div>
+    </div>
+  </div>
+
+  <!-- Dock -->
+  <div class="pcell">
+    <span class="lab">Dock <code>p-dock</code></span>
+    <div class="pdock">
+      <div class="app" style="background:var(--connecta-ink)"><i data-lucide="message-circle"></i></div>
+      <div class="app" style="background:var(--connecta-sky);color:var(--connecta-ink)"><i data-lucide="clipboard-list"></i></div>
+      <div class="app big" style="background:var(--connecta-olive)"><i data-lucide="compass"></i></div>
+      <div class="app" style="background:var(--connecta-coral)"><i data-lucide="shield-check"></i></div>
+      <div class="app" style="background:var(--connecta-pink);color:var(--connecta-ink)"><i data-lucide="users"></i></div>
+      <div class="app" style="background:var(--neutral-700)"><i data-lucide="settings"></i></div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

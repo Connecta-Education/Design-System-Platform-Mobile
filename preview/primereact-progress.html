@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Avatar · ProgressBar · Spinner" subtitle="Identity & progress" viewport="760x640" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Messages &amp; Media</div>
+<h2 class="pcat-title">Avatar, ProgressBar &amp; Spinner</h2>
+<p class="pcat-sub">Identity and progress. Avatars use the role tints (child/teacher/parent) with a lime presence dot; AvatarGroup overlaps with a paper ring. Progress fills are ink, flipping to lime at <b>100% (“go / done”)</b> — coral is reserved for over-limit.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Avatar -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Avatar <code>p-avatar</code> · sizes, shapes, presence, group</span>
+    <div style="display:flex;flex-wrap:wrap;gap:22px;align-items:center">
+      <span class="pavatar sm" style="background:var(--role-child-bg)">ИП</span>
+      <span class="pavatar" style="background:var(--role-teacher-bg)">ГИ</span>
+      <span class="pavatar lg" style="background:var(--role-parent-bg);color:var(--connecta-plum)">МК</span>
+      <span class="pavatar circle" style="background:var(--role-child-bg)">СД<span class="pres"></span></span>
+      <span class="pavatar circle" style="background:var(--tint-olive);color:var(--connecta-olive)"><i data-lucide="sparkles"></i></span>
+      <span class="pavatar-group" style="margin-left:8px">
+        <span class="pavatar circle" style="background:var(--role-child-bg)">ИП</span>
+        <span class="pavatar circle" style="background:var(--role-child-bg)">МП</span>
+        <span class="pavatar circle" style="background:var(--role-child-bg)">СД</span>
+        <span class="pavatar circle more">+21</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ProgressBar -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">ProgressBar <code>p-progressbar</code></span>
+    <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:480px">
+      <div>
+        <div style="display:flex;justify-content:space-between;font:600 12px var(--font-sans);color:var(--fg-2);margin-bottom:6px"><span>Submissions collected</span><span>14 / 24</span></div>
+        <div class="pprog-row"><div class="pprog"><div class="fill" style="width:58%"></div></div><span class="pct">58%</span></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font:600 12px var(--font-sans);color:var(--fg-2);margin-bottom:6px"><span>Permission slips</span><span>24 / 24</span></div>
+        <div class="pprog-row"><div class="pprog"><div class="fill done" style="width:100%"></div></div><span class="pct" style="color:var(--connecta-olive)">100%</span></div>
+      </div>
+      <div>
+        <div style="font:600 12px var(--font-sans);color:var(--fg-2);margin-bottom:6px">Indeterminate — Cosmo working…</div>
+        <div class="pprog indet"><div class="fill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spinner -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">ProgressSpinner <code>p-progress-spinner</code></span>
+    <div style="display:flex;gap:30px;align-items:center">
+      <span class="pspin"></span>
+      <span class="pspin sm"></span>
+      <span class="pspin lime"></span>
+      <div style="display:inline-flex;align-items:center;gap:12px;font:500 13px var(--font-sans);color:var(--fg-2)"><span class="pspin sm"></span> Loading roster…</div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.9 } });</script>
+</body></html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Galleria · Image · ScrollTop" subtitle="Media viewer & FAB" viewport="760x620" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Misc</div>
+<h2 class="pcat-title">Galleria, Image &amp; ScrollTop</h2>
+<p class="pcat-sub">Media surfaces. Galleria pairs a 16:10 stage with a thumbnail strip — nav and counter ride a translucent ink wash so they read on any photo; the active thumb gets an ink ring. Image adds a hover preview mask. ScrollTop is an ink FAB.</p>
+
+<div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;align-items:flex-start">
+
+  <!-- Galleria -->
+  <div class="pcell">
+    <span class="lab">Galleria <code>p-galleria</code></span>
+    <div class="pgal">
+      <div class="pgal-stage" style="background:var(--tint-sky)">
+        <i data-lucide="image"></i>
+        <span class="pgal-count">2 / 5</span>
+        <button class="pgal-nav prev"><i data-lucide="chevron-left"></i></button>
+        <button class="pgal-nav next"><i data-lucide="chevron-right"></i></button>
+      </div>
+      <div class="pgal-thumbs">
+        <div class="pgal-thumb" style="background:var(--tint-lime)"><i data-lucide="image"></i></div>
+        <div class="pgal-thumb on" style="background:var(--tint-sky)"><i data-lucide="image"></i></div>
+        <div class="pgal-thumb" style="background:var(--tint-pink)"><i data-lucide="image"></i></div>
+        <div class="pgal-thumb" style="background:var(--tint-olive)"><i data-lucide="image"></i></div>
+        <div class="pgal-thumb" style="background:var(--tint-plum)"><i data-lucide="image"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:26px">
+    <!-- Image -->
+    <div class="pcell">
+      <span class="lab">Image <code>p-image</code> · hover preview</span>
+      <div class="pimg" style="background:var(--tint-olive)">
+        <i data-lucide="image" class="art"></i>
+        <div class="mask"><span class="eye"><i data-lucide="eye"></i></span></div>
+      </div>
+    </div>
+
+    <!-- ScrollTop -->
+    <div class="pcell">
+      <span class="lab">ScrollTop <code>p-scrolltop</code></span>
+      <div style="display:flex;gap:16px;align-items:center">
+        <button class="pscrolltop"><i data-lucide="arrow-up"></i></button>
+        <button class="pscrolltop lime"><i data-lucide="arrow-up"></i></button>
+        <span style="font:400 12.5px var(--font-sans);color:var(--fg-3);max-width:150px">Floats bottom-right; appears after scroll.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.9 } });</script>
+</body></html>

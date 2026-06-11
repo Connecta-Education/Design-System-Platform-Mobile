@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Menubar · Breadcrumb · TabMenu" subtitle="Horizontal navigation" viewport="760x440" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Button &amp; Menu</div>
+<h2 class="pcat-title">Horizontal navigation</h2>
+<p class="pcat-sub">Active item carries a neutral-100 chip (Menubar) or an ink underline (TabMenu); coral is reserved for the count badge that means "needs a look".</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+  <!-- Menubar -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Menubar <code>p-menubar</code></span>
+    <nav class="pmbar" style="width:100%">
+      <div class="brand"><span class="nn">nn</span> Connecta</div>
+      <a class="on"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+      <a><i data-lucide="message-circle"></i> Threads</a>
+      <a><i data-lucide="clipboard-list"></i> Tasks</a>
+      <a><i data-lucide="users"></i> Circles</a>
+      <span class="spacer"></span>
+      <a><i data-lucide="shield-check"></i> Audit</a>
+    </nav>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Breadcrumb <code>p-breadcrumb</code></span>
+    <div class="pcrumb">
+      <a><i data-lucide="home"></i></a>
+      <span class="sep"><i data-lucide="chevron-right"></i></span>
+      <a>ОУ „Христо Ботев“</a>
+      <span class="sep"><i data-lucide="chevron-right"></i></span>
+      <a>Class 5а</a>
+      <span class="sep"><i data-lucide="chevron-right"></i></span>
+      <span class="cur">Circle 3</span>
+    </div>
+  </div>
+
+  <!-- TabMenu -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">TabMenu <code>p-tabmenu</code></span>
+    <nav class="ptabmenu" style="width:100%">
+      <a class="on"><i data-lucide="message-circle"></i> Threads</a>
+      <a><i data-lucide="clipboard-list"></i> Tasks</a>
+      <a><i data-lucide="users"></i> Parents</a>
+      <a><i data-lucide="shield-alert"></i> GoodTalk <span class="badge">3</span></a>
+    </nav>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

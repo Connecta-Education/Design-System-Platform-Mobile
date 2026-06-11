@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Accordion · TabView" subtitle="Sectioned content" viewport="760x600" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Panel</div>
+<h2 class="pcat-title">Accordion &amp; TabView</h2>
+<p class="pcat-sub">Two ways to switch between sections. The open accordion item carries an ink left-rail; the active TabView header sits on an ink underline. Coral appears only as the count badge that means “needs a look”.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Accordion -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Accordion <code>p-accordion</code></span>
+    <div class="pacc" style="width:100%">
+      <div class="pacc-item open">
+        <div class="pacc-tab">
+          <span class="ic"><i data-lucide="message-circle"></i></span>
+          Class 5а — threads
+          <span class="chev"><i data-lucide="chevron-down"></i></span>
+        </div>
+        <div class="pacc-panel">12 open conversations. Parent threads are pinned to the top; GoodTalk-flagged messages stay visible to the homeroom teacher until resolved.</div>
+      </div>
+      <div class="pacc-item">
+        <div class="pacc-tab">
+          <span class="ic"><i data-lucide="clipboard-list"></i></span>
+          Tasks
+          <span class="ct">4</span>
+          <span class="chev"><i data-lucide="chevron-down"></i></span>
+        </div>
+      </div>
+      <div class="pacc-item">
+        <div class="pacc-tab">
+          <span class="ic"><i data-lucide="users"></i></span>
+          Circles
+          <span class="chev"><i data-lucide="chevron-down"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TabView -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">TabView <code>p-tabview</code></span>
+    <div class="ptv" style="width:100%">
+      <div class="ptv-nav">
+        <span class="ptv-tab on"><i data-lucide="message-circle"></i> Threads</span>
+        <span class="ptv-tab"><i data-lucide="clipboard-list"></i> Tasks</span>
+        <span class="ptv-tab"><i data-lucide="shield-alert"></i> GoodTalk <span class="badge">3</span></span>
+        <span class="ptv-tab"><i data-lucide="users"></i> Parents</span>
+      </div>
+      <div class="ptv-body">
+        <p>Threads for Class 5а — sorted by most recent reply. Cosmo summarises long parent threads into a one-line digest you can expand.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

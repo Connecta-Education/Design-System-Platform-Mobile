@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Panel · Fieldset · Card" subtitle="Titled containers" viewport="760x640" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Panel</div>
+<h2 class="pcat-title">Panel, Fieldset &amp; Card</h2>
+<p class="pcat-sub">Three container shells. Panel and Fieldset are hairline boxes with neutral-50 / legend headers and an ink toggler; Card is the only elevated surface (shadow-2, <code>--r-lg</code>) — reserved for things you tap into, like a learning circle.</p>
+
+<div style="display:flex;flex-direction:column;gap:28px;margin-top:22px">
+
+  <!-- Panel -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Panel <code>p-panel</code> · toggleable</span>
+    <div class="ppan" style="width:100%">
+      <div class="ppan-head">
+        <span class="ic"><i data-lucide="clipboard-list"></i></span>
+        <span class="ttl">Task details — “Lab report”</span>
+        <div class="acts">
+          <button class="iconbtn"><i data-lucide="pencil"></i></button>
+          <button class="iconbtn tog"><i data-lucide="chevron-up"></i></button>
+        </div>
+      </div>
+      <div class="ppan-body">
+        <p>Due Friday 17:00 · assigned to all of Class 5а. Students submit a single PDF; Cosmo checks structure before the teacher review queue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fieldset -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Fieldset <code>p-fieldset</code> · legend</span>
+    <div class="pfs" style="width:100%;max-width:520px">
+      <span class="pfs-legend"><i data-lucide="shield-check"></i> GoodTalk settings <span class="tog"><i data-lucide="chevron-up"></i></span></span>
+      <div class="pfs-body">
+        <p>Rephrase suggestions are <b>on</b> for this class. Flags route to Веселина Найденова (GoodTalk lead) and are visible to the homeroom teacher only.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="pcell">
+    <span class="lab">Card <code>p-card</code> · elevated</span>
+    <div class="pcard">
+      <div class="pcard-banner"><i data-lucide="flask-conical"></i></div>
+      <div class="pcard-bd">
+        <span class="sub">Cosmo circle</span>
+        <h4>Lab Circles</h4>
+        <p>A five-step guided experiment for Class 5а — from hypothesis to conclusion, with peer review at each stage.</p>
+      </div>
+      <div class="pcard-foot">
+        <button class="pbtn pbtn--sm">Open</button>
+        <button class="pbtn pbtn--out pbtn--sm">Preview</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

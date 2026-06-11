@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="TieredMenu · PanelMenu" subtitle="Vertical menus with submenus" viewport="720x460" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:720px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Button &amp; Menu</div>
+<h2 class="pcat-title">Vertical menus</h2>
+<p class="pcat-sub">Hairline panels, soft <code>--shadow-3</code>, neutral-100 hover. TieredMenu flies a submenu out from the active row; PanelMenu folds sections like an accordion.</p>
+
+<div style="display:flex;gap:48px;margin-top:22px;align-items:flex-start">
+  <!-- TieredMenu -->
+  <div class="pcell">
+    <span class="lab">TieredMenu <code>p-tieredmenu</code></span>
+    <div style="display:flex;align-items:flex-start">
+      <div class="ptier">
+        <div class="ptier-item"><i data-lucide="user-plus" class="lead"></i> Add to circle</div>
+        <div class="ptier-item on"><i data-lucide="send" class="lead"></i> Send to<i data-lucide="chevron-right" class="arr"></i></div>
+        <div class="ptier-item"><i data-lucide="flag" class="lead"></i> Flag for review</div>
+        <div class="ptier-sep"></div>
+        <div class="ptier-item"><i data-lucide="archive" class="lead"></i> Archive thread</div>
+      </div>
+      <div class="ptier" style="margin-top:38px;margin-left:6px">
+        <div class="ptier-item"><i data-lucide="users" class="lead"></i> Whole class</div>
+        <div class="ptier-item"><i data-lucide="circle" class="lead"></i> This circle</div>
+        <div class="ptier-item"><i data-lucide="user" class="lead"></i> Direct</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PanelMenu -->
+  <div class="pcell">
+    <span class="lab">PanelMenu <code>p-panelmenu</code></span>
+    <div class="ppm">
+      <div class="ppm-group">
+        <div class="ppm-head open"><i data-lucide="clipboard-list" class="lead"></i> Tasks <i data-lucide="chevron-right" class="chev"></i></div>
+        <div class="ppm-sub">
+          <a class="ppm-link"><i data-lucide="circle-dot" style="width:15px;height:15px;color:var(--fg-3)"></i> Open <span class="ct">7</span></a>
+          <a class="ppm-link"><i data-lucide="clock" style="width:15px;height:15px;color:var(--fg-3)"></i> Scheduled <span class="ct">2</span></a>
+          <a class="ppm-link"><i data-lucide="check" style="width:15px;height:15px;color:var(--fg-3)"></i> Done</a>
+        </div>
+      </div>
+      <div class="ppm-group">
+        <div class="ppm-head"><i data-lucide="users" class="lead"></i> Circles <i data-lucide="chevron-right" class="chev"></i></div>
+      </div>
+      <div class="ppm-group">
+        <div class="ppm-head"><i data-lucide="shield-check" class="lead"></i> GoodTalk <i data-lucide="chevron-right" class="chev"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

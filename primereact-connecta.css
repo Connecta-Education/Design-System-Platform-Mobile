@@ -1,0 +1,1180 @@
+/* ============================================================
+   PrimeReact × Connecta — themed component catalog (static proof)
+   ------------------------------------------------------------
+   Recreates PrimeReact component STRUCTURE using Connecta tokens
+   from colors_and_type.css. This is a visual reference, not the
+   live library — in the app the real components inherit this look
+   through the Connecta preset. Grows one component family per chunk.
+
+   TABLE OF CONTENTS
+     0.  Catalog scaffold (roadmap, variant labels)
+     1.  Shared form primitives (.pr-trigger, .pr-panel, .pr-opt, .pr-check, .pr-filter)
+     2.  AutoComplete ............... .pac-*
+     3.  Select (Dropdown) .......... .psel-*  (uses shared)
+     4.  MultiSelect ................ .pms-*
+     5.  TreeSelect ................. .ptree-*
+     6.  ListBox ................... .plb-*
+     7.  SelectButton .............. .psb-*
+     8.  ToggleButton ............. .ptgl-*
+     9.  Rating ................... .prate-*
+     10. Knob ..................... .pknob-*
+     11. ColorPicker ............. .pcp-*
+     12. InputNumber ............. .pnum-*
+     13. Password ................ .ppw-*
+     14. Chips ................... .pchips-*
+     15. DatePicker (Calendar) ... .pcal-*
+     16. Button ................... .pbtn-*
+     17. SplitButton ............. .psplit-*
+     18. SpeedDial ............... .pspeed-*
+     19. Menubar ................. .pmbar-*
+     20. Breadcrumb .............. .pcrumb-*
+     21. TabMenu ................. .ptabmenu-*
+     22. TieredMenu .............. .ptier-*
+     23. PanelMenu ............... .ppm-*
+     24. Steps ................... .pstep-*
+     25. Dock .................... .pdock-*
+
+   CONVENTIONS (so agents can extend safely)
+     · every colour / radius / shadow / duration is a Connecta var()
+     · ink = primary & focus ring · coral = error only · lime = highlight/"go"
+     · hairline borders over shadows · DM Sans throughout · --r-sm input radius
+   ============================================================ */
+
+/* ---------- component-reference scaffold ---------- */
+.roadmap{
+  display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;
+}
+.rm-cat{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;color:var(--fg-3);
+  background:var(--bg-card);border:1px solid var(--border-1);
+  padding:7px 13px;border-radius:var(--r-pill);
+}
+.rm-cat .dot{width:7px;height:7px;border-radius:50%;background:var(--neutral-300);flex:none}
+
+/* ---------- catalog card layout (Design System tab cards) ---------- */
+.pcat-eyebrow{font:700 11px/1 var(--font-sans);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.pcat-title{font:800 20px/1.1 var(--font-sans);letter-spacing:-.02em;color:var(--fg-1);margin:6px 0 0}
+.pcat-sub{font:400 13px/1.5 var(--font-sans);color:var(--fg-2);margin:5px 0 0;max-width:66ch}
+.pgrid{display:grid;gap:22px;margin-top:22px}
+.pgrid-2{grid-template-columns:1fr 1fr}
+.pgrid-3{grid-template-columns:repeat(3,1fr)}
+.pcell{display:flex;flex-direction:column;gap:10px;align-items:flex-start;min-width:0}
+.pcell .lab{display:flex;align-items:center;gap:8px;font:600 11px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3)}
+.pcell .lab code{white-space:nowrap;font-weight:600;font-size:10.5px;text-transform:none;letter-spacing:0;color:var(--connecta-plum);background:var(--neutral-100);padding:2px 7px;border-radius:var(--r-pill)}
+.rm-cat .n{font-variant-numeric:tabular-nums;color:var(--fg-4);font-weight:700;font-size:11px}
+.rm-cat.is-live{color:var(--connecta-ink);border-color:var(--connecta-ink)}
+.rm-cat.is-live .dot{background:var(--connecta-lime);box-shadow:0 0 0 3px var(--tint-lime)}
+.rm-cat.is-done{color:var(--connecta-ink);background:var(--connecta-ink);border-color:var(--connecta-ink)}
+.rm-cat.is-done .dot{background:var(--connecta-lime)}
+.rm-cat.is-done .n{color:rgba(255,255,255,.6)}
+
+/* a single component's block in the reference */
+.cmp-block{margin:8px 0 14px;scroll-margin-top:74px}
+.cmp-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.cmp-title h3{margin:0;font-size:23px;font-weight:800;letter-spacing:-.02em;color:var(--fg-1)}
+.cmp-title code{font-family:var(--font-sans);font-weight:600;font-size:12.5px;background:var(--neutral-100);color:var(--connecta-plum);padding:3px 9px;border-radius:var(--r-pill)}
+.cmp-title .count{margin-left:auto;font-size:12px;font-weight:600;color:var(--fg-3)}
+.cmp-intro{color:var(--fg-2);font-size:15px;max-width:76ch;margin:0 0 22px}
+
+/* per-variant: demo on the left, the JSX you'd write on the right */
+.acv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;margin-bottom:18px}
+@media(max-width:860px){.acv{grid-template-columns:1fr}}
+.acv .codewrap{align-self:stretch;display:flex;flex-direction:column}
+.acv .codewrap pre.code{flex:1}
+.vlabel{display:flex;align-items:baseline;gap:10px;margin:30px 0 12px}
+.vlabel .vn{font-size:12px;font-weight:700;color:var(--connecta-coral);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.vlabel h4{margin:0;font-size:16px;font-weight:700;letter-spacing:-.01em}
+.vlabel p{margin:0;font-size:13.5px;color:var(--fg-2)}
+
+/* ============================================================
+   AutoComplete  (p-autocomplete)
+   ============================================================ */
+.pac{position:relative;min-width:240px;width:100%;max-width:340px}
+.pac-field{position:relative;display:flex}
+
+.pac-input{
+  font-family:var(--font-sans);font-size:14px;color:var(--fg-1);
+  width:100%;padding:11px 14px;
+  border:1px solid var(--border-2);border-radius:var(--r-sm);
+  background:var(--bg-card);box-shadow:var(--shadow-inset);
+  transition:border-color var(--dur-fast),box-shadow var(--dur-fast);
+}
+.pac-input::placeholder{color:var(--fg-4)}
+.pac.is-open .pac-input,
+.pac-input:focus{outline:none;border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink)}
+
+/* search icon inside the field (IconField pattern) */
+.pac--icon .pac-input{padding-left:40px}
+.pac-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--fg-3);width:16px;height:16px;pointer-events:none;z-index:1}
+
+/* dropdown button variant */
+.pac--dropdown .pac-input{border-top-right-radius:0;border-bottom-right-radius:0}
+.pac-dd{
+  flex:none;width:42px;border:1px solid var(--border-2);border-left:0;
+  border-radius:0 var(--r-sm) var(--r-sm) 0;background:var(--neutral-50);
+  display:grid;place-items:center;color:var(--fg-2);cursor:pointer;
+  transition:background var(--dur-fast);
+}
+.pac.is-open.pac--dropdown .pac-dd{border-color:var(--connecta-ink)}
+.pac-dd:hover{background:var(--neutral-100)}
+.pac-dd svg{width:16px;height:16px}
+
+/* suggestions panel */
+.pac-panel{
+  background:var(--bg-card);border:1px solid var(--border-1);
+  border-radius:var(--r-md);box-shadow:var(--shadow-3);
+  padding:6px;margin-top:8px;
+}
+.pac-item{
+  display:flex;align-items:center;gap:11px;
+  padding:9px 11px;border-radius:var(--r-sm);cursor:pointer;
+  font-size:14px;color:var(--fg-1);transition:background var(--dur-fast);
+}
+.pac-item+.pac-item{margin-top:1px}
+.pac-item:hover{background:var(--neutral-50)}
+.pac-item.is-focus{background:var(--neutral-100)}
+.pac-item.is-selected{background:var(--neutral-100);font-weight:600}
+.pac-item .chk{margin-left:auto;color:var(--connecta-ink);width:16px;height:16px;flex:none}
+.pac-empty{padding:14px 12px;font-size:13.5px;color:var(--fg-3);text-align:center}
+
+/* highlighted matched substring — Connecta lime */
+.pac-hl{background:var(--connecta-lime);color:var(--connecta-ink);border-radius:2px;padding:0 .05em}
+
+/* group header */
+.pac-group{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 11px 5px;font-size:11px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--fg-3);
+}
+.pac-group .gline{flex:1;height:1px;background:var(--border-1)}
+.pac-group:not(:first-child){margin-top:4px;border-top:1px solid var(--border-1);padding-top:11px}
+
+/* object row (name + meta) */
+.pac-obj{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pac-obj b{font-weight:600;font-size:14px}
+.pac-obj small{font-size:12px;color:var(--fg-3)}
+
+/* template row: avatar + name + role badge */
+.pac-av{
+  width:30px;height:30px;border-radius:9px;flex:none;
+  display:grid;place-items:center;font-size:12px;font-weight:800;letter-spacing:-.02em;
+}
+.pac-meta{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pac-meta b{font-weight:600;font-size:14px}
+.pac-meta small{font-size:12px;color:var(--fg-3)}
+.pac-end{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+
+/* role badge (reuse of the p-tag idea, local to catalog) */
+.pac-badge{
+  display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:var(--r-pill);
+}
+
+/* multiple (token / chip) variant */
+.pac--multi .pac-tokens{
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:7px 9px;min-height:46px;
+  border:1px solid var(--border-2);border-radius:var(--r-sm);
+  background:var(--bg-card);box-shadow:var(--shadow-inset);
+  transition:border-color var(--dur-fast),box-shadow var(--dur-fast);
+}
+.pac--multi.is-open .pac-tokens{border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink)}
+.pac-token{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:500;padding:5px 7px 5px 11px;
+  border-radius:var(--r-pill);background:var(--neutral-100);color:var(--fg-1);
+}
+.pac-token .x{width:17px;height:17px;border-radius:50%;background:rgba(15,26,36,.1);display:grid;place-items:center;cursor:pointer}
+.pac-token .x svg{width:10px;height:10px}
+.pac-token-input{
+  border:0;outline:0;background:transparent;font-family:var(--font-sans);
+  font-size:14px;color:var(--fg-1);flex:1;min-width:90px;padding:5px 4px;
+}
+.pac-token-input::placeholder{color:var(--fg-4)}
+
+/* float label variant */
+.pac--float{padding-top:7px}
+.pac--float .pac-float-lbl{
+  position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  color:var(--fg-4);font-size:14px;pointer-events:none;
+  background:var(--bg-card);padding:0 4px;
+  transition:top var(--dur-fast),font-size var(--dur-fast),color var(--dur-fast);
+}
+.pac--float.is-filled .pac-float-lbl,
+.pac--float.is-open .pac-float-lbl{top:0;transform:translateY(-50%);font-size:11.5px;font-weight:700;color:var(--connecta-ink);letter-spacing:.02em}
+
+/* filled variant */
+.pac--filled .pac-input{background:var(--neutral-100);border-color:transparent;box-shadow:none}
+.pac--filled.is-open .pac-input,
+.pac--filled .pac-input:focus{background:var(--bg-card);border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink)}
+.pac--filled .pac-float-lbl{background:transparent}
+
+/* invalid */
+.pac--invalid .pac-input,
+.pac--invalid .pac-tokens{border-color:var(--connecta-coral)}
+.pac--invalid.is-open .pac-input{box-shadow:0 0 0 2px var(--connecta-coral)}
+.pac-err{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--connecta-coral);margin-top:7px}
+.pac-err svg{width:13px;height:13px;flex:none}
+
+/* disabled */
+.pac--disabled{opacity:.55}
+.pac--disabled .pac-input{background:var(--neutral-50);cursor:not-allowed}
+
+/* small helper text under a field */
+.pac-help{font-size:12px;color:var(--fg-3);margin-top:7px}
+
+
+/* ============================================================
+   1. SHARED FORM PRIMITIVES
+   Reused by Select, MultiSelect, TreeSelect, ListBox.
+   ============================================================ */
+.pr-trigger{
+  display:flex;align-items:center;gap:10px;width:100%;max-width:300px;
+  font-family:var(--font-sans);font-size:14px;color:var(--fg-1);
+  padding:11px 14px;border:1px solid var(--border-2);border-radius:var(--r-sm);
+  background:var(--bg-card);box-shadow:var(--shadow-inset);cursor:pointer;
+  transition:border-color var(--dur-fast),box-shadow var(--dur-fast);
+}
+.pr-trigger .ph{color:var(--fg-4)}
+.pr-trigger .caret{margin-left:auto;color:var(--fg-3);width:16px;height:16px;flex:none}
+.pr-trigger.is-open{border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink)}
+.pr-trigger.is-invalid{border-color:var(--connecta-coral)}
+.pr-trigger.is-disabled{opacity:.55;background:var(--neutral-50);cursor:not-allowed}
+
+.pr-panel{
+  background:var(--bg-card);border:1px solid var(--border-1);
+  border-radius:var(--r-md);box-shadow:var(--shadow-3);padding:6px;margin-top:8px;max-width:300px;
+}
+.pr-opt{
+  display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:var(--r-sm);
+  cursor:pointer;font-size:14px;color:var(--fg-1);transition:background var(--dur-fast);
+}
+.pr-opt+.pr-opt{margin-top:1px}
+.pr-opt:hover{background:var(--neutral-50)}
+.pr-opt.is-focus{background:var(--neutral-100)}
+.pr-opt.is-selected{background:var(--neutral-100);font-weight:600}
+.pr-opt .chk{margin-left:auto;color:var(--connecta-ink);width:16px;height:16px;flex:none}
+.pr-opt .lead{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;font-size:11px;font-weight:800}
+
+.pr-check{
+  width:19px;height:19px;border:1.5px solid var(--border-2);border-radius:6px;
+  display:grid;place-items:center;background:var(--bg-card);flex:none;transition:.14s;
+}
+.pr-check.on{background:var(--connecta-ink);border-color:var(--connecta-ink);color:#fff}
+.pr-check svg{width:12px;height:12px;opacity:0}
+.pr-check.on svg{opacity:1}
+
+.pr-filter{display:flex;align-items:center;gap:8px;padding:7px 10px 9px;margin-bottom:4px;border-bottom:1px solid var(--border-1)}
+.pr-filter svg{width:15px;height:15px;color:var(--fg-3);flex:none}
+.pr-filter input{border:0;outline:0;background:transparent;font-family:var(--font-sans);font-size:13.5px;width:100%;color:var(--fg-1)}
+.pr-filter input::placeholder{color:var(--fg-4)}
+
+.pr-grouplbl{padding:8px 11px 5px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-3)}
+
+
+/* ============================================================
+   3. SELECT  (p-dropdown / p-select)
+   ============================================================ */
+.psel-val{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+
+/* ============================================================
+   4. MULTISELECT  (p-multiselect)
+   ============================================================ */
+.pms-chips{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0}
+.pms-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;padding:3px 6px 3px 10px;border-radius:var(--r-pill);background:var(--neutral-100);color:var(--fg-1)}
+.pms-chip .x{width:15px;height:15px;border-radius:50%;background:rgba(15,26,36,.1);display:grid;place-items:center;cursor:pointer}
+.pms-chip .x svg{width:9px;height:9px}
+.pms-head{display:flex;align-items:center;gap:10px;padding:4px 11px 9px;border-bottom:1px solid var(--border-1);margin-bottom:4px;font-size:12.5px;color:var(--fg-3)}
+.pms-head .pr-check{width:17px;height:17px}
+
+
+/* ============================================================
+   5. TREESELECT  (p-treeselect)
+   ============================================================ */
+.ptree-node{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:var(--r-sm);font-size:14px;cursor:pointer;color:var(--fg-1)}
+.ptree-node:hover{background:var(--neutral-50)}
+.ptree-node.is-selected{background:var(--neutral-100);font-weight:600}
+.ptree-tog{width:18px;height:18px;display:grid;place-items:center;color:var(--fg-3);flex:none}
+.ptree-tog svg{width:14px;height:14px}
+.ptree-tog.leaf{visibility:hidden}
+.ptree-ic{color:var(--fg-3);width:16px;height:16px;flex:none}
+.ptree-indent{width:16px;flex:none}
+
+
+/* ============================================================
+   6. LISTBOX  (p-listbox)
+   ============================================================ */
+.plb{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);max-width:280px}
+.plb .pr-filter{margin:0}
+.plb-list{padding:6px;max-height:230px;overflow:auto}
+
+
+/* ============================================================
+   7. SELECTBUTTON  (p-selectbutton — segmented)
+   ============================================================ */
+.psb{display:inline-flex;border:1px solid var(--border-2);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-card)}
+.psb button{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--fg-2);padding:9px 16px;border:0;background:transparent;cursor:pointer;border-right:1px solid var(--border-1);display:inline-flex;align-items:center;gap:7px;transition:background var(--dur-fast),color var(--dur-fast)}
+.psb button:last-child{border-right:0}
+.psb button:hover:not(.on){background:var(--neutral-50)}
+.psb button.on{background:var(--connecta-ink);color:var(--connecta-paper)}
+.psb button svg{width:15px;height:15px}
+
+
+/* ============================================================
+   8. TOGGLEBUTTON  (p-togglebutton)
+   ============================================================ */
+.ptgl{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:var(--r-sm);border:1px solid var(--border-2);background:var(--bg-card);color:var(--fg-2);cursor:pointer;transition:.14s}
+.ptgl:hover:not(.on){background:var(--neutral-50)}
+.ptgl.on{background:var(--connecta-ink);color:var(--connecta-paper);border-color:var(--connecta-ink)}
+.ptgl svg{width:16px;height:16px}
+
+
+/* ============================================================
+   9. RATING  (p-rating) — ink stars (primary), neutral track
+   ============================================================ */
+.prate{display:inline-flex;gap:6px;align-items:center}
+.prate svg{width:23px;height:23px}
+.prate .on{color:var(--connecta-ink);fill:var(--connecta-ink)}
+.prate .off{color:var(--neutral-300);fill:none}
+
+
+/* ============================================================
+   10. KNOB  (p-knob)
+   ============================================================ */
+.pknob{width:104px;height:104px;position:relative}
+.pknob svg{transform:rotate(-90deg);display:block}
+.pknob .track{stroke:var(--neutral-200)}
+.pknob .range{stroke:var(--connecta-ink);stroke-linecap:round}
+.pknob .val{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;font-weight:800;color:var(--fg-1);letter-spacing:-.02em}
+
+
+/* ============================================================
+   11. COLORPICKER  (p-colorpicker)
+   ============================================================ */
+.pcp{display:inline-flex;flex-direction:column;gap:0;width:200px}
+.pcp-swatch{width:40px;height:40px;border-radius:var(--r-sm);box-shadow:var(--shadow-inset);border:1px solid var(--border-1);cursor:pointer}
+.pcp-panel{margin-top:8px;width:200px;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-3);padding:10px}
+.pcp-sat{height:120px;border-radius:var(--r-sm);position:relative;background:
+  linear-gradient(to top, #000, transparent),
+  linear-gradient(to right, #fff, var(--connecta-coral));}
+.pcp-sat .pick{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.3);left:62%;top:30%}
+.pcp-hue{height:12px;border-radius:var(--r-pill);margin-top:10px;background:linear-gradient(to right,#F35F49,#DEFB50,#BAE6FD,#FBE1FD,#571B32,#F35F49);position:relative}
+.pcp-hue .pick{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:var(--shadow-1);top:50%;left:8%;transform:translate(-50%,-50%)}
+.pcp-swatches{display:flex;gap:6px;margin-top:10px}
+.pcp-swatches i{width:24px;height:24px;border-radius:7px;box-shadow:var(--shadow-inset);cursor:pointer;display:block}
+
+
+/* ============================================================
+   12. INPUTNUMBER  (p-inputnumber)
+   ============================================================ */
+.pnum{display:inline-flex;max-width:170px}
+.pnum input{font-family:var(--font-sans);font-size:14px;color:var(--fg-1);padding:11px 14px;border:1px solid var(--border-2);border-radius:var(--r-sm) 0 0 var(--r-sm);background:var(--bg-card);box-shadow:var(--shadow-inset);width:100%;border-right:0;text-align:left}
+.pnum input:focus{outline:none;border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink);position:relative;z-index:1}
+.pnum-btns{display:flex;flex-direction:column;flex:none}
+.pnum-btns button{width:38px;flex:1;border:1px solid var(--border-2);background:var(--neutral-50);color:var(--fg-2);cursor:pointer;display:grid;place-items:center;transition:background var(--dur-fast)}
+.pnum-btns button:hover{background:var(--neutral-100)}
+.pnum-btns button:first-child{border-radius:0 var(--r-sm) 0 0;border-bottom:0}
+.pnum-btns button:last-child{border-radius:0 0 var(--r-sm) 0}
+.pnum-btns svg{width:13px;height:13px}
+
+
+/* ============================================================
+   13. PASSWORD  (p-password) — strength meter on Connecta scale
+   weak=coral · medium=olive · strong=lime
+   ============================================================ */
+.ppw{max-width:260px}
+.ppw-field{position:relative}
+.ppw-field input{font-family:var(--font-sans);font-size:14px;color:var(--fg-1);width:100%;padding:11px 40px 11px 14px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);box-shadow:var(--shadow-inset)}
+.ppw-field input:focus{outline:none;border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink)}
+.ppw-field .eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--fg-3);cursor:pointer;width:17px;height:17px}
+.ppw-meter{height:5px;border-radius:var(--r-pill);background:var(--neutral-200);margin-top:9px;overflow:hidden}
+.ppw-meter i{display:block;height:100%;border-radius:var(--r-pill);transition:width var(--dur-base)}
+.ppw-meter.weak i{width:34%;background:var(--connecta-coral)}
+.ppw-meter.med i{width:67%;background:var(--connecta-olive)}
+.ppw-meter.strong i{width:100%;background:var(--connecta-lime)}
+.ppw-note{font-size:12px;color:var(--fg-3);margin-top:7px}
+.ppw-note b{color:var(--fg-1);font-weight:600}
+
+
+/* ============================================================
+   14. CHIPS  (p-chips) — free token entry, no suggestions panel
+   ============================================================ */
+.pchips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 9px;min-height:46px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);box-shadow:var(--shadow-inset);max-width:340px}
+.pchips.is-focus{border-color:var(--connecta-ink);box-shadow:0 0 0 2px var(--connecta-ink)}
+.pchip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;padding:5px 7px 5px 11px;border-radius:var(--r-pill);background:var(--neutral-100);color:var(--fg-1)}
+.pchip .x{width:17px;height:17px;border-radius:50%;background:rgba(15,26,36,.1);display:grid;place-items:center;cursor:pointer}
+.pchip .x svg{width:10px;height:10px}
+.pchips input{border:0;outline:0;background:transparent;font-family:var(--font-sans);font-size:14px;color:var(--fg-1);flex:1;min-width:90px;padding:5px 4px}
+.pchips input::placeholder{color:var(--fg-4)}
+
+
+/* ============================================================
+   15. DATEPICKER / CALENDAR  (p-datepicker)
+   ============================================================ */
+.pcal{width:280px;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-3);padding:14px;font-family:var(--font-sans)}
+.pcal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.pcal-head b{font-size:14px;font-weight:700;color:var(--fg-1);white-space:nowrap}
+.pcal-head button{width:30px;height:30px;border-radius:8px;border:0;background:transparent;color:var(--fg-2);cursor:pointer;display:grid;place-items:center}
+.pcal-head button:hover{background:var(--neutral-100)}
+.pcal-head svg{width:16px;height:16px}
+.pcal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.pcal-dow{font-size:10.5px;font-weight:700;color:var(--fg-4);text-align:center;padding:5px 0;text-transform:uppercase}
+.pcal-day{aspect-ratio:1;display:grid;place-items:center;font-size:13px;border-radius:8px;cursor:pointer;color:var(--fg-1)}
+.pcal-day:hover{background:var(--neutral-100)}
+.pcal-day.muted{color:var(--fg-4)}
+.pcal-day.today{box-shadow:inset 0 0 0 1.5px var(--border-2);font-weight:700}
+.pcal-day.range{background:var(--neutral-100);border-radius:0}
+.pcal-day.sel{background:var(--connecta-ink);color:var(--connecta-paper);font-weight:700}
+.pcal-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border-1);font-size:12.5px;color:var(--fg-3);white-space:nowrap}
+
+
+/* ============================================================
+   16. BUTTON  (p-button) — catalog base for Split/Speed
+   ink primary · coral = danger only
+   ============================================================ */
+.pbtn{font-family:var(--font-sans);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;transition:background var(--dur-fast),box-shadow var(--dur-fast);background:var(--action-primary-bg);color:var(--action-primary-fg);white-space:nowrap}
+.pbtn:hover{background:var(--action-primary-hover)}
+.pbtn svg{width:16px;height:16px}
+.pbtn--sec{background:var(--neutral-100);color:var(--connecta-ink)}
+.pbtn--sec:hover{background:var(--neutral-200)}
+.pbtn--out{background:transparent;color:var(--connecta-ink);border-color:var(--border-2)}
+.pbtn--out:hover{background:var(--neutral-100)}
+.pbtn--danger{background:var(--connecta-coral);color:var(--connecta-paper)}
+.pbtn--text{background:transparent;color:var(--connecta-ink);border-color:transparent;box-shadow:none}
+.pbtn--text:hover{background:var(--neutral-100)}
+.pbtn--sm{padding:8px 13px;font-size:13px}
+
+
+/* ============================================================
+   17. SPLITBUTTON  (p-splitbutton)
+   ============================================================ */
+.psplit{display:inline-flex;flex-direction:column;align-items:flex-start;position:relative}
+.psplit-row{display:inline-flex}
+.psplit-row .pbtn{border-radius:var(--r-md) 0 0 var(--r-md)}
+.psplit-tog{display:grid;place-items:center;padding:0 12px;background:var(--action-primary-bg);color:var(--action-primary-fg);border:0;border-left:1px solid rgba(255,255,255,.18);border-radius:0 var(--r-md) var(--r-md) 0;cursor:pointer}
+.psplit-tog:hover{background:var(--action-primary-hover)}
+.psplit-tog svg{width:16px;height:16px}
+.psplit-menu{margin-top:6px;min-width:200px;background:var(--bg-card);border:1px solid var(--border-1);border-radius:var(--r-md);box-shadow:var(--shadow-3);padding:6px}
+.psplit-menu .it{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r-sm);font-size:13.5px;color:var(--fg-1);cursor:pointer}
+.psplit-menu .it:hover{background:var(--neutral-100)}
+.psplit-menu .it svg{width:15px;height:15px;color:var(--fg-3)}
+
+
+/* ============================================================
+   18. SPEEDDIAL  (p-speeddial) — linear, opens upward
+   ============================================================ */
+.pspeed{display:inline-flex;flex-direction:column-reverse;align-items:center;gap:12px}
+.pspeed .fab{width:52px;height:52px;border-radius:50%;background:var(--connecta-ink);color:var(--connecta-paper);display:grid;place-items:center;box-shadow:var(--shadow-2);cursor:pointer}
+.pspeed .fab svg{width:22px;height:22px}
+.pspeed .act{width:42px;height:42px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-1);color:var(--fg-1);display:grid;place-items:center;box-shadow:var(--shadow-1);cursor:pointer}
+.pspeed .act:hover{background:var(--neutral-50)}
+.pspeed .act svg{width:18px;height:18px}
+
+
+/* ============================================================
+   19. MENUBAR  (p-menubar)
+   ============================================================ */
+.pmbar{display:flex;align-items:center;gap:4px;padding:8px 10px;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-1)}
+.pmbar .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:-.01em;padding:0 8px 0 6px;color:var(--fg-1)}
+.pmbar .nn{width:26px;height:26px;border-radius:7px;background:var(--connecta-lime);display:grid;place-items:center;font-weight:800;color:var(--connecta-coral);font-size:13px;letter-spacing:-.04em}
+.pmbar a{font-size:13.5px;font-weight:600;color:var(--fg-2);padding:8px 12px;border-radius:var(--r-sm);display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;transition:background var(--dur-fast),color var(--dur-fast)}
+.pmbar a:hover,.pmbar a.on{background:var(--neutral-100);color:var(--fg-1)}
+.pmbar a svg{width:15px;height:15px}
+.pmbar .spacer{margin-left:auto}
+
+
+/* ============================================================
+   20. BREADCRUMB  (p-breadcrumb)
+   ============================================================ */
+.pcrumb{display:flex;align-items:center;gap:9px;font-size:13.5px;flex-wrap:wrap}
+.pcrumb a{color:var(--fg-3);text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.pcrumb a:hover{color:var(--fg-1)}
+.pcrumb a svg{width:15px;height:15px}
+.pcrumb .sep{color:var(--fg-4);display:inline-flex}
+.pcrumb .sep svg{width:15px;height:15px}
+.pcrumb .cur{color:var(--fg-1);font-weight:600}
+
+
+/* ============================================================
+   21. TABMENU  (p-tabmenu)
+   ============================================================ */
+.ptabmenu{display:flex;gap:2px;border-bottom:1px solid var(--border-1)}
+.ptabmenu a{font-size:14px;font-weight:600;color:var(--fg-3);padding:11px 16px;border-bottom:2px solid transparent;margin-bottom:-1px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;text-decoration:none;transition:color var(--dur-fast)}
+.ptabmenu a:hover{color:var(--fg-1)}
+.ptabmenu a.on{color:var(--connecta-ink);border-bottom-color:var(--connecta-ink)}
+.ptabmenu a svg{width:16px;height:16px}
+.ptabmenu a .badge{font-size:11px;font-weight:700;background:var(--connecta-coral);color:var(--connecta-paper);border-radius:var(--r-pill);padding:1px 7px;margin-left:2px}
+
+
+/* ============================================================
+   22. TIEREDMENU  (p-tieredmenu) — with submenu flyout
+   ============================================================ */
+.ptier{width:218px;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-3);padding:6px}
+.ptier-item{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r-sm);font-size:14px;color:var(--fg-1);cursor:pointer}
+.ptier-item:hover,.ptier-item.on{background:var(--neutral-100)}
+.ptier-item svg.lead{width:16px;height:16px;color:var(--fg-3)}
+.ptier-item .arr{margin-left:auto;color:var(--fg-3);width:15px;height:15px}
+.ptier-sep{height:1px;background:var(--border-1);margin:5px 8px}
+
+
+/* ============================================================
+   23. PANELMENU  (p-panelmenu) — accordion menu
+   ============================================================ */
+.ppm{width:244px;display:flex;flex-direction:column;gap:8px}
+.ppm-group{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card)}
+.ppm-head{display:flex;align-items:center;gap:11px;padding:12px 14px;font-size:14px;font-weight:600;color:var(--fg-1);cursor:pointer}
+.ppm-head svg.lead{width:16px;height:16px;color:var(--fg-3)}
+.ppm-head .chev{margin-left:auto;color:var(--fg-3);width:16px;height:16px;transition:transform var(--dur-fast)}
+.ppm-head.open{background:var(--neutral-50)}
+.ppm-head.open .chev{transform:rotate(90deg)}
+.ppm-sub{padding:4px 6px 7px;border-top:1px solid var(--border-1)}
+.ppm-link{display:flex;align-items:center;gap:10px;padding:8px 11px 8px 32px;border-radius:var(--r-sm);font-size:13.5px;color:var(--fg-2);cursor:pointer;text-decoration:none}
+.ppm-link:hover{background:var(--neutral-50);color:var(--fg-1)}
+.ppm-link .ct{margin-left:auto;font-size:11px;font-weight:700;color:var(--fg-4)}
+
+
+/* ============================================================
+   24. STEPS  (p-steps)
+   ============================================================ */
+.psteps{display:flex;align-items:center;width:100%;overflow:auto}
+.pstep{display:flex;align-items:center;flex:1;min-width:0}
+.pstep .node{display:flex;flex-direction:column;align-items:center;gap:7px;flex:none;width:104px;text-align:center}
+.pstep .num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;background:var(--bg-card);border:1.5px solid var(--border-2);color:var(--fg-3)}
+.pstep .num svg{width:15px;height:15px}
+.pstep.done .num{background:var(--connecta-ink);border-color:var(--connecta-ink);color:#fff}
+.pstep.now .num{background:var(--connecta-lime);border-color:var(--connecta-ink);color:var(--connecta-ink)}
+.pstep .lbl{font-size:12px;font-weight:600;color:var(--fg-3)}
+.pstep.now .lbl,.pstep.done .lbl{color:var(--fg-1)}
+.pstep .bar{height:2px;flex:1;background:var(--border-1);margin:0 -8px 24px}
+.pstep.done .bar{background:var(--connecta-ink)}
+
+
+/* ============================================================
+   25. DOCK  (p-dock)
+   ============================================================ */
+.pdock{display:inline-flex;align-items:flex-end;gap:10px;padding:10px 16px;border-radius:var(--r-xl);background:rgba(15,26,36,.88);box-shadow:var(--shadow-3)}
+.pdock .app{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:var(--connecta-paper);box-shadow:var(--shadow-1);cursor:pointer;transition:transform var(--dur-fast)}
+.pdock .app:hover{transform:translateY(-6px)}
+.pdock .app.big{width:58px;height:58px;border-radius:16px}
+.pdock .app svg{width:22px;height:22px}
+
+
+/* ============================================================
+   ============================================================
+   CHUNK 4 — DATA
+   DataView · Paginator · Tree · TreeTable · Timeline ·
+   OrderList · PickList · Carousel · OrgChart
+   ink primary · hairline borders · lime = "here / selected"
+   coral = count-that-needs-a-look only
+   ============================================================
+   ============================================================ */
+
+/* shared tiny avatar used across data cards */
+.pav{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;font:700 11px var(--font-sans);letter-spacing:-.01em;color:var(--connecta-ink)}
+.pav.lg{width:38px;height:38px;border-radius:11px;font-size:13px}
+.prole{display:inline-flex;align-items:center;font:700 10px var(--font-sans);letter-spacing:.02em;padding:2.5px 8px;border-radius:var(--r-pill);white-space:nowrap}
+
+/* ============================================================
+   26. DATAVIEW  (p-dataview) — list & grid of records
+   ============================================================ */
+.pdv{border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);overflow:hidden;box-shadow:var(--shadow-1)}
+.pdv-head{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border-1);background:var(--neutral-50)}
+.pdv-head .ttl{font:700 13.5px var(--font-sans);color:var(--fg-1)}
+.pdv-head .ct{font:600 11px var(--font-sans);color:var(--fg-3);background:var(--bg-card);border:1px solid var(--border-1);padding:2px 8px;border-radius:var(--r-pill);white-space:nowrap}
+.pdv-toggle{margin-left:auto;display:inline-flex;border:1px solid var(--border-2);border-radius:var(--r-sm);overflow:hidden}
+.pdv-toggle button{display:grid;place-items:center;width:32px;height:30px;background:var(--bg-card);border:0;cursor:pointer;color:var(--fg-3)}
+.pdv-toggle button + button{border-left:1px solid var(--border-2)}
+.pdv-toggle button.on{background:var(--connecta-ink);color:var(--connecta-paper)}
+.pdv-toggle svg{width:15px;height:15px}
+/* list layout */
+.pdv-row{display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid var(--border-1)}
+.pdv-row:last-child{border-bottom:0}
+.pdv-row .meta{min-width:0}
+.pdv-row .meta b{display:block;font:600 14px var(--font-sans);color:var(--fg-1)}
+.pdv-row .meta small{font:400 12px var(--font-sans);color:var(--fg-3)}
+.pdv-row .end{margin-left:auto;display:flex;align-items:center;gap:10px}
+/* grid layout */
+.pdv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-1)}
+.pdv-card{background:var(--bg-card);padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.pdv-card b{font:600 13.5px var(--font-sans);color:var(--fg-1)}
+.pdv-card small{font:400 11.5px var(--font-sans);color:var(--fg-3)}
+
+/* ============================================================
+   27. PAGINATOR  (p-paginator)
+   ============================================================ */
+.ppag{display:flex;align-items:center;gap:6px;padding:10px 12px;flex-wrap:wrap}
+.ppag .nav{width:32px;height:32px;border-radius:var(--r-sm);border:1px solid var(--border-1);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2);cursor:pointer}
+.ppag .nav:hover{background:var(--neutral-100)}
+.ppag .nav svg{width:15px;height:15px}
+.ppag .pg{min-width:32px;height:32px;padding:0 8px;border-radius:var(--r-sm);display:grid;place-items:center;font:600 13px var(--font-sans);color:var(--fg-2);cursor:pointer;border:1px solid transparent}
+.ppag .pg:hover{background:var(--neutral-100)}
+.ppag .pg.on{background:var(--connecta-ink);color:var(--connecta-paper)}
+.ppag .ell{color:var(--fg-4);padding:0 2px}
+.ppag .rpp{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font:500 12.5px var(--font-sans);color:var(--fg-3)}
+.ppag .rpp select,.ppag .sel{appearance:none;font:600 13px var(--font-sans);color:var(--fg-1);background:var(--bg-card);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:6px 26px 6px 10px;cursor:pointer}
+.ppag .sel{position:relative;display:inline-flex;align-items:center;gap:8px;padding-right:10px}
+.ppag .sel svg{width:14px;height:14px;color:var(--fg-3)}
+
+/* ============================================================
+   28. TREE  (p-tree) — hierarchy with togglers
+   ============================================================ */
+.ptree{border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);padding:8px;box-shadow:var(--shadow-1)}
+.ptree-node{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r-sm);font:500 13.5px var(--font-sans);color:var(--fg-1);cursor:pointer;position:relative}
+.ptree-node:hover{background:var(--neutral-50)}
+.ptree-node.sel{background:var(--neutral-100)}
+.ptree-node.sel .chk{margin-left:auto;color:var(--connecta-ink)}
+.ptree-node .tog{width:18px;height:18px;display:grid;place-items:center;color:var(--fg-3);flex:none;transition:transform var(--dur-fast)}
+.ptree-node .tog.open{transform:rotate(90deg)}
+.ptree-node .tog svg{width:15px;height:15px}
+.ptree-node .lf{width:18px;flex:none}
+.ptree-node .ic{width:16px;height:16px;color:var(--fg-3);flex:none}
+.ptree-node .ic svg{width:16px;height:16px}
+.ptree-node .chk{width:16px;height:16px}
+.ptree-node .ct{margin-left:auto;font:700 11px var(--font-sans);color:var(--fg-4)}
+.ptree-children{margin-left:17px;border-left:1px solid var(--border-1);padding-left:5px}
+/* checkbox selection variant */
+.ptree-cb{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--border-2);flex:none;display:grid;place-items:center;color:var(--connecta-paper)}
+.ptree-cb.on{background:var(--connecta-ink);border-color:var(--connecta-ink)}
+.ptree-cb.partial{background:var(--connecta-ink);border-color:var(--connecta-ink)}
+.ptree-cb svg{width:12px;height:12px}
+
+/* ============================================================
+   29. TREETABLE  (p-treetable)
+   ============================================================ */
+.pttab{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);box-shadow:var(--shadow-1)}
+.pttab table{width:100%;border-collapse:collapse;font:400 13px var(--font-sans);min-width:auto}
+.pttab th{text-align:left;padding:10px 16px;background:var(--neutral-50);font:700 11px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3);border-bottom:1px solid var(--border-1)}
+.pttab th.num,.pttab td.num{text-align:right;font-variant-numeric:tabular-nums}
+.pttab td{padding:10px 16px;border-bottom:1px solid var(--border-1);color:var(--fg-2);vertical-align:middle}
+.pttab tr:last-child td{border-bottom:0}
+.pttab .nm{display:inline-flex;align-items:center;gap:8px;color:var(--fg-1);font-weight:500}
+.pttab .nm .tog{width:16px;height:16px;display:grid;place-items:center;color:var(--fg-3)}
+.pttab .nm .tog.open{transform:rotate(90deg)}
+.pttab .nm .tog svg{width:14px;height:14px}
+.pttab .nm .ic{width:15px;height:15px;color:var(--fg-3)}
+.pttab .nm.ind1{padding-left:22px}
+.pttab .nm.ind2{padding-left:44px}
+.pttab tr.grp td{background:var(--neutral-50)}
+.pttab tr.grp .nm{font-weight:700;color:var(--fg-1)}
+
+/* ============================================================
+   30. TIMELINE  (p-timeline) — vertical event stream
+   ============================================================ */
+.ptl{position:relative;padding-left:4px}
+.ptl-item{display:grid;grid-template-columns:78px 28px 1fr;gap:14px;align-items:flex-start}
+.ptl-item .when{text-align:right;font:600 12px var(--font-sans);color:var(--fg-3);padding-top:4px;line-height:1.35}
+.ptl-item .when small{display:block;font-weight:400;font-size:11px;color:var(--fg-4)}
+.ptl-axis{display:flex;flex-direction:column;align-items:center;align-self:stretch}
+.ptl-marker{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none;color:var(--connecta-ink);box-shadow:0 0 0 4px var(--bg-card)}
+.ptl-marker svg{width:14px;height:14px}
+.ptl-line{width:2px;flex:1;background:var(--border-1);min-height:18px}
+.ptl-item:last-child .ptl-line{display:none}
+.ptl-card{padding:2px 0 22px}
+.ptl-card b{font:600 13.5px var(--font-sans);color:var(--fg-1)}
+.ptl-card p{margin:3px 0 0;font:400 12.5px var(--font-sans);color:var(--fg-2)}
+.ptl-card .by{margin-top:6px;display:inline-flex;align-items:center;gap:7px;font:500 11.5px var(--font-sans);color:var(--fg-3)}
+
+/* ============================================================
+   31. ORDERLIST  (p-orderlist) — single list + reorder rail
+   ============================================================ */
+.pol{display:flex;gap:12px;align-items:stretch}
+.pol-list{flex:1;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);overflow:hidden;box-shadow:var(--shadow-1)}
+.pol-cap{padding:9px 14px;font:700 11px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3);background:var(--neutral-50);border-bottom:1px solid var(--border-1)}
+.pol-it{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--border-1);cursor:grab}
+.pol-it:last-child{border-bottom:0}
+.pol-it.sel{background:var(--tint-lime)}
+.pol-it .grip{color:var(--fg-4);display:grid;place-items:center}
+.pol-it .grip svg{width:15px;height:15px}
+.pol-it .meta b{display:block;font:600 13.5px var(--font-sans);color:var(--fg-1)}
+.pol-it .meta small{font:400 11.5px var(--font-sans);color:var(--fg-3)}
+.pol-it .rank{margin-left:auto;font:700 12px var(--font-sans);color:var(--fg-4);font-variant-numeric:tabular-nums}
+.pol-rail{display:flex;flex-direction:column;gap:8px;justify-content:center}
+.pol-rail button{width:38px;height:38px;border-radius:var(--r-sm);border:1px solid var(--border-2);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2);cursor:pointer}
+.pol-rail button:hover{background:var(--neutral-100);color:var(--fg-1)}
+.pol-rail svg{width:16px;height:16px}
+
+/* ============================================================
+   32. PICKLIST  (p-picklist) — dual list transfer
+   ============================================================ */
+.ppl{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+.ppl-list{border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);overflow:hidden;box-shadow:var(--shadow-1);align-self:stretch}
+.ppl-it{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid var(--border-1)}
+.ppl-it:last-child{border-bottom:0}
+.ppl-it.sel{background:var(--neutral-100)}
+.ppl-it span.nm{font:500 13px var(--font-sans);color:var(--fg-1)}
+.ppl-it small{margin-left:auto;font:400 11px var(--font-sans);color:var(--fg-3)}
+.ppl-mid{display:flex;flex-direction:column;gap:8px}
+.ppl-mid button{width:36px;height:36px;border-radius:var(--r-sm);border:1px solid var(--border-2);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2);cursor:pointer}
+.ppl-mid button:hover{background:var(--neutral-100);color:var(--fg-1)}
+.ppl-mid button.go{background:var(--connecta-ink);color:var(--connecta-paper);border-color:var(--connecta-ink)}
+.ppl-mid svg{width:16px;height:16px}
+
+/* ============================================================
+   33. CAROUSEL  (p-carousel)
+   ============================================================ */
+.pcar{border:1px solid var(--border-1);border-radius:var(--r-lg);background:var(--bg-card);padding:16px;box-shadow:var(--shadow-1)}
+.pcar-track{display:flex;align-items:stretch;gap:12px}
+.pcar-arrow{width:38px;height:38px;flex:none;align-self:center;border-radius:50%;border:1px solid var(--border-2);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2);cursor:pointer}
+.pcar-arrow:hover{background:var(--neutral-100);color:var(--fg-1)}
+.pcar-arrow svg{width:17px;height:17px}
+.pcar-items{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;overflow:hidden}
+.pcar-slide{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);display:flex;flex-direction:column}
+.pcar-slide .top{height:74px;display:grid;place-items:center;color:var(--connecta-ink)}
+.pcar-slide .top svg{width:26px;height:26px}
+.pcar-slide .bd{padding:12px 13px}
+.pcar-slide .bd b{display:block;font:600 13.5px var(--font-sans);color:var(--fg-1)}
+.pcar-slide .bd small{display:block;margin-top:3px;font:400 11.5px var(--font-sans);color:var(--fg-3)}
+.pcar-slide .bd .tagline{margin-top:9px;display:inline-flex;font:700 10px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;padding:2.5px 8px;border-radius:var(--r-pill);background:var(--neutral-100);color:var(--fg-2)}
+.pcar-dots{display:flex;justify-content:center;gap:7px;margin-top:14px}
+.pcar-dots i{width:7px;height:7px;border-radius:50%;background:var(--neutral-300);display:block}
+.pcar-dots i.on{background:var(--connecta-ink);width:20px;border-radius:var(--r-pill)}
+
+/* ============================================================
+   34. ORGCHART  (p-organizationchart)
+   real-div connector tree (capture-safe): stem + sibling bus
+   ============================================================ */
+.porg{display:flex;flex-direction:column;align-items:center}
+.porg-node{border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-1);padding:9px 14px;display:inline-flex;align-items:center;gap:10px;text-align:left}
+.porg-node.root{background:var(--connecta-ink);border-color:var(--connecta-ink)}
+.porg-node.root b,.porg-node.root small{color:var(--connecta-paper)}
+.porg-node.root small{opacity:.7}
+.porg-node b{display:block;font:600 13px var(--font-sans);color:var(--fg-1);white-space:nowrap}
+.porg-node small{display:block;font:400 11px var(--font-sans);color:var(--fg-3);white-space:nowrap}
+.porg-sub{display:flex;flex-direction:column;align-items:center}
+/* vertical drop from a parent node down to the sibling bus */
+.porg-stem{width:2px;height:16px;background:var(--border-2)}
+/* children row — spacing via child padding (no gap) so bus segments meet */
+.porg-kids{display:flex;justify-content:center}
+.porg-kid{display:flex;flex-direction:column;align-items:center;padding:0 14px}
+/* the connector zone above each child: horizontal bus + vertical riser */
+.porg-link{position:relative;height:16px;width:100%}
+.porg-link .v{position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:16px;background:var(--border-2)}
+.porg-link .h{position:absolute;top:0;height:2px;background:var(--border-2)}
+.porg-kid:not(:first-child):not(:last-child) .porg-link .h{left:0;right:0}
+.porg-kid:first-child .porg-link .h{left:50%;right:0}
+.porg-kid:last-child .porg-link .h{left:0;right:50%}
+.porg-kid:only-child .porg-link .h{display:none}
+
+
+/* ============================================================
+   ============================================================
+   CHUNK 5 — PANEL
+   Panel · Fieldset · Card · Accordion · TabView ·
+   Toolbar · Divider · Splitter · ScrollPanel
+   hairline containers · ink headers · neutral-50 header grounds
+   lime = active tab/section accent · coral = count-needs-a-look
+   ============================================================
+   ============================================================ */
+
+/* ============================================================
+   35. PANEL  (p-panel) — titled, collapsible container
+   ============================================================ */
+.ppan{border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);overflow:hidden;box-shadow:var(--shadow-1)}
+.ppan-head{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--neutral-50);border-bottom:1px solid var(--border-1)}
+.ppan-head .ic{width:18px;height:18px;color:var(--fg-3);flex:none}
+.ppan-head .ic svg{width:18px;height:18px}
+.ppan-head .ttl{font:700 14px var(--font-sans);color:var(--fg-1)}
+.ppan-head .acts{margin-left:auto;display:flex;align-items:center;gap:4px}
+.ppan-head .iconbtn{width:30px;height:30px;border-radius:var(--r-sm);border:0;background:transparent;display:grid;place-items:center;color:var(--fg-3);cursor:pointer}
+.ppan-head .iconbtn:hover{background:var(--neutral-100);color:var(--fg-1)}
+.ppan-head .iconbtn svg{width:16px;height:16px}
+.ppan-head .tog svg{transition:transform var(--dur-fast)}
+.ppan-head .tog.collapsed svg{transform:rotate(-90deg)}
+.ppan-body{padding:16px}
+.ppan-body p{margin:0;font:400 13.5px/1.6 var(--font-sans);color:var(--fg-2)}
+.ppan-body p + p{margin-top:10px}
+
+/* ============================================================
+   36. FIELDSET  (p-fieldset) — legend straddles the border
+   ============================================================ */
+.pfs{border:1px solid var(--border-2);border-radius:var(--r-md);background:var(--bg-card);padding:18px 18px 16px;position:relative;margin-top:11px}
+.pfs-legend{position:absolute;top:0;left:14px;transform:translateY(-50%);display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);padding:2px 12px;border:1px solid var(--border-2);border-radius:var(--r-pill);font:700 12px var(--font-sans);color:var(--fg-1);white-space:nowrap}
+.pfs-legend svg{width:14px;height:14px;color:var(--fg-3)}
+.pfs-legend .tog{display:grid;place-items:center;color:var(--fg-3);cursor:pointer}
+.pfs-legend .tog svg{width:13px;height:13px}
+.pfs-body{font:400 13.5px/1.6 var(--font-sans);color:var(--fg-2)}
+.pfs-body p{margin:0}
+
+/* ============================================================
+   37. CARD  (p-card) — elevated surface w/ title + footer
+   ============================================================ */
+.pcard{border:1px solid var(--border-1);border-radius:var(--r-lg);background:var(--bg-card);box-shadow:var(--shadow-2);overflow:hidden;max-width:340px}
+.pcard-banner{height:96px;background:var(--tint-sky);display:grid;place-items:center;color:var(--connecta-ink)}
+.pcard-banner svg{width:30px;height:30px}
+.pcard-bd{padding:18px}
+.pcard-bd .sub{font:700 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3)}
+.pcard-bd h4{margin:6px 0 0;font:700 18px var(--font-sans);letter-spacing:-.01em;color:var(--fg-1)}
+.pcard-bd p{margin:8px 0 0;font:400 13.5px/1.55 var(--font-sans);color:var(--fg-2)}
+.pcard-foot{display:flex;gap:10px;padding:0 18px 18px}
+
+/* ============================================================
+   38. ACCORDION  (p-accordion)
+   ============================================================ */
+.pacc{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);box-shadow:var(--shadow-1)}
+.pacc-item{border-bottom:1px solid var(--border-1)}
+.pacc-item:last-child{border-bottom:0}
+.pacc-tab{display:flex;align-items:center;gap:11px;padding:13px 16px;cursor:pointer;font:600 14px var(--font-sans);color:var(--fg-1)}
+.pacc-tab:hover{background:var(--neutral-50)}
+.pacc-tab .ic{width:17px;height:17px;color:var(--fg-3);flex:none}
+.pacc-tab .ic svg{width:17px;height:17px}
+.pacc-tab .chev{margin-left:auto;color:var(--fg-3);display:grid;place-items:center;transition:transform var(--dur-fast)}
+.pacc-tab .chev svg{width:17px;height:17px}
+.pacc-tab .ct{font:700 11px var(--font-sans);color:var(--fg-4);margin-left:auto}
+.pacc-tab .ct + .chev{margin-left:10px}
+.pacc-item.open .pacc-tab{background:var(--neutral-50);border-left:3px solid var(--connecta-ink);padding-left:13px}
+.pacc-item.open .pacc-tab .chev{transform:rotate(180deg);color:var(--fg-1)}
+.pacc-panel{padding:2px 16px 16px;font:400 13.5px/1.6 var(--font-sans);color:var(--fg-2)}
+.pacc-item.open .pacc-panel{border-left:3px solid var(--connecta-ink);padding-left:13px}
+
+/* ============================================================
+   39. TABVIEW  (p-tabview) — underline active tab
+   ============================================================ */
+.ptv{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);box-shadow:var(--shadow-1)}
+.ptv-nav{display:flex;gap:2px;padding:0 8px;background:var(--neutral-50);border-bottom:1px solid var(--border-1)}
+.ptv-tab{display:inline-flex;align-items:center;gap:8px;padding:13px 14px;font:600 13.5px var(--font-sans);color:var(--fg-3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.ptv-tab:hover{color:var(--fg-1)}
+.ptv-tab svg{width:16px;height:16px}
+.ptv-tab .badge{font:700 10px var(--font-sans);background:var(--important-strong-bg);color:var(--important-strong-fg);border-radius:var(--r-pill);padding:1px 7px}
+.ptv-tab.on{color:var(--fg-1);border-bottom-color:var(--connecta-ink)}
+.ptv-body{padding:18px;font:400 13.5px/1.6 var(--font-sans);color:var(--fg-2)}
+.ptv-body p{margin:0}
+
+/* ============================================================
+   40. TOOLBAR  (p-toolbar)
+   ============================================================ */
+.ptbar{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--neutral-50);box-shadow:var(--shadow-1)}
+.ptbar .grp{display:flex;align-items:center;gap:8px}
+.ptbar .grp.right{margin-left:auto}
+.ptbar .sepv{width:1px;height:22px;background:var(--border-2)}
+.ptbar .iconbtn{width:34px;height:34px;border-radius:var(--r-sm);border:1px solid transparent;background:transparent;display:grid;place-items:center;color:var(--fg-2);cursor:pointer}
+.ptbar .iconbtn:hover{background:var(--neutral-100);color:var(--fg-1)}
+.ptbar .iconbtn.on{background:var(--connecta-ink);color:var(--connecta-paper)}
+.ptbar .iconbtn svg{width:17px;height:17px}
+
+/* ============================================================
+   41. DIVIDER  (p-divider)
+   ============================================================ */
+.pdiv{height:1px;background:var(--border-1);border:0;margin:16px 0}
+.pdiv.dashed{height:0;background:none;border-top:1px dashed var(--border-2)}
+.pdiv-lbl{display:flex;align-items:center;gap:14px;margin:16px 0;color:var(--fg-3);font:700 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase}
+.pdiv-lbl::before,.pdiv-lbl::after{content:"";flex:1;height:1px;background:var(--border-1)}
+.pdiv-v{width:1px;background:var(--border-1);align-self:stretch;margin:0 16px}
+
+/* ============================================================
+   42. SPLITTER  (p-splitter) — resizable panes + gutter
+   ============================================================ */
+.psplit2{display:flex;border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);box-shadow:var(--shadow-1);min-height:150px}
+.psplit2 .pane{padding:16px;font:400 13px/1.55 var(--font-sans);color:var(--fg-2)}
+.psplit2 .pane .ph{font:700 12px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3);margin-bottom:8px}
+.psplit2 .gutter{width:10px;flex:none;background:var(--neutral-50);border-left:1px solid var(--border-1);border-right:1px solid var(--border-1);display:grid;place-items:center;cursor:col-resize}
+.psplit2 .gutter .bar{width:3px;height:30px;border-radius:var(--r-pill);background:var(--neutral-300)}
+
+/* ============================================================
+   43. SCROLLPANEL  (p-scrollpanel) — slim custom scrollbar
+   ============================================================ */
+.pscroll{position:relative;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-1);height:168px;overflow:hidden}
+.pscroll-inner{padding:6px 18px 6px 14px;height:100%;overflow:hidden}
+.pscroll-row{display:flex;align-items:center;gap:11px;padding:10px 2px;border-bottom:1px solid var(--border-1)}
+.pscroll-row:last-child{border-bottom:0}
+.pscroll-row b{font:600 13.5px var(--font-sans);color:var(--fg-1);white-space:nowrap}
+.pscroll-row small{font:400 11.5px var(--font-sans);color:var(--fg-3)}
+.pscroll-track{position:absolute;top:6px;bottom:6px;right:5px;width:6px;border-radius:var(--r-pill);background:var(--neutral-100)}
+.pscroll-thumb{position:absolute;top:0;left:0;width:6px;height:62px;border-radius:var(--r-pill);background:var(--neutral-400)}
+
+
+/* ============================================================
+   ============================================================
+   CHUNK 6 — OVERLAY
+   Dialog · Sidebar/Drawer · OverlayPanel · ConfirmPopup · Tooltip
+   floating surfaces on a scrim · elevated (shadow-3) · ink headers
+   destructive confirm = coral primary; everything else ink-primary
+   ============================================================
+   ============================================================ */
+
+/* shared scrim stage so overlays read as "floating" inside a card */
+.povl-stage{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--neutral-100);min-height:150px;background-image:linear-gradient(var(--border-1) 1px,transparent 1px),linear-gradient(90deg,var(--border-1) 1px,transparent 1px);background-size:22px 22px}
+.povl-scrim{position:absolute;inset:0;background:color-mix(in srgb, var(--connecta-ink) 42%, transparent)}
+
+/* ============================================================
+   44. DIALOG  (p-dialog) — centered modal
+   ============================================================ */
+.pdlg{border-radius:var(--r-lg);background:var(--bg-card);box-shadow:var(--shadow-3);overflow:hidden;width:380px}
+.pdlg-head{display:flex;align-items:center;gap:11px;padding:15px 18px;border-bottom:1px solid var(--border-1)}
+.pdlg-head .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;background:var(--tint-sky);color:var(--connecta-ink)}
+.pdlg-head .ic svg{width:17px;height:17px}
+.pdlg-head .ttl{font:700 15.5px var(--font-sans);color:var(--fg-1)}
+.pdlg-head .x{margin-left:auto;width:30px;height:30px;border-radius:var(--r-sm);border:0;background:transparent;display:grid;place-items:center;color:var(--fg-3);cursor:pointer}
+.pdlg-head .x:hover{background:var(--neutral-100);color:var(--fg-1)}
+.pdlg-head .x svg{width:17px;height:17px}
+.pdlg-body{padding:18px}
+.pdlg-body p{margin:0;font:400 13.5px/1.6 var(--font-sans);color:var(--fg-2)}
+.pdlg-body .field{margin-top:14px}
+.pdlg-body .field label{display:block;font:600 12px var(--font-sans);color:var(--fg-2);margin-bottom:6px}
+.pdlg-foot{display:flex;justify-content:flex-end;gap:10px;padding:14px 18px;border-top:1px solid var(--border-1);background:var(--neutral-50)}
+
+/* ============================================================
+   45. CONFIRMPOPUP  (p-confirm-popup) — anchored bubble + arrow
+   ============================================================ */
+.pcpop{position:relative;background:var(--bg-card);border:1px solid var(--border-1);border-radius:var(--r-md);box-shadow:var(--shadow-3);width:268px;padding:15px 16px}
+.pcpop::before{content:"";position:absolute;top:-7px;left:32px;width:12px;height:12px;background:var(--bg-card);border-left:1px solid var(--border-1);border-top:1px solid var(--border-1);transform:rotate(45deg)}
+.pcpop .row{display:flex;gap:11px}
+.pcpop .ic{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;background:var(--tint-coral);color:var(--important-strong-bg)}
+.pcpop .ic svg{width:16px;height:16px}
+.pcpop .msg{font:500 13px/1.5 var(--font-sans);color:var(--fg-1)}
+.pcpop .msg small{display:block;font-weight:400;color:var(--fg-3);margin-top:3px}
+.pcpop .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+
+/* ============================================================
+   46. SIDEBAR / DRAWER  (p-sidebar)
+   ============================================================ */
+.pdrawer{position:absolute;top:0;right:0;bottom:0;width:300px;background:var(--bg-card);box-shadow:var(--shadow-3);display:flex;flex-direction:column}
+.pdrawer.left{right:auto;left:0}
+.pdrawer-head{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--border-1)}
+.pdrawer-head .ttl{font:700 15px var(--font-sans);color:var(--fg-1);white-space:nowrap}
+.pdrawer-head .x{margin-left:auto;width:30px;height:30px;border-radius:var(--r-sm);border:0;background:transparent;display:grid;place-items:center;color:var(--fg-3);cursor:pointer}
+.pdrawer-head .x:hover{background:var(--neutral-100);color:var(--fg-1)}
+.pdrawer-head .x svg{width:17px;height:17px}
+.pdrawer-body{padding:8px;overflow:hidden}
+.pdrawer-link{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:var(--r-sm);font:500 13.5px var(--font-sans);color:var(--fg-2);cursor:pointer}
+.pdrawer-link:hover{background:var(--neutral-50)}
+.pdrawer-link.on{background:var(--neutral-100);color:var(--fg-1);font-weight:600}
+.pdrawer-link .ic{width:18px;height:18px;color:var(--fg-3);flex:none}
+.pdrawer-link.on .ic{color:var(--connecta-ink)}
+.pdrawer-link .ic svg{width:18px;height:18px}
+.pdrawer-link .ct{margin-left:auto;font:700 10px var(--font-sans);background:var(--important-strong-bg);color:var(--important-strong-fg);border-radius:var(--r-pill);padding:1px 7px}
+
+/* ============================================================
+   47. OVERLAYPANEL  (p-overlaypanel) — anchored flyout
+   ============================================================ */
+.popanel{position:relative;background:var(--bg-card);border:1px solid var(--border-1);border-radius:var(--r-md);box-shadow:var(--shadow-3);width:248px;overflow:hidden}
+.popanel::before{content:"";position:absolute;top:-7px;left:24px;width:12px;height:12px;background:var(--bg-card);border-left:1px solid var(--border-1);border-top:1px solid var(--border-1);transform:rotate(45deg)}
+.popanel-cap{padding:11px 14px 4px;font:700 10px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3)}
+.popanel-it{display:flex;align-items:center;gap:11px;padding:10px 14px;font:500 13px var(--font-sans);color:var(--fg-1);cursor:pointer}
+.popanel-it:hover{background:var(--neutral-50)}
+.popanel-it .ic{width:17px;height:17px;color:var(--fg-3);flex:none}
+.popanel-it .ic svg{width:17px;height:17px}
+.popanel-it.danger{color:var(--important-strong-bg)}
+.popanel-it.danger .ic{color:var(--important-strong-bg)}
+.popanel-sep{height:1px;background:var(--border-1);margin:4px 0}
+
+/* ============================================================
+   48. TOOLTIP  (p-tooltip)
+   ============================================================ */
+.ptip-wrap{position:relative;display:inline-flex}
+.ptip{position:relative;background:var(--connecta-ink);color:var(--connecta-paper);font:500 12px var(--font-sans);padding:7px 11px;border-radius:var(--r-sm);box-shadow:var(--shadow-2);white-space:nowrap}
+.ptip.top::after{content:"";position:absolute;bottom:-5px;left:50%;transform:translateX(-50%) rotate(45deg);width:9px;height:9px;background:var(--connecta-ink)}
+.ptip.right::after{content:"";position:absolute;left:-5px;top:50%;transform:translateY(-50%) rotate(45deg);width:9px;height:9px;background:var(--connecta-ink)}
+.ptip kbd{font:600 11px var(--font-mono,monospace);background:color-mix(in srgb,var(--connecta-paper) 22%,transparent);border-radius:4px;padding:1px 5px;margin-left:6px}
+
+
+/* ============================================================
+   ============================================================
+   CHUNK 7 — MESSAGES & MEDIA
+   Message · Messages · Toast · Tag · Badge · Avatar ·
+   Chip · ProgressBar / Spinner
+   meaning-locked severities (NO green/blue/yellow/red):
+     info  → sky    success → lime    warn/error → coral
+     learn → olive  (Cosmo)
+   ============================================================
+   ============================================================ */
+
+/* ---- severity ground helper (left-accent inline notices) ---- */
+.psev{--sev-bg:var(--tint-sky);--sev-acc:var(--connecta-sky);--sev-ic:var(--connecta-ink)}
+.psev.info   {--sev-bg:var(--tint-sky);  --sev-acc:#6CB7E6;            --sev-ic:var(--connecta-ink)}
+.psev.success{--sev-bg:var(--tint-lime); --sev-acc:var(--connecta-lime);--sev-ic:var(--connecta-olive)}
+.psev.warn   {--sev-bg:var(--tint-coral);--sev-acc:var(--connecta-coral);--sev-ic:var(--connecta-coral)}
+.psev.error  {--sev-bg:var(--tint-coral);--sev-acc:var(--connecta-coral);--sev-ic:var(--connecta-coral)}
+.psev.learn  {--sev-bg:var(--tint-olive);--sev-acc:var(--connecta-olive);--sev-ic:var(--connecta-olive)}
+
+/* ============================================================
+   49. MESSAGE  (p-message) — single inline notice
+   ============================================================ */
+.pmsg{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r-sm);background:var(--sev-bg);border-left:3px solid var(--sev-acc);font:500 13px var(--font-sans);color:var(--fg-1);white-space:nowrap}
+/* borderless variant — drop the left accent rail (soft filled chip) */
+.pmsg.flat{border-left:0;padding-left:14px}
+/* outlined variant — hairline ring in the severity colour, no fill */
+.pmsg.outline{background:transparent;border:1px solid color-mix(in srgb,var(--sev-acc) 55%,transparent);border-left-width:1px}
+.pmsg .ic{width:18px;height:18px;flex:none;color:var(--sev-ic)}
+.pmsg .ic svg{width:18px;height:18px}
+.pmsg b{font-weight:700}
+
+/* ============================================================
+   50. MESSAGES  (p-messages) — stacked dismissible block
+   ============================================================ */
+.pmsgs{display:flex;flex-direction:column;gap:10px}
+.pmsgs .item{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border-radius:var(--r-md);background:var(--sev-bg);border:1px solid color-mix(in srgb,var(--sev-acc) 45%,transparent);border-left:3px solid var(--sev-acc)}
+.pmsgs .item .ic{width:20px;height:20px;flex:none;color:var(--sev-ic);margin-top:1px}
+.pmsgs .item .ic svg{width:20px;height:20px}
+.pmsgs .item .bd{font:400 13px/1.5 var(--font-sans);color:var(--fg-1)}
+.pmsgs .item .bd b{display:block;font-weight:700;margin-bottom:2px}
+.pmsgs .item .x{margin-left:auto;flex:none;width:24px;height:24px;border-radius:var(--r-sm);border:0;background:transparent;display:grid;place-items:center;color:var(--fg-3);cursor:pointer}
+.pmsgs .item .x:hover{background:color-mix(in srgb,var(--sev-acc) 22%,transparent);color:var(--fg-1)}
+.pmsgs .item .x svg{width:15px;height:15px}
+
+/* ============================================================
+   51. TOAST  (p-toast) — floating, stacked top-right
+   ============================================================ */
+.ptoasts{display:flex;flex-direction:column;gap:12px;width:332px}
+.ptoast{display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:var(--r-md);background:var(--bg-card);box-shadow:var(--shadow-3);border-left:4px solid var(--sev-acc);position:relative}
+.ptoast .ic{width:34px;height:34px;border-radius:10px;flex:none;display:grid;place-items:center;background:var(--sev-bg);color:var(--sev-ic)}
+.ptoast .ic svg{width:18px;height:18px}
+.ptoast .bd b{display:block;font:700 13.5px var(--font-sans);color:var(--fg-1)}
+.ptoast .bd p{margin:3px 0 0;font:400 12.5px/1.5 var(--font-sans);color:var(--fg-2)}
+.ptoast .x{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:var(--r-sm);border:0;background:transparent;display:grid;place-items:center;color:var(--fg-4);cursor:pointer}
+.ptoast .x:hover{background:var(--neutral-100);color:var(--fg-1)}
+.ptoast .x svg{width:14px;height:14px}
+
+/* ============================================================
+   52. TAG  (p-tag) — soft status pill
+   ============================================================ */
+.ptag{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:var(--r-sm);font:700 11px var(--font-sans);letter-spacing:.01em;background:var(--sev-bg);color:var(--sev-ic);white-space:nowrap}
+.ptag svg{width:12px;height:12px}
+.ptag.solid{background:var(--connecta-ink);color:var(--connecta-paper)}
+.ptag.round{border-radius:var(--r-pill)}
+
+/* ============================================================
+   53. BADGE  (p-badge) — count bubble / dot
+   ============================================================ */
+.pbadge-host{position:relative;display:inline-flex}
+.pbadge{min-width:20px;height:20px;padding:0 6px;border-radius:var(--r-pill);background:var(--connecta-coral);color:var(--connecta-paper);font:700 11px var(--font-sans);display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.pbadge.ink{background:var(--connecta-ink)}
+.pbadge.lime{background:var(--connecta-lime);color:var(--connecta-ink)}
+.pbadge.dot{min-width:10px;width:10px;height:10px;padding:0}
+.pbadge-host .pbadge.over{position:absolute;top:-6px;right:-7px;box-shadow:0 0 0 2px var(--bg-card)}
+.pbtn .pbadge{margin-left:2px}
+
+/* ============================================================
+   54. AVATAR  (p-avatar) — initials / icon, + group
+   ============================================================ */
+.pavatar{width:40px;height:40px;border-radius:11px;flex:none;display:grid;place-items:center;font:700 14px var(--font-sans);color:var(--connecta-ink);background:var(--neutral-100);position:relative}
+.pavatar.circle{border-radius:50%}
+.pavatar.sm{width:30px;height:30px;border-radius:9px;font-size:11px}
+.pavatar.lg{width:52px;height:52px;border-radius:14px;font-size:18px}
+.pavatar svg{width:55%;height:55%}
+.pavatar .pres{position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;background:var(--connecta-lime);box-shadow:0 0 0 2px var(--bg-card)}
+.pavatar-group{display:inline-flex}
+.pavatar-group .pavatar{box-shadow:0 0 0 2px var(--bg-card)}
+.pavatar-group .pavatar + .pavatar{margin-left:-12px}
+.pavatar-group .more{background:var(--neutral-100);color:var(--fg-2);font-size:12px}
+
+/* ============================================================
+   55. CHIP  (p-chip) — entity token w/ optional avatar + remove
+   ============================================================ */
+.pchip{display:inline-flex;align-items:center;gap:8px;padding:4px 6px 4px 5px;border-radius:var(--r-pill);background:var(--neutral-100);font:600 12.5px var(--font-sans);color:var(--fg-1);white-space:nowrap}
+.pchip .av{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:700 10px var(--font-sans);color:var(--connecta-ink);flex:none}
+.pchip.plain{padding:6px 12px}
+.pchip .lbl{padding:0 2px}
+.pchip .x{width:18px;height:18px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--fg-3);cursor:pointer;flex:none}
+.pchip .x:hover{background:var(--neutral-300);color:var(--fg-1)}
+.pchip .x svg{width:13px;height:13px}
+
+/* ============================================================
+   56. PROGRESSBAR / SPINNER  (p-progressbar / p-progress-spinner)
+   ink fill · lime = complete · coral = over-limit only
+   ============================================================ */
+.pprog{height:9px;border-radius:var(--r-pill);background:var(--neutral-100);overflow:hidden;width:100%}
+.pprog .fill{height:100%;border-radius:var(--r-pill);background:var(--connecta-ink)}
+.pprog .fill.done{background:var(--connecta-lime)}
+.pprog .fill.over{background:var(--connecta-coral)}
+.pprog.lg{height:13px}
+.pprog-row{display:flex;align-items:center;gap:12px}
+.pprog-row .pct{font:700 12px var(--font-sans);color:var(--fg-2);font-variant-numeric:tabular-nums;width:38px;text-align:right;flex:none}
+/* indeterminate */
+.pprog.indet .fill{width:40%;animation:pprog-slide 1.4s ease-in-out infinite}
+@keyframes pprog-slide{0%{margin-left:-40%}100%{margin-left:100%}}
+@media (prefers-reduced-motion:reduce){.pprog.indet .fill{animation:none;width:60%;margin-left:20%}}
+/* spinner */
+.pspin{width:42px;height:42px;border-radius:50%;border:4px solid var(--neutral-100);border-top-color:var(--connecta-ink);animation:pspin-rot .8s linear infinite}
+.pspin.sm{width:24px;height:24px;border-width:3px}
+.pspin.lime{border-top-color:var(--connecta-lime)}
+@keyframes pspin-rot{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pspin{animation:none}}
+
+
+/* ============================================================
+   ============================================================
+   CHUNK 8 — MISC
+   Skeleton · ScrollTop · Terminal · Inplace · BlockUI · Galleria/Image
+   loading & utility surfaces · ink chrome · neutral skeleton shimmer
+   ============================================================
+   ============================================================ */
+
+/* ============================================================
+   57. SKELETON  (p-skeleton) — content placeholder shimmer
+   ============================================================ */
+.pskel{background:var(--neutral-100);border-radius:var(--r-sm);position:relative;overflow:hidden}
+.pskel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--neutral-0) 70%,transparent),transparent);transform:translateX(-100%);animation:pskel-sweep 1.5s ease-in-out infinite}
+@keyframes pskel-sweep{100%{transform:translateX(100%)}}
+@media (prefers-reduced-motion:reduce){.pskel::after{animation:none}}
+.pskel.text{height:12px;border-radius:var(--r-pill)}
+.pskel.circle{border-radius:50%}
+.pskel-card{border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);padding:16px;display:flex;gap:13px;align-items:flex-start;box-shadow:var(--shadow-1)}
+
+/* ============================================================
+   58. BLOCKUI  (p-blockui) — scrim over a region while busy
+   ============================================================ */
+.pblock{position:relative;border:1px solid var(--border-1);border-radius:var(--r-md);background:var(--bg-card);overflow:hidden;box-shadow:var(--shadow-1)}
+.pblock-content{padding:18px}
+.pblock-mask{position:absolute;inset:0;background:color-mix(in srgb,var(--connecta-ink) 28%,transparent);backdrop-filter:blur(1.5px);display:grid;place-items:center}
+.pblock-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:var(--r-pill);background:var(--bg-card);box-shadow:var(--shadow-2);font:600 13px var(--font-sans);color:var(--fg-1)}
+
+/* ============================================================
+   59. GALLERIA / IMAGE  (p-galleria / p-image)
+   ============================================================ */
+.pgal{border:1px solid var(--border-1);border-radius:var(--r-md);overflow:hidden;background:var(--bg-card);box-shadow:var(--shadow-1);width:100%;max-width:420px}
+.pgal-stage{position:relative;aspect-ratio:16/10;display:grid;place-items:center;color:var(--connecta-ink)}
+.pgal-stage svg{width:42px;height:42px;opacity:.5}
+.pgal-nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:0;background:color-mix(in srgb,var(--connecta-ink) 70%,transparent);color:var(--connecta-paper);display:grid;place-items:center;cursor:pointer}
+.pgal-nav.prev{left:10px}.pgal-nav.next{right:10px}
+.pgal-nav svg{width:17px;height:17px}
+.pgal-count{position:absolute;top:10px;right:12px;font:700 11px var(--font-sans);color:var(--connecta-paper);background:color-mix(in srgb,var(--connecta-ink) 70%,transparent);padding:3px 9px;border-radius:var(--r-pill);white-space:nowrap}
+.pgal-thumbs{display:flex;gap:6px;padding:8px;background:var(--neutral-50);border-top:1px solid var(--border-1)}
+.pgal-thumb{flex:1;aspect-ratio:16/11;border-radius:6px;display:grid;place-items:center;color:var(--connecta-ink);cursor:pointer;opacity:.6;border:2px solid transparent}
+.pgal-thumb svg{width:18px;height:18px}
+.pgal-thumb.on{opacity:1;border-color:var(--connecta-ink)}
+/* Image preview toolbar (p-image) */
+.pimg{position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-1);width:200px;aspect-ratio:1;display:grid;place-items:center;color:var(--connecta-ink)}
+.pimg svg.art{width:36px;height:36px;opacity:.45}
+.pimg .mask{position:absolute;inset:0;background:color-mix(in srgb,var(--connecta-ink) 38%,transparent);display:grid;place-items:center;opacity:0}
+.pimg:hover .mask{opacity:1}
+.pimg .mask .eye{width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,var(--connecta-ink) 60%,transparent);display:grid;place-items:center;color:var(--connecta-paper)}
+.pimg .mask .eye svg{width:19px;height:19px}
+
+/* ============================================================
+   60. SCROLLTOP  (p-scrolltop) — floating jump-to-top FAB
+   ============================================================ */
+.pscrolltop{width:46px;height:46px;border-radius:50%;background:var(--connecta-ink);color:var(--connecta-paper);display:grid;place-items:center;box-shadow:var(--shadow-3);border:0;cursor:pointer}
+.pscrolltop svg{width:20px;height:20px}
+.pscrolltop.lime{background:var(--connecta-lime);color:var(--connecta-ink)}
+
+/* ============================================================
+   61. INPLACE  (p-inplace) — click-to-edit display ⇄ editor
+   ============================================================ */
+.pinplace{display:inline-flex;align-items:center;gap:8px}
+.pinplace .display{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:var(--r-sm);cursor:text;font:500 14px var(--font-sans);color:var(--fg-1);border:1px solid transparent;white-space:nowrap}
+.pinplace .display:hover{background:var(--neutral-50);border-color:var(--border-1)}
+.pinplace .display .pen{color:var(--fg-4)}
+.pinplace .display .pen svg{width:14px;height:14px}
+.pinplace .editor{display:inline-flex;align-items:center;gap:6px}
+.pinplace .editor .field{font:500 14px var(--font-sans);color:var(--fg-1);padding:7px 11px;border:1px solid var(--connecta-ink);border-radius:var(--r-sm);box-shadow:0 0 0 2px var(--connecta-ink);background:var(--bg-card);min-width:180px}
+.pinplace .editor .ok,.pinplace .editor .no{width:34px;height:34px;border-radius:var(--r-sm);border:0;display:grid;place-items:center;cursor:pointer}
+.pinplace .editor .ok{background:var(--connecta-ink);color:var(--connecta-paper)}
+.pinplace .editor .no{background:var(--neutral-100);color:var(--fg-2)}
+.pinplace .editor svg{width:16px;height:16px}
+
+/* ============================================================
+   62. TERMINAL  (p-terminal) — command console
+   ============================================================ */
+.pterm{background:var(--connecta-ink);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-2);width:100%;max-width:480px;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.pterm-bar{display:flex;align-items:center;gap:7px;padding:9px 13px;background:color-mix(in srgb,var(--connecta-paper) 7%,var(--connecta-ink))}
+.pterm-bar .dot{width:11px;height:11px;border-radius:50%;background:color-mix(in srgb,var(--connecta-paper) 22%,transparent)}
+.pterm-bar .ttl{margin-left:6px;font:600 11.5px var(--font-sans);color:color-mix(in srgb,var(--connecta-paper) 60%,transparent);letter-spacing:.02em}
+.pterm-body{padding:13px 14px;font-size:12.5px;line-height:1.7;color:color-mix(in srgb,var(--connecta-paper) 82%,transparent)}
+.pterm-line{display:flex;gap:8px;white-space:pre-wrap}
+.pterm-line .pmt{color:var(--connecta-lime);font-weight:700;flex:none}
+.pterm-line .out{color:color-mix(in srgb,var(--connecta-paper) 60%,transparent)}
+.pterm-cursor{display:inline-block;width:8px;height:15px;background:var(--connecta-lime);vertical-align:text-bottom;animation:pterm-blink 1.1s steps(1) infinite}
+@keyframes pterm-blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.pterm-cursor{animation:none}}

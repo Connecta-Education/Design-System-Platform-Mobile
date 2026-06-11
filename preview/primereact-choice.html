@@ -1,0 +1,82 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="SelectButton · ToggleButton · Rating · Knob · ColorPicker" subtitle="Choice & value controls" viewport="740x480" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:740px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Form</div>
+<h2 class="pcat-title">Choice &amp; value controls</h2>
+<p class="pcat-sub">Selected state is always ink-on-paper (the one primary). Rating stars and the Knob arc use ink too; ColorPicker's panel is faithful to PrimeReact but its preset swatches are the brand palette.</p>
+
+<div class="pgrid pgrid-2">
+  <!-- SelectButton -->
+  <div class="pcell">
+    <span class="lab">SelectButton <code>p-selectbutton</code></span>
+    <div class="psb">
+      <button class="on">Whole class</button>
+      <button>Circle</button>
+      <button>Direct</button>
+    </div>
+    <div class="psb">
+      <button class="on"><i data-lucide="list"></i> List</button>
+      <button><i data-lucide="layout-grid"></i> Grid</button>
+    </div>
+  </div>
+
+  <!-- ToggleButton -->
+  <div class="pcell">
+    <span class="lab">ToggleButton <code>p-togglebutton</code></span>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="ptgl on"><i data-lucide="shield-check"></i> GoodTalk on</button>
+      <button class="ptgl"><i data-lucide="bell"></i> Notify parents</button>
+    </div>
+  </div>
+
+  <!-- Rating -->
+  <div class="pcell">
+    <span class="lab">Rating <code>p-rating</code></span>
+    <div class="prate">
+      <i data-lucide="star" class="on"></i>
+      <i data-lucide="star" class="on"></i>
+      <i data-lucide="star" class="on"></i>
+      <i data-lucide="star" class="on"></i>
+      <i data-lucide="star" class="off"></i>
+    </div>
+    <span style="font:400 12px var(--font-sans);color:var(--fg-3)">Lab report · 4 / 5</span>
+  </div>
+
+  <!-- Knob -->
+  <div class="pcell">
+    <span class="lab">Knob <code>p-knob</code></span>
+    <div style="display:flex;align-items:center;gap:18px">
+      <div class="pknob">
+        <svg width="104" height="104" viewBox="0 0 104 104">
+          <circle class="track" cx="52" cy="52" r="46" fill="none" stroke-width="9"></circle>
+          <circle class="range" cx="52" cy="52" r="46" fill="none" stroke-width="9" stroke-dasharray="289" stroke-dashoffset="81"></circle>
+        </svg>
+        <div class="val">72%</div>
+      </div>
+      <span style="font:400 12px/1.5 var(--font-sans);color:var(--fg-3);max-width:14ch">Class read-receipts</span>
+    </div>
+  </div>
+
+  <!-- ColorPicker -->
+  <div class="pcell">
+    <span class="lab">ColorPicker <code>p-colorpicker</code></span>
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div class="pcp-swatch" style="background:var(--connecta-coral)"></div>
+      <div class="pcp-panel">
+        <div class="pcp-sat"><span class="pick"></span></div>
+        <div class="pcp-hue"><span class="pick"></span></div>
+        <div class="pcp-swatches">
+          <i style="background:var(--connecta-coral)"></i>
+          <i style="background:var(--connecta-lime)"></i>
+          <i style="background:var(--connecta-sky)"></i>
+          <i style="background:var(--connecta-pink)"></i>
+          <i style="background:var(--connecta-olive)"></i>
+          <i style="background:var(--connecta-ink)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

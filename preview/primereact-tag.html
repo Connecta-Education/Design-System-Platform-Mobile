@@ -1,0 +1,60 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Tag · Badge · Chip" subtitle="Status & entity tokens" viewport="760x600" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Messages &amp; Media</div>
+<h2 class="pcat-title">Tag, Badge &amp; Chip</h2>
+<p class="pcat-sub">Three small markers, three jobs. Tag = soft status (same severity map). Badge = a count bubble — coral only when it means “needs a look,” otherwise ink. Chip = an entity token (person, filter) with optional avatar and remove.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Tag -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Tag <code>p-tag</code></span>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <span class="ptag psev info"><i data-lucide="clock"></i> Due Fri</span>
+      <span class="ptag psev success"><i data-lucide="check"></i> Submitted</span>
+      <span class="ptag psev warn"><i data-lucide="alert-triangle"></i> Late</span>
+      <span class="ptag psev error"><i data-lucide="shield-alert"></i> Flagged</span>
+      <span class="ptag psev learn"><i data-lucide="sparkles"></i> Cosmo</span>
+      <span class="ptag round psev info">Circle 2</span>
+      <span class="ptag solid">Pinned</span>
+    </div>
+  </div>
+
+  <!-- Badge -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Badge <code>p-badge</code> · count &amp; dot</span>
+    <div style="display:flex;flex-wrap:wrap;gap:26px;align-items:center">
+      <span class="pbadge-host">
+        <button class="iconbtn" style="width:42px;height:42px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2)"><i data-lucide="bell"></i></button>
+        <span class="pbadge over">5</span>
+      </span>
+      <span class="pbadge-host">
+        <button class="iconbtn" style="width:42px;height:42px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2)"><i data-lucide="message-circle"></i></button>
+        <span class="pbadge ink over">12</span>
+      </span>
+      <span class="pbadge-host">
+        <button class="iconbtn" style="width:42px;height:42px;border:1px solid var(--border-2);border-radius:var(--r-sm);background:var(--bg-card);display:grid;place-items:center;color:var(--fg-2)"><i data-lucide="user"></i></button>
+        <span class="pbadge dot over" style="background:var(--connecta-lime)"></span>
+      </span>
+      <button class="pbtn pbtn--sm">Inbox <span class="pbadge ink">3</span></button>
+      <span class="ptag round psev success" style="gap:7px">Tasks <span class="pbadge lime">9</span></span>
+    </div>
+  </div>
+
+  <!-- Chip -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Chip <code>p-chip</code> · entity / filter token</span>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <span class="pchip"><span class="av" style="background:var(--role-child-bg)">ИП</span><span class="lbl">Иван Петров</span><button class="x"><i data-lucide="x"></i></button></span>
+      <span class="pchip"><span class="av" style="background:var(--role-teacher-bg)">ГИ</span><span class="lbl">Георги Иванов</span><button class="x"><i data-lucide="x"></i></button></span>
+      <span class="pchip plain">Circle 3</span>
+      <span class="pchip plain"><i data-lucide="filter" style="width:14px;height:14px"></i> Late only</span>
+      <span class="pchip"><span class="av" style="background:var(--tint-olive)"><i data-lucide="sparkles" style="width:13px;height:13px"></i></span><span class="lbl">Cosmo-checked</span><button class="x"><i data-lucide="x"></i></button></span>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.9 } });</script>
+</body></html>

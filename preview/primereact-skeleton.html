@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Skeleton · BlockUI" subtitle="Loading states" viewport="760x600" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Misc</div>
+<h2 class="pcat-title">Skeleton &amp; BlockUI</h2>
+<p class="pcat-sub">Two ways to say “working.” Skeleton mirrors the shape of content that’s about to load with a neutral shimmer (no brand colour — it’s absence, not state). BlockUI drops an ink scrim over a region and floats a spinner badge while an action completes.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Skeleton -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Skeleton <code>p-skeleton</code> · roster row loading</span>
+    <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:460px">
+      <div class="pskel-card">
+        <div class="pskel circle" style="width:38px;height:38px;flex:none"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:9px;padding-top:3px">
+          <div class="pskel text" style="width:55%"></div>
+          <div class="pskel text" style="width:80%;height:10px"></div>
+        </div>
+        <div class="pskel" style="width:54px;height:22px;border-radius:var(--r-pill)"></div>
+      </div>
+      <div class="pskel-card">
+        <div class="pskel circle" style="width:38px;height:38px;flex:none"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:9px;padding-top:3px">
+          <div class="pskel text" style="width:42%"></div>
+          <div class="pskel text" style="width:68%;height:10px"></div>
+        </div>
+        <div class="pskel" style="width:54px;height:22px;border-radius:var(--r-pill)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BlockUI -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">BlockUI <code>p-blockui</code> · region busy</span>
+    <div class="pblock" style="width:100%;max-width:460px">
+      <div class="pblock-content">
+        <div style="font:700 14px var(--font-sans);color:var(--fg-1)">Publish task to Class 5а</div>
+        <p style="margin:8px 0 0;font:400 13px/1.55 var(--font-sans);color:var(--fg-2)">Notifying 24 students and their guardians. The panel is locked until the send completes.</p>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="pbtn pbtn--sm">Publish</button>
+          <button class="pbtn pbtn--text pbtn--sm">Save draft</button>
+        </div>
+      </div>
+      <div class="pblock-mask">
+        <span class="pblock-badge"><span class="pspin sm"></span> Publishing…</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.9 } });</script>
+</body></html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Tree · TreeTable" subtitle="Expandable hierarchies" viewport="760x640" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Data</div>
+<h2 class="pcat-title">Tree &amp; TreeTable</h2>
+<p class="pcat-sub">The school graph as a hierarchy: school → class → circle → student. Togglers and selection are ink; the lime check marks "selected"; coral counts mean a node needs a look. TreeTable carries the same tree in column one beside tabular data.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+
+  <!-- Tree (selection + checkbox) -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">Tree · checkbox selection <code>p-tree</code></span>
+    <div class="ptree" style="width:100%">
+      <div class="ptree-node">
+        <span class="tog open"><i data-lucide="chevron-right"></i></span>
+        <span class="ptree-cb partial"><i data-lucide="minus"></i></span>
+        <span class="ic"><i data-lucide="school"></i></span>
+        ОУ „Христо Ботев“
+        <span class="ct">412</span>
+      </div>
+      <div class="ptree-children">
+        <div class="ptree-node">
+          <span class="tog open"><i data-lucide="chevron-right"></i></span>
+          <span class="ptree-cb on"><i data-lucide="check"></i></span>
+          <span class="ic"><i data-lucide="users"></i></span>
+          Class 5а
+          <span class="ct">24</span>
+        </div>
+        <div class="ptree-children">
+          <div class="ptree-node sel">
+            <span class="lf"></span>
+            <span class="ptree-cb on"><i data-lucide="check"></i></span>
+            <span class="ic"><i data-lucide="user"></i></span>
+            Иван Петров
+          </div>
+          <div class="ptree-node">
+            <span class="lf"></span>
+            <span class="ptree-cb on"><i data-lucide="check"></i></span>
+            <span class="ic"><i data-lucide="user"></i></span>
+            Мария Петрова
+          </div>
+          <div class="ptree-node">
+            <span class="lf"></span>
+            <span class="ptree-cb on"><i data-lucide="check"></i></span>
+            <span class="ic"><i data-lucide="user"></i></span>
+            София Димитрова
+          </div>
+        </div>
+        <div class="ptree-node">
+          <span class="tog"><i data-lucide="chevron-right"></i></span>
+          <span class="ptree-cb"></span>
+          <span class="ic"><i data-lucide="users"></i></span>
+          Class 7b
+          <span class="ct">28</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TreeTable -->
+  <div class="pcell" style="width:100%">
+    <span class="lab">TreeTable <code>p-treetable</code></span>
+    <div class="pttab" style="width:100%">
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th class="num">Students</th>
+            <th class="num">Attendance</th>
+            <th class="num">Flags</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp">
+            <td><span class="nm"><span class="tog open"><i data-lucide="chevron-right"></i></span><span class="ic"><i data-lucide="school"></i></span>ОУ „Христо Ботев“</span></td>
+            <td class="num">412</td>
+            <td class="num">94%</td>
+            <td class="num">7</td>
+          </tr>
+          <tr>
+            <td><span class="nm ind1"><span class="tog open"><i data-lucide="chevron-right"></i></span><span class="ic"><i data-lucide="users"></i></span>Class 5а</span></td>
+            <td class="num">24</td>
+            <td class="num">96%</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td><span class="nm ind2"><span class="ic"><i data-lucide="user"></i></span>Иван Петров</span></td>
+            <td class="num">—</td>
+            <td class="num">98%</td>
+            <td class="num">0</td>
+          </tr>
+          <tr>
+            <td><span class="nm ind2"><span class="ic"><i data-lucide="user"></i></span>София Димитрова</span></td>
+            <td class="num">—</td>
+            <td class="num">91%</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td><span class="nm ind1"><span class="tog"><i data-lucide="chevron-right"></i></span><span class="ic"><i data-lucide="users"></i></span>Class 7b</span></td>
+            <td class="num">28</td>
+            <td class="num">92%</td>
+            <td class="num">5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

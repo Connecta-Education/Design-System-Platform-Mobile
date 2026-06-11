@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Carousel" subtitle="Horizontal slider" viewport="760x420" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:760px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Data</div>
+<h2 class="pcat-title">Carousel</h2>
+<p class="pcat-sub">A horizontal slider for browse-y collections — here, Cosmo learning circles. Arrows are hairline ghost buttons; the active page indicator stretches into an ink pill while the rest stay neutral dots.</p>
+
+<div style="display:flex;flex-direction:column;gap:30px;margin-top:22px">
+  <div class="pcell" style="width:100%">
+    <span class="lab">Carousel <code>p-carousel</code> · Cosmo circles</span>
+    <div class="pcar" style="width:100%">
+      <div class="pcar-track">
+        <button class="pcar-arrow"><i data-lucide="chevron-left"></i></button>
+        <div class="pcar-items">
+          <div class="pcar-slide">
+            <div class="top" style="background:var(--tint-sky)"><i data-lucide="flask-conical"></i></div>
+            <div class="bd"><b>Lab Circles</b><small>Hypothesis → conclusion in five guided steps.</small><span class="tagline">Science</span></div>
+          </div>
+          <div class="pcar-slide">
+            <div class="top" style="background:var(--tint-lime)"><i data-lucide="book-open"></i></div>
+            <div class="bd"><b>Reading Buddies</b><small>Paired reading with a peer mentor.</small><span class="tagline">Literacy</span></div>
+          </div>
+          <div class="pcar-slide">
+            <div class="top" style="background:var(--tint-pink)"><i data-lucide="messages-square"></i></div>
+            <div class="bd"><b>GoodTalk Practice</b><small>Rehearse hard conversations with Cosmo.</small><span class="tagline">Social</span></div>
+          </div>
+        </div>
+        <button class="pcar-arrow"><i data-lucide="chevron-right"></i></button>
+      </div>
+      <div class="pcar-dots">
+        <i class="on"></i><i></i><i></i><i></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

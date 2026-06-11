@@ -1,0 +1,70 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="AutoComplete" subtitle="Suggest-as-you-type · students, teachers, parents" viewport="720x560" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:720px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Form</div>
+<h2 class="pcat-title">AutoComplete <code style="font:600 12px var(--font-sans);color:var(--connecta-plum);background:var(--neutral-100);padding:3px 9px;border-radius:9999px;vertical-align:2px">p-autocomplete</code></h2>
+<p class="pcat-sub">Ink focus ring, hairline border, lime match-highlight, school-graph role badges. Panels shown open. Full 10-variant write-up with code lives in <em>Connecta × PrimeReact.html</em>.</p>
+
+<div class="pgrid pgrid-2">
+  <div class="pcell">
+    <span class="lab">Basic <code>completeMethod</code></span>
+    <div class="pac is-open pac--icon">
+      <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="ма" /></div>
+      <div class="pac-panel">
+        <div class="pac-item is-focus"><span class="pac-hl">Ма</span>рия Петрова</div>
+        <div class="pac-item"><span class="pac-hl">Ма</span>ртин Колев</div>
+        <div class="pac-item"><span class="pac-hl">Ма</span>я Стоянова</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pcell">
+    <span class="lab">Template <code>itemTemplate</code></span>
+    <div class="pac is-open pac--icon">
+      <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="и" /></div>
+      <div class="pac-panel">
+        <div class="pac-item is-focus">
+          <span class="pac-av" style="background:var(--role-child-bg);color:var(--role-child-fg)">ИП</span>
+          <div class="pac-meta"><b>Иван Петров</b><small>5а · circle 3</small></div>
+          <div class="pac-end"><span class="pac-badge" style="background:var(--role-child-bg);color:var(--role-child-fg)">Child</span></div>
+        </div>
+        <div class="pac-item">
+          <span class="pac-av" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg)">ГИ</span>
+          <div class="pac-meta"><b>Георги Иванов</b><small>Mathematics</small></div>
+          <div class="pac-end"><span class="pac-badge" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg)">Teacher</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pcell">
+    <span class="lab">Multiple <code>multiple</code></span>
+    <div class="pac is-open pac--multi">
+      <div class="pac-tokens">
+        <span class="pac-token">Иван П. <span class="x"><i data-lucide="x"></i></span></span>
+        <span class="pac-token">Мария К. <span class="x"><i data-lucide="x"></i></span></span>
+        <input class="pac-token-input" value="со" />
+      </div>
+      <div class="pac-panel">
+        <div class="pac-item is-focus"><span class="pac-hl">Со</span>фия Димитрова<i data-lucide="plus" class="chk"></i></div>
+        <div class="pac-item"><span class="pac-hl">Со</span>нер Ахмед<i data-lucide="plus" class="chk"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pcell">
+    <span class="lab">States · invalid + disabled</span>
+    <div style="width:100%;max-width:300px">
+      <div class="pac pac--invalid pac--icon">
+        <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="Unknown name" /></div>
+      </div>
+      <div class="pac-err"><i data-lucide="alert-circle"></i> No matching student in 5а.</div>
+    </div>
+    <div class="pac pac--disabled pac--icon" style="max-width:220px">
+      <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="Locked to homeroom" disabled /></div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

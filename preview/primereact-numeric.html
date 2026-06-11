@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="InputNumber · Password · Chips" subtitle="Numeric steppers, strength meter, free tokens" viewport="740x400" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:740px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Form</div>
+<h2 class="pcat-title">Numeric &amp; text entry</h2>
+<p class="pcat-sub">Steppers reuse the input chrome; the Password meter rides the Connecta scale — <b style="color:var(--connecta-coral)">coral</b> weak, <b style="color:var(--connecta-olive)">olive</b> medium, <b style="color:var(--connecta-olive)">lime</b> strong; Chips are free tokens with no suggestion panel.</p>
+
+<div class="pgrid pgrid-3">
+  <!-- InputNumber -->
+  <div class="pcell">
+    <span class="lab">InputNumber <code>p-inputnumber</code></span>
+    <div class="pnum">
+      <input value="22" />
+      <div class="pnum-btns">
+        <button><i data-lucide="chevron-up"></i></button>
+        <button><i data-lucide="chevron-down"></i></button>
+      </div>
+    </div>
+    <span style="font:400 12px var(--font-sans);color:var(--fg-3)">Students in 5а</span>
+  </div>
+
+  <!-- Password -->
+  <div class="pcell">
+    <span class="lab">Password <code>p-password</code></span>
+    <div class="ppw">
+      <div class="ppw-field">
+        <input type="text" value="••••••••••" />
+        <i data-lucide="eye" class="eye"></i>
+      </div>
+      <div class="ppw-meter strong"><i></i></div>
+      <div class="ppw-note"><b>Strong</b> — guardian account ready.</div>
+    </div>
+  </div>
+
+  <!-- Password weak -->
+  <div class="pcell">
+    <span class="lab">Password · weak</span>
+    <div class="ppw">
+      <div class="ppw-field">
+        <input type="text" value="••••" />
+        <i data-lucide="eye-off" class="eye"></i>
+      </div>
+      <div class="ppw-meter weak"><i></i></div>
+      <div class="ppw-note">Add length and a number.</div>
+    </div>
+  </div>
+</div>
+
+<div class="pgrid" style="margin-top:24px">
+  <!-- Chips -->
+  <div class="pcell" style="max-width:360px">
+    <span class="lab">Chips <code>p-chips</code></span>
+    <div class="pchips is-focus">
+      <span class="pchip">homework <span class="x"><i data-lucide="x"></i></span></span>
+      <span class="pchip">lab-circles <span class="x"><i data-lucide="x"></i></span></span>
+      <span class="pchip">parents-cc <span class="x"><i data-lucide="x"></i></span></span>
+      <input value="" placeholder="Add a tag…" />
+    </div>
+    <span style="font:400 12px var(--font-sans);color:var(--fg-3)">Press Enter to add · free text, no registry check</span>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>

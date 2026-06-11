@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- @dsCard group="PrimeReact" name="Select · MultiSelect · TreeSelect · ListBox" subtitle="Single & multi pickers · the school graph" viewport="740x600" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"><link rel="stylesheet" href="../primereact-connecta.css"><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script></head><body style="width:740px">
+
+<div class="pcat-eyebrow">PrimeReact × Connecta · Form</div>
+<h2 class="pcat-title">Select family</h2>
+<p class="pcat-sub">All four share one panel language — hairline border, soft <code>--shadow-3</code>, ink-tinted selection, ink check. MultiSelect and TreeSelect add checkboxes and disclosure; panels shown open.</p>
+
+<div class="pgrid pgrid-2">
+  <!-- Select / Dropdown -->
+  <div class="pcell">
+    <span class="lab">Select <code>p-select</code></span>
+    <div style="width:100%;max-width:300px">
+      <div class="pr-trigger is-open"><span class="psel-val">5а — Homeroom</span><i data-lucide="chevron-down" class="caret"></i></div>
+      <div class="pr-panel">
+        <div class="pr-filter"><i data-lucide="search"></i><input value="" placeholder="Search classes…" /></div>
+        <div class="pr-opt is-selected">5а — Homeroom<i data-lucide="check" class="chk"></i></div>
+        <div class="pr-opt">5б — Homeroom</div>
+        <div class="pr-opt">6а — Science</div>
+        <div class="pr-opt">7b — Homeroom</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MultiSelect -->
+  <div class="pcell">
+    <span class="lab">MultiSelect <code>p-multiselect</code></span>
+    <div style="width:100%;max-width:300px">
+      <div class="pr-trigger is-open">
+        <div class="pms-chips">
+          <span class="pms-chip">Math <span class="x"><i data-lucide="x"></i></span></span>
+          <span class="pms-chip">Biology <span class="x"><i data-lucide="x"></i></span></span>
+        </div>
+        <i data-lucide="chevron-down" class="caret"></i>
+      </div>
+      <div class="pr-panel">
+        <div class="pms-head"><span class="pr-check on"><i data-lucide="check"></i></span> 2 of 6 selected</div>
+        <div class="pr-opt is-selected"><span class="pr-check on"><i data-lucide="check"></i></span> Mathematics</div>
+        <div class="pr-opt is-selected"><span class="pr-check on"><i data-lucide="check"></i></span> Biology</div>
+        <div class="pr-opt"><span class="pr-check"><i data-lucide="check"></i></span> Geography</div>
+        <div class="pr-opt"><span class="pr-check"><i data-lucide="check"></i></span> History</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TreeSelect -->
+  <div class="pcell">
+    <span class="lab">TreeSelect <code>p-treeselect</code></span>
+    <div style="width:100%;max-width:300px">
+      <div class="pr-trigger is-open"><span class="psel-val">5а › circle 3</span><i data-lucide="chevron-down" class="caret"></i></div>
+      <div class="pr-panel">
+        <div class="ptree-node"><span class="ptree-tog"><i data-lucide="chevron-down"></i></span><i data-lucide="school" class="ptree-ic"></i> ОУ „Христо Ботев“</div>
+        <div class="ptree-node"><span class="ptree-indent"></span><span class="ptree-tog"><i data-lucide="chevron-down"></i></span><i data-lucide="users" class="ptree-ic"></i> Class 5а</div>
+        <div class="ptree-node is-selected"><span class="ptree-indent"></span><span class="ptree-indent"></span><span class="ptree-tog leaf"></span><i data-lucide="circle" class="ptree-ic"></i> Circle 3<i data-lucide="check" class="chk" style="margin-left:auto;color:var(--connecta-ink);width:16px"></i></div>
+        <div class="ptree-node"><span class="ptree-indent"></span><span class="ptree-tog"><i data-lucide="chevron-right"></i></span><i data-lucide="users" class="ptree-ic"></i> Class 7b</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ListBox -->
+  <div class="pcell">
+    <span class="lab">ListBox <code>p-listbox</code></span>
+    <div class="plb">
+      <div class="pr-filter"><i data-lucide="search"></i><input value="" placeholder="Filter teachers…" /></div>
+      <div class="plb-list">
+        <div class="pr-opt is-selected"><span class="pr-opt-lead pac-av" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg);width:24px;height:24px;border-radius:7px;font-size:10px">ГИ</span> Георги Иванов<i data-lucide="check" class="chk"></i></div>
+        <div class="pr-opt"><span class="pac-av" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg);width:24px;height:24px;border-radius:7px;font-size:10px">ГТ</span> Георгина Тодорова</div>
+        <div class="pr-opt"><span class="pac-av" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg);width:24px;height:24px;border-radius:7px;font-size:10px">ДК</span> Десислава Кирова</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body></html>
