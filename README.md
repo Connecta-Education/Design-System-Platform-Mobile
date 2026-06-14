@@ -66,6 +66,10 @@ The public marketing site shipped before this system was finalized. Auditing it 
 | `preview/` | One HTML card per token group / principle, registered to the Design System tab. |
 | `ui_kits/chat-app/` | Hi-fi recreation of the kid/teen chat app (login → circle list → chat with GoodTalk intervention). |
 | `ui_kits/parent-portal/` | Hi-fi recreation of the parent/guardian dashboard (alerts, circles, controls). |
+| `primereact-connecta.css` | **The component layer.** Themed PrimeReact catalog — Connecta tokens applied to PrimeReact's component structure. The CSS counterpart of the Connecta preset. |
+| `preview/primereact-*.html` | Per-family PrimeReact component proofs (forms, overlays, menus, data, etc.), registered as Design System cards. |
+| `Connecta PrimeReact Bridge.html` | Engineering bridge — how to wire PrimeReact into an app via the Connecta preset (styled mode) or passthrough (unstyled). |
+| `Connecta × PrimeReact.html` | Visual catalog of the themed PrimeReact components. |
 | `Connecta Chat App.html` | Top-level demo of the chat app. |
 | `SKILL.md` | Agent skill manifest — pointer for Claude Code or other agents. |
 | `README.md` | This file. |
@@ -402,6 +406,46 @@ Photo scrims: `--scrim-bottom`, `--scrim-top`, `--scrim-vignette`.
 - **Desktop-first** for teacher + school surfaces — tabular density, dual-pane layouts, audit-log readability matter more than touch.
 - **Composer** is bottom-fixed on mobile with 16px safe-area pad. Intervention banner inserts *in flow* above the composer (so kids learn its source), never modal.
 - **Top app bar** sticky, flat, no shadow until scroll > 8px (then `--shadow-1`).
+
+---
+
+## COMPONENT IMPLEMENTATION
+
+> **The one rule for building UI: use PrimeReact.**
+> When you implement any Connecta interface in code — a screen, a dialog, a form, a menu, a table, a date picker, a toast — build it from **[PrimeReact](https://primereact.org) components**, themed through the **Connecta preset**. Do not hand-roll bespoke widgets, and do not introduce another component library (the previous Tamagui code export has been removed). PrimeReact is the single sanctioned component layer for Connecta.
+
+The visual rules above (color semantics, casing, spacing, radii, no-gradient chrome, calm states) are not re-implemented per component — they are carried by the theme. PrimeReact components inherit the Connecta look automatically; your job is to compose them and apply the *content* and *audience* rules.
+
+### How the theme is applied
+
+Two modes, both reading from `colors_and_type.css` tokens — see `Connecta PrimeReact Bridge.html` for the full walkthrough.
+
+| Mode | When | How |
+|---|---|---|
+| **Styled mode + Connecta preset** *(default, recommended)* | Almost always. | PrimeReact ships its own component CSS; a single ~60-line preset (`definePreset`) recolors it through Connecta tokens. Wire it once via `PrimeReactProvider`. Least code, survives PrimeReact upgrades, and tracks any edits to `colors_and_type.css` for free. |
+| **Unstyled mode + passthrough (`pt`)** *(escape hatch)* | Only for the rare surface that must look exactly like a Connecta-native element (e.g. the GoodTalk nudge banner, chat bubbles). | PrimeReact ships zero CSS; you supply every class via the `pt` prop, styled with the Connecta classes in `primereact-connecta.css`. Total control, much more code. Both modes can coexist in one app. |
+
+```tsx
+import { PrimeReactProvider } from 'primereact/api';
+import { Connecta } from './connecta-preset'; // definePreset over Aura, mapped to colors_and_type.css
+
+export default function App() {
+  return (
+    <PrimeReactProvider value={{ theme: { preset: Connecta } }}>
+      {/* compose screens from primereact/* components */}
+    </PrimeReactProvider>
+  );
+}
+```
+
+`primereact-connecta.css` is the static, framework-free proof of this theme — every PrimeReact component family rebuilt with Connecta tokens (`.pr-*`, `.pac-*`, `.psel-*`, …). Use it as the reference when authoring the preset or writing `pt` overrides, and browse the `preview/primereact-*.html` cards to see each family themed.
+
+### Theme contract (don't relitigate these in component code)
+
+- **Ink is primary** — primary buttons, the focus ring, selected borders. Coral is **error only**, never a default action. Lime is highlight / "go".
+- **Hairline borders over shadows.** 1px `--border-1`; 2px ink for selected. DM Sans throughout; `--r-sm` for input radius, `--r-md` for buttons, `--r-lg` for cards.
+- **No gradients in component chrome.** Washes/scrims stay in marketing surfaces only.
+- Everything maps to a `var()` token — never hard-code a hex, px, or font-family inside a component (the `_adherence.oxlintrc.json` lint enforces this).
 
 ---
 
