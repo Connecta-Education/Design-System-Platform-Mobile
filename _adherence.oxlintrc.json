@@ -16,7 +16,6 @@
         "patterns": [
           {
             "group": [
-              "export/tamagui/**",
               "ui_kits/chat-app/**",
               "ui_kits/parent-portal/**"
             ],

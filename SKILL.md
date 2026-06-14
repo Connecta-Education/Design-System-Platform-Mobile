@@ -8,6 +8,8 @@ Read `README.md` in this skill first — it's the source of truth for voice, aud
 
 If creating visual artifacts (slides, mocks, throwaway prototypes), copy assets out and create static HTML files for the user to view. If working on production code, copy assets and apply the rules in `README.md` and `colors_and_type.css`.
 
+**Building UI in code? Use PrimeReact.** Any interface implementation (screens, dialogs, forms, menus, tables, date pickers, toasts) must be built from [PrimeReact](https://primereact.org) components themed through the Connecta preset — never a hand-rolled or alternate component library. See `README.md` → *Component implementation* and `Connecta PrimeReact Bridge.html`. `primereact-connecta.css` is the themed reference; `preview/primereact-*.html` shows each family. (The old Tamagui code export has been removed.)
+
 If the user invokes this skill without other guidance, ask them what they want to build, ask follow-ups (which audience? which surface? Bulgarian or English? Cosmo, GoodTalk, or neither?), then act as an expert designer who outputs HTML artifacts *or* production code.
 
 ## Quick map
@@ -24,9 +26,12 @@ If the user invokes this skill without other guidance, ask them what they want t
 - `fonts/` — DM Sans variable font (italic + roman). Self-hosted. Covers full Cyrillic for Bulgarian launch.
 - `ui_kits/chat-app/` — kid/teen mobile chat with GoodTalk nudge.
 - `ui_kits/parent-portal/` — guardian dashboard.
-- `preview/` — token + principle spec cards.
+- `preview/` — token + principle spec cards (incl. `primereact-*` component proofs).
+- `primereact-connecta.css` — the component layer: PrimeReact structure themed with Connecta tokens.
+- `Connecta PrimeReact Bridge.html` — how to wire PrimeReact into an app (Connecta preset / passthrough).
 
 ## Brand non-negotiables (do not violate)
+- **PrimeReact is the only component library.** Implement every UI in code with PrimeReact, themed via the Connecta preset (ink = primary/focus, coral = error only, lime = highlight). No alternate libraries, no bespoke widgets. (Tamagui has been removed.)
 - **Private by default. Reacts only on risk. Teaches better communication. Teaches better thinking.** Repeat verbatim where shown.
 - The four audiences are **child / teacher / parent / school** — each has its own tone of voice and ambient surface scope. Don't mix them.
 - The school graph is canonical: `school → class → circle → child ↔ parent ↔ teacher`. Reference it; don't flatten it.
