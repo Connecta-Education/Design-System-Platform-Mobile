@@ -167,7 +167,7 @@ function GoodTalkScene({ t, draft, why, suggestion }) {
   );
 }
 
-// ── Static coaching card (Cosmo / Teacher) — same look, no safety flow ─
+// ── Static coaching card (Socratic / Teacher) — same look, no safety flow ─
 function CoachCard({ t, icon, badge, name, headline, body, expand, primary, secondary }) {
   ccIcons();
   return (
@@ -198,8 +198,8 @@ const CC_THEMES = {
     secBorder:'rgba(255,255,255,.85)', secFg:'#FFFFFF', whyBg:'rgba(255,255,255,.16)',
     shadow:'0 12px 32px rgba(243,95,73,.30)',
   },
-  // Cosmo → olive (learning) with lime lab accents
-  cosmo: {
+  // Socratic → olive (learning) with lime lab accents
+  socratic: {
     bg:'#424F1A', fg:'#FFFFFF', sub:'rgba(255,255,255,.65)',
     badgeBg:'#DEFB50', badgeFg:'#424F1A', primaryBg:'#0F1A24', primaryFg:'#FFFFFF',
     secBorder:'rgba(222,251,80,.6)', secFg:'#DEFB50', whyBg:'rgba(255,255,255,.08)',

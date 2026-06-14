@@ -216,8 +216,8 @@
   .msg-nudge .mi{color:var(--state-nudge-accent)}
   .msg-ok{background:var(--state-ok-bg);color:var(--state-ok-fg)}
   .msg-ok .mi{color:var(--state-ok-accent)}
-  .msg-cosmo{background:var(--cosmo-bg);color:var(--cosmo-fg)}
-  .msg-cosmo .mi{color:var(--connecta-olive)}
+  .msg-socratic{background:var(--socratic-bg);color:var(--socratic-fg)}
+  .msg-socratic .mi{color:var(--connecta-olive)}
   .msg-pause{background:var(--state-pause-bg);color:var(--state-pause-fg)}
   .msg-pause .mi{color:var(--state-pause-accent)}
 
@@ -302,7 +302,7 @@
       <div class="mark"><i data-lucide="check"></i></div>
       <div>
         <h2>PrimeReact is the engine. Connecta is the skin. They don't fight.</h2>
-        <p>Use PrimeReact in <b>styled mode</b> with a custom <b>preset</b> whose tokens reference Connecta's existing CSS variables (<code>var(--connecta-ink)</code>, <code>var(--r-md)</code>, …). Nothing about Connecta's palette, type, radii or spacing changes — it just becomes reachable from PrimeReact. The handful of truly Connecta-native surfaces (chat bubbles, GoodTalk &amp; Cosmo banners, role badges) stay hand-built, exactly as they are now.</p>
+        <p>Use PrimeReact in <b>styled mode</b> with a custom <b>preset</b> whose tokens reference Connecta's existing CSS variables (<code>var(--connecta-ink)</code>, <code>var(--r-md)</code>, …). Nothing about Connecta's palette, type, radii or spacing changes — it just becomes reachable from PrimeReact. The handful of truly Connecta-native surfaces (chat bubbles, GoodTalk &amp; Socratic banners, role badges) stay hand-built, exactly as they are now.</p>
       </div>
     </div>
   </div>
@@ -574,19 +574,19 @@
         <span class="p-tag" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg)">Teacher</span>
         <span class="p-tag" style="background:var(--role-parent-bg);color:var(--role-parent-fg)">Parent</span>
         <span class="p-tag" style="background:var(--role-school-bg);color:var(--role-school-fg)">School</span>
-        <span class="p-tag" style="background:var(--role-cosmo-bg);color:var(--role-cosmo-fg)">Cosmo</span>
+        <span class="p-tag" style="background:var(--role-socratic-bg);color:var(--role-socratic-fg)">Socratic</span>
         <span class="p-tag" style="background:var(--role-goodtalk-bg);color:var(--role-goodtalk-fg)">GoodTalk</span>
         <span class="p-chip">Иван П. <span class="x"><i data-lucide="x"></i></span></span>
         <span class="p-chip">Maria K. <span class="x"><i data-lucide="x"></i></span></span>
       </div>
     </div>
 
-    <!-- Messages → GoodTalk / Cosmo states -->
+    <!-- Messages → GoodTalk / Socratic states -->
     <div class="demo">
-      <div class="demo-head"><span class="cmp">Message (inline)</span><div class="tags"><span class="ct">p-message</span><span class="ct">→ GoodTalk + Cosmo states</span></div></div>
+      <div class="demo-head"><span class="cmp">Message (inline)</span><div class="tags"><span class="ct">p-message</span><span class="ct">→ GoodTalk + Socratic states</span></div></div>
       <div class="demo-body col">
         <div class="p-msg msg-nudge"><span class="mi"><i data-lucide="sparkles"></i></span><div class="mt"><b>That might hurt someone. Want to rephrase?</b><small>GoodTalk · nudge — coral state, calm not alarmist.</small></div></div>
-        <div class="p-msg msg-cosmo"><span class="mi"><i data-lucide="compass"></i></span><div class="mt"><b>Good start. How will you reduce the measurement error?</b><small>Cosmo · Socratic — olive ground, never gives the answer.</small></div></div>
+        <div class="p-msg msg-socratic"><span class="mi"><i data-lucide="compass"></i></span><div class="mt"><b>Good start. How will you reduce the measurement error?</b><small>Socratic · Socratic — olive ground, never gives the answer.</small></div></div>
         <div class="p-msg msg-ok"><span class="mi"><i data-lucide="check-circle"></i></span><div class="mt"><b>Nice rewrite. Sent.</b><small>Repair complete — resolves to lime “go”.</small></div></div>
         <div class="p-msg msg-pause"><span class="mi"><i data-lucide="pause-circle"></i></span><div class="mt"><b>Let's pause for 2 minutes so this doesn't escalate.</b><small>Cooldown — calm ink wash.</small></div></div>
       </div>
@@ -659,15 +659,15 @@
     <div class="cols2">
       <div class="pathcard alt">
         <div class="pc-h"><div class="ic"><i data-lucide="message-circle"></i></div><h4>Chat bubbles</h4></div>
-        <p>Self / friend / teacher / parent / Cosmo / GoodTalk bubble colours encode <em>who is speaking</em>. That's a Connecta invention — built from <code>--bubble-*</code> tokens, not a PrimeReact component.</p>
+        <p>Self / friend / teacher / parent / Socratic / GoodTalk bubble colours encode <em>who is speaking</em>. That's a Connecta invention — built from <code>--bubble-*</code> tokens, not a PrimeReact component.</p>
       </div>
       <div class="pathcard alt">
-        <div class="pc-h"><div class="ic"><i data-lucide="sparkles"></i></div><h4>GoodTalk &amp; Cosmo banners</h4></div>
-        <p>The in-flow intervention banner and Cosmo's Socratic panel have bespoke behaviour and voice. PrimeReact's <code>Message</code> can host simpler inline notes, but the AI surfaces stay native.</p>
+        <div class="pc-h"><div class="ic"><i data-lucide="sparkles"></i></div><h4>GoodTalk &amp; Socratic banners</h4></div>
+        <p>The in-flow intervention banner and Socratic's Socratic panel have bespoke behaviour and voice. PrimeReact's <code>Message</code> can host simpler inline notes, but the AI surfaces stay native.</p>
       </div>
       <div class="pathcard alt">
         <div class="pc-h"><div class="ic"><i data-lucide="badge-check"></i></div><h4>Role badges</h4></div>
-        <p>The school-graph identity pills (Child · Teacher · Parent · School · Cosmo · GoodTalk). Trivial to render with a PrimeReact <code>Tag</code> + the <code>--role-*</code> tokens — shown in the gallery above.</p>
+        <p>The school-graph identity pills (Child · Teacher · Parent · School · Socratic · GoodTalk). Trivial to render with a PrimeReact <code>Tag</code> + the <code>--role-*</code> tokens — shown in the gallery above.</p>
       </div>
       <div class="pathcard alt">
         <div class="pc-h"><div class="ic"><i data-lucide="square-asterisk"></i></div><h4>Wordmark &amp; app icon</h4></div>

@@ -18,7 +18,7 @@
   .swatch { width:10px; height:10px; border-radius:3px; }
   .row { display:flex; gap:32px; flex-wrap:wrap; align-items:flex-start; }
   @keyframes slideDown { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform:none; } }
-  @keyframes cosmoPulse { 0%,100% { opacity:.4; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
+  @keyframes socraticPulse { 0%,100% { opacity:.4; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -69,8 +69,8 @@ function PhonePanel({ label, accent, children, width = 380 }) {
 }
 
 function App() {
-  const [progress, setProgress] = useState({ kid:0.42, teacher:0.30, cosmo:0.65, goodtalk:0.22 });
-  const [playing, setPlaying] = useState({ kid:true, teacher:false, cosmo:false, goodtalk:false });
+  const [progress, setProgress] = useState({ kid:0.42, teacher:0.30, socratic:0.65, goodtalk:0.22 });
+  const [playing, setPlaying] = useState({ kid:true, teacher:false, socratic:false, goodtalk:false });
 
   useEffect(() => {
     const tick = () => window.lucide && lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
@@ -141,19 +141,19 @@ function App() {
         <MiniComposer value="Напиши съобщение" icon="mic"/>
       </PhonePanel>
 
-      {/* ── COSMO ─────────────────────────────────── */}
+      {/* ── SOCRATIC ─────────────────────────────────── */}
       <PhonePanel label="Socrat · voice prompt" accent="#DEFB50">
         <MiniHeader title="Лаб 7А — Хвърляне на топче" subtitle="физика · със Socrat" kind="lab"/>
         <div style={{flex:1, overflowY:'auto', padding:'14px 14px', background:C.paper}}>
           <Bubble system>Socrat помага в тази задача</Bubble>
           <Bubble mine time="14:20">не разбирам втората част</Bubble>
           <VoiceMessage
-            voice="cosmo"
+            voice="socratic"
             sender="Socrat"
             duration={22}
-            progress={progress.cosmo}
-            playing={playing.cosmo}
-            onTogglePlay={()=>toggle('cosmo')}
+            progress={progress.socratic}
+            playing={playing.socratic}
+            onTogglePlay={()=>toggle('socratic')}
             caption="Започни от какво е дадено…"
             time="14:21"
           />

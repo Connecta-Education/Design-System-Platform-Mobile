@@ -5,7 +5,7 @@ const { useState, useEffect } = React;
 // ─── Card chrome ─────────────────────────────────────────────────────
 function Frame({ label, voice, children, width = 380 }) {
   const accent = {
-    goodtalk: '#F35F49', cosmo: '#DEFB50', teacher: '#0F1A24', kid: '#F35F49',
+    goodtalk: '#F35F49', socratic: '#DEFB50', teacher: '#0F1A24', kid: '#F35F49',
   }[voice] || '#98A2AD';
   return (
     <div style={{display:'flex', flexDirection:'column', gap:10}}>
