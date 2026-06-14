@@ -1,106 +1,102 @@
 <!doctype html>
-<!-- @dsCard group="Cells" name="Cells — Teacher announcement" subtitle="Sky ground · ink type · single tag + CTA" viewport="700x520" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body>
+<!-- @dsCard group="Cells" name="Cells — Teacher announcement" subtitle="Sky ground · ink type · one locale per card (BG + EN)" viewport="820x560" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:820px">
 <style>
   /* =====================================================
      Teacher announcement — calm circle-wide notice
      Teachers = SKY: sky ground #BAE6FD · ink type #0F1A24
-     One tag, one rectangular action, quiet meta.
+     One locale per card — never mix EN + BG chrome.
      ===================================================== */
+  .wrap{display:flex;gap:30px;align-items:flex-start}
+  .col{flex:1;min-width:0}
+  .col-label{display:flex;align-items:center;gap:8px;font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
+  .col-label .lc{font:700 10px var(--font-sans);letter-spacing:.04em;background:var(--connecta-ink);color:#fff;padding:3px 7px;border-radius:5px}
+
   .ann{
     background:#BAE6FD;color:#0F1A24;
-    border-radius:20px;padding:24px 26px;
-    display:flex;flex-direction:column;gap:14px;
-    max-width:560px;
-    box-shadow:0 6px 18px rgba(15,26,36,.08);
+    border-radius:20px;padding:22px 24px;
+    display:flex;flex-direction:column;gap:13px;
+    box-shadow:0 6px 18px rgba(15,26,36,.08);box-sizing:border-box;
   }
   .ann .tag{
-    align-self:flex-start;
-    display:inline-flex;align-items:center;gap:8px;
+    align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
     background:#0F1A24;color:#BAE6FD;
     font:700 12px var(--font-sans);letter-spacing:.01em;
     padding:6px 12px;border-radius:9999px;
   }
   .ann .tag svg{width:13px;height:13px}
-  .ann .from{
-    font:600 13.5px var(--font-sans);
-    color:#0F1A24;opacity:.72;
-  }
-  .ann .title{
-    font:700 22px/1.25 var(--font-sans);
-    color:#0F1A24;letter-spacing:-0.01em;
-    margin-top:2px;
-  }
-  .ann .body{
-    font:500 15px/1.55 var(--font-sans);
-    color:#0F1A24;opacity:.9;
-    text-wrap:pretty;
-  }
-  .ann .foot{
-    display:flex;align-items:center;justify-content:space-between;gap:14px;
-    margin-top:6px;
-  }
-  /* rectangular CTA — ink on sky */
-  .ann .cta{
-    background:#0F1A24;color:#BAE6FD;
-    border:0;border-radius:var(--r-md);
-    padding:10px 18px;
-    font:700 13px var(--font-sans);
-    cursor:pointer;letter-spacing:.01em;
-  }
-  .ann .meta{
-    font:500 12.5px var(--font-sans);
-    color:#0F1A24;opacity:.6;
-  }
+  .ann .from{font:600 13px var(--font-sans);color:#0F1A24;opacity:.72}
+  .ann .title{font:700 21px/1.25 var(--font-sans);color:#0F1A24;letter-spacing:-.01em;margin-top:2px}
+  .ann .body{font:500 14.5px/1.55 var(--font-sans);color:#0F1A24;opacity:.9;text-wrap:pretty}
+  .ann .foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:4px}
+  .ann .cta{background:#0F1A24;color:#BAE6FD;border:0;border-radius:var(--r-md);padding:10px 18px;font:700 13px var(--font-sans);cursor:pointer;letter-spacing:.01em}
+  .ann .meta{font:500 12.5px var(--font-sans);color:#0F1A24;opacity:.6}
 
-  /* Compact strip variant — single-line inline notice */
-  .ann-strip{
-    background:#BAE6FD;color:#0F1A24;
-    border-radius:14px;padding:12px 18px;
-    display:flex;align-items:center;gap:14px;
-    max-width:560px;
-  }
-  .ann-strip .tag{
-    background:#0F1A24;color:#BAE6FD;
-    font:700 11px var(--font-sans);letter-spacing:.01em;
-    padding:4px 10px;border-radius:9999px;flex:none;
-  }
-  .ann-strip .txt{font:600 14px/1.35 var(--font-sans);color:#0F1A24;flex:1;text-wrap:pretty}
-  .ann-strip .when{
-    flex:none;
-    font:500 12.5px var(--font-sans);color:#0F1A24;opacity:.6;
-  }
+  .ann-strip{background:#BAE6FD;color:#0F1A24;border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:13px;box-sizing:border-box}
+  .ann-strip .tag{background:#0F1A24;color:#BAE6FD;font:700 11px var(--font-sans);letter-spacing:.01em;padding:4px 10px;border-radius:9999px;flex:none}
+  .ann-strip .txt{font:600 13.5px/1.35 var(--font-sans);color:#0F1A24;flex:1;text-wrap:pretty}
+  .ann-strip .when{flex:none;font:500 12px var(--font-sans);color:#0F1A24;opacity:.6}
 
-  .stack{display:flex;flex-direction:column;gap:18px}
-  .caption{
-    margin-top:14px;font:500 12px var(--font-sans);color:var(--fg-3);
-  }
+  .stack{display:flex;flex-direction:column;gap:16px}
+  .caption{margin-top:16px;font:500 12px var(--font-sans);color:var(--fg-3)}
 </style>
 
-<div class="stack">
+<div class="wrap">
 
-  <div class="ann">
-    <span class="tag">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7v16L3 13z"/><path d="M11 19l-3 3-2-1 1-3"/></svg>
-      Teacher announcement
-    </span>
-    <div>
-      <div class="from">г-жа Петрова · клас 5а</div>
-      <div class="title">Неучебни дни — сряда 20.05 и петък 22.05.</div>
-    </div>
-    <div class="body">Здравейте, поради провеждане на ДЗИ сряда (20.05.26) и петък (22.05) са неучебни. В четвъртък столът няма да работи — предвидете храна за децата. Иначе четвъртък е редовен учебен ден.</div>
-    <div class="foot">
-      <button class="cta">Mark as read</button>
-      <span class="meta">seen by 18 of 22</span>
+  <!-- ===== Bulgarian (primary locale) ===== -->
+  <div class="col">
+    <div class="col-label"><span class="lc">BG</span> Български · primary</div>
+    <div class="stack">
+      <div class="ann">
+        <span class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7v16L3 13z"/><path d="M11 19l-3 3-2-1 1-3"/></svg>
+          Съобщение
+        </span>
+        <div>
+          <div class="from">г-жа Петрова · клас 5а</div>
+          <div class="title">Неучебни дни — сряда 20.05 и петък 22.05.</div>
+        </div>
+        <div class="body">Здравейте, поради провеждане на ДЗИ сряда (20.05) и петък (22.05) са неучебни. В четвъртък столът няма да работи — предвидете храна за децата. Иначе четвъртък е редовен учебен ден.</div>
+        <div class="foot">
+          <button class="cta">Отбележи като прочетено</button>
+          <span class="meta">видяно от 18 от 22</span>
+        </div>
+      </div>
+      <div class="ann-strip">
+        <span class="tag">Съобщение</span>
+        <span class="txt">Сряда и петък — неучебни (ДЗИ). Четвъртък: без стол.</span>
+        <span class="when">14:02</span>
+      </div>
     </div>
   </div>
 
-  <div class="ann-strip">
-    <span class="tag">Announcement</span>
-    <span class="txt">Сряда и петък — неучебни (ДЗИ). Четвъртък: без стол.</span>
-    <span class="when">14:02</span>
+  <!-- ===== English (secondary locale) ===== -->
+  <div class="col">
+    <div class="col-label"><span class="lc">EN</span> English · secondary</div>
+    <div class="stack">
+      <div class="ann">
+        <span class="tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7v16L3 13z"/><path d="M11 19l-3 3-2-1 1-3"/></svg>
+          Announcement
+        </span>
+        <div>
+          <div class="from">Ms. Petrova · Class 5A</div>
+          <div class="title">No classes — Wednesday 20 May and Friday 22 May.</div>
+        </div>
+        <div class="body">Hello, due to state exams there are no classes on Wednesday (20 May) and Friday (22 May). The canteen is closed Thursday — please pack lunch. Otherwise Thursday is a normal school day.</div>
+        <div class="foot">
+          <button class="cta">Mark as read</button>
+          <span class="meta">seen by 18 of 22</span>
+        </div>
+      </div>
+      <div class="ann-strip">
+        <span class="tag">Announcement</span>
+        <span class="txt">Wed &amp; Fri — no classes (exams). Thursday: no canteen.</span>
+        <span class="when">14:02</span>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<div class="caption">teacher announcement · sky #BAE6FD ground · ink #0F1A24 type · one tag, one rectangular action</div>
+<div class="caption">teacher announcement · sky #BAE6FD ground · ink #0F1A24 type · one locale per card — chrome &amp; content always match (BG primary, EN secondary)</div>
 </body></html>

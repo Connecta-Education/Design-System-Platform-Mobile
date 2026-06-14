@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- @dsCard group="Species" name="Species — Chat app (mobile)" subtitle="Login → Circles → Chat + voice composer" viewport="900x900" -->
+<!-- @dsCard group="Species" name="Species — Chat app (mobile)" subtitle="Login → Circles → Chat · Instagram-style composer (message · photo · camera · voice · file) · Socratic lesson opens full-screen" viewport="900x900" -->
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -10,6 +10,10 @@
   body { display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; }
   .stage { display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
   .label { font-family: var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#98A2AD; margin-top:14px; text-align:center; }
+  @keyframes slideDown { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform:none; } }
+  @keyframes socraticPulse { 0%,100% { opacity:.4; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes sheetUp { from { transform: translateY(36px); opacity:.4; } to { transform:none; opacity:1; } }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -44,6 +48,12 @@ const VOICE_MESSAGES = [
   { kind:'voice', voice:'kid', sender:'Leo', duration:9, progress:0.4, playing:true, time:'14:31' },
   { text:'on my way 🛴', mine:true, time:'14:31' },
   { kind:'voice', voice:'kid-mine', duration:14, progress:0, playing:false, time:'14:32' },
+];
+
+const LESSON_CIRCLE = { id:'lab7a', name:'Lab 7A — Friction', members:'Physics · with Socratic', kind:'school' };
+const LESSON_MESSAGES = [
+  { text:'stuck on the friction question for homework', mine:true, time:'16:02' },
+  { kind:'lesson', time:'16:02' },
 ];
 
 // Words that trigger our toy nudge detector.
@@ -123,8 +133,8 @@ function App() {
           <div style={{flex:1, minHeight:0, display:'flex', flexDirection:'column', background:'#fff'}}>
             <IOSStatusBar/>
             <ChatScreen
-              circle={SAMPLE_CIRCLES[2]}
-              messages={VOICE_MESSAGES}
+              circle={LESSON_CIRCLE}
+              messages={LESSON_MESSAGES}
               draft=""
               setDraft={()=>{}}
               onSend={()=>{}}
@@ -134,7 +144,7 @@ function App() {
             />
           </div>
         </IOSDevice>
-        <div className="label">Voice + emoji composer · tap 😊 or 🎤</div>
+        <div className="label">Tap the Socratic card → full-screen lesson · back to return</div>
       </div>
     </div>
   );

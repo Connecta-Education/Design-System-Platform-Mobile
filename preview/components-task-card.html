@@ -1,139 +1,253 @@
 <!doctype html>
-<!-- @dsCard group="Cells" name="Cells — Teacher task" subtitle="Class-circle task · desktop + mobile" viewport="900x540" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:900px">
+<!-- @dsCard group="Cells" name="Cells — Teacher task" subtitle="Full flow · card → open task (full window) → mark read → clears thread + status change" viewport="820x720" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:820px">
 <style>
-  .wrap{display:flex;gap:32px;align-items:flex-start}
+  .wrap{display:flex;gap:34px;align-items:flex-start}
   .col-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
 
-  .card{
-    background:var(--scope-tasks-bg);color:var(--scope-tasks-fg);
-    border-radius:var(--r-lg);padding:18px 20px;display:flex;flex-direction:column;gap:12px;
-    width:500px;box-sizing:border-box;
-  }
+  /* ===== task card in thread ===== */
+  .card{background:var(--scope-tasks-bg);color:var(--scope-tasks-fg);border-radius:var(--r-md);padding:16px;display:flex;flex-direction:column;gap:11px;box-sizing:border-box;box-shadow:var(--shadow-1);transition:opacity var(--dur-base) var(--ease-standard)}
   .head{display:flex;align-items:center;gap:9px}
-  /* simplified tag — small, soft, sentence case */
-  .tag{
-    display:inline-flex;align-items:center;
-    background:rgba(15,26,36,.08);color:var(--scope-tasks-fg);
-    font:600 11px/1 var(--font-sans);
-    padding:5px 10px;border-radius:9999px;
-  }
+  .tag{display:inline-flex;align-items:center;gap:6px;background:rgba(15,26,36,.08);color:var(--scope-tasks-fg);font:600 11px/1 var(--font-sans);padding:5px 10px;border-radius:9999px}
+  .status-pill{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font:600 10.5px var(--font-sans);letter-spacing:.02em;padding:4px 9px;border-radius:9999px;background:var(--connecta-sky);color:var(--connecta-ink)}
+  .status-pill svg{width:11px;height:11px}
   .meta-class{font:500 11px var(--font-sans);color:var(--scope-tasks-fg);opacity:.6}
   .from{font:500 11px var(--font-sans);letter-spacing:.02em;color:var(--scope-tasks-fg);opacity:.65}
-  .title{font:700 18px var(--font-sans);color:var(--scope-tasks-fg);line-height:1.3;letter-spacing:-0.005em;margin-top:4px}
-  .body{font:400 14px var(--font-sans);color:var(--scope-tasks-fg);opacity:.85;line-height:1.5}
-  .meta{
-    display:flex;flex-wrap:wrap;align-items:center;
-    font:500 11px var(--font-sans);letter-spacing:.02em;
-    color:var(--scope-tasks-fg);opacity:.75;
-    border-top:1px solid rgba(15,26,36,.14);padding-top:12px;
-  }
-  .meta span{padding:0 12px;border-left:1px solid rgba(15,26,36,.16)}
-  .meta span:first-child{padding-left:0;border-left:0}
-  .meta b{font-weight:600;opacity:1}
-  .actions{display:flex;align-items:center;gap:10px;margin-top:2px}
-  .btn{border:0;border-radius:var(--r-sm);padding:10px 16px;font:600 13px/1 var(--font-sans);cursor:pointer}
-  .btn.primary{background:var(--scope-tasks-accent);color:#FFFFFF}
-  .btn.ghost{background:#FFFFFF;color:var(--scope-tasks-fg);box-shadow:inset 0 0 0 1px rgba(15,26,36,.22)}
-  .details{margin-left:auto;color:var(--scope-tasks-accent);font:500 13px var(--font-sans);background:transparent;border:0;cursor:pointer}
+  .title{font:700 16px/1.3 var(--font-sans);color:var(--scope-tasks-fg);letter-spacing:-.005em;margin-top:3px}
+  .body{font:400 13px/1.5 var(--font-sans);color:var(--scope-tasks-fg);opacity:.85}
+  .duerow{display:flex;align-items:center;gap:7px;font:600 11.5px var(--font-sans);color:var(--scope-tasks-fg);opacity:.78}
+  .duerow svg{width:13px;height:13px}
+  .actions{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+  .btn{border:0;border-radius:var(--r-sm);padding:12px;font:600 13px/1 var(--font-sans);cursor:pointer;text-align:center;width:100%;transition:opacity var(--dur-base)}
+  .btn.primary{background:var(--scope-tasks-accent,#0F1A24);color:#fff}
+  .btn.ghost{background:#fff;color:var(--scope-tasks-fg);box-shadow:inset 0 0 0 1px rgba(15,26,36,.22)}
+  .btn:active{opacity:.82}
 
-  /* Why-now expander — organized like the GoodTalk nudge */
-  .why-btn{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:transparent;border:0;padding:0;cursor:pointer;color:var(--scope-tasks-fg);font:600 12px/1.3 var(--font-sans)}
-  .why-btn svg{width:14px;height:14px}
-  .why-btn .chev{width:13px;height:13px;opacity:.7;transition:transform var(--dur-base) var(--ease-standard)}
-  .why-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
-  .why-body{background:#FFFFFF;border-radius:12px;padding:11px 13px;color:var(--scope-tasks-fg);font:400 12.5px/1.5 var(--font-sans);box-shadow:inset 0 0 0 1px rgba(15,26,36,.1)}
-  .why-body[hidden]{display:none}
-  .why-eyebrow{display:flex;align-items:center;gap:6px;margin-bottom:5px;color:rgba(15,26,36,.5);font:600 10px/1 var(--font-sans);letter-spacing:.1em;text-transform:uppercase}
-  .why-eyebrow svg{width:12px;height:12px;flex:none}
+  /* read / cleared state — collapses to a thin strip */
+  .card.read{opacity:1}
+  .read-strip{display:none;align-items:center;gap:10px;background:rgba(15,26,36,.05);border-radius:12px;padding:11px 14px;font:600 12.5px var(--font-sans);color:var(--scope-tasks-fg)}
+  .read-strip.show{display:flex}
+  .read-strip .rc{width:22px;height:22px;border-radius:9999px;background:var(--connecta-ink);color:var(--connecta-lime);display:grid;place-items:center;flex:none}
+  .read-strip .rc svg{width:13px;height:13px}
+  .read-strip .rt{flex:1;min-width:0}
+  .read-strip .rt b{display:block;font-weight:700}
+  .read-strip .rt span{font-weight:500;opacity:.6;font-size:11px}
+  .read-strip .undo{background:transparent;border:0;color:var(--scope-tasks-accent,#0F1A24);font:600 12px var(--font-sans);cursor:pointer;flex:none}
 
-  /* phone */
-  .phone{
-    width:300px;background:#FFFFFF;border:1px solid var(--border-1);
-    border-radius:36px;box-shadow:var(--shadow-3);overflow:hidden;
-  }
-  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 6px;font:600 12px var(--font-sans);color:var(--fg-1)}
-  .phone .sb .dots{display:flex;gap:4px}
-  .phone .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
-  .phone .screen{background:#FFFFFF;padding:14px}
-  .phone .card{width:100%;border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-1);background:var(--scope-tasks-bg)}
-  .phone .title{font-size:16px}
-  .phone .body{font-size:13px}
-  .phone .actions{flex-direction:column;align-items:stretch;gap:8px}
-  .phone .btn{width:100%;text-align:center;padding:12px}
-  .phone .details{margin-left:0;text-align:center;padding-top:2px}
+  /* ===== phone shell ===== */
+  .phone{position:relative;width:320px;height:640px;background:#fff;border:1px solid var(--border-1);border-radius:38px;box-shadow:var(--shadow-3);overflow:hidden;display:flex;flex-direction:column}
+  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:13px 24px 7px;font:600 12px var(--font-sans);color:var(--fg-1);flex:none}
+  .phone .sb .dots{display:flex;gap:4px}.phone .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
+  .phone .top{display:flex;align-items:center;gap:9px;padding:4px 16px 11px;border-bottom:1px solid var(--border-1);flex:none}
+  .phone .top .av{width:30px;height:30px;border-radius:9px;background:var(--connecta-sky);display:grid;place-items:center;font:700 12px var(--font-sans);color:var(--connecta-ink);flex:none}
+  .phone .top .nm{font:600 13.5px var(--font-sans);color:var(--connecta-ink)}
+  .phone .top .pr{font:400 11px var(--font-sans);color:var(--fg-3)}
+  .phone .screen{flex:1;min-height:0;overflow-y:auto;padding:14px;background:var(--neutral-50);display:flex;flex-direction:column;gap:10px}
+  .sysline{align-self:center;font:500 11px var(--font-sans);color:var(--fg-3);background:#fff;border:1px solid var(--border-1);padding:5px 11px;border-radius:9999px}
+
+  /* ===== full-screen task window ===== */
+  .overlay{position:absolute;inset:0;z-index:20;display:none}
+  .overlay.open{display:block}
+  .backdrop{position:absolute;inset:0;background:rgba(15,26,36,.4);animation:fade .2s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .window{position:absolute;left:0;right:0;bottom:0;top:14px;background:#fff;border-radius:22px 22px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 30px rgba(15,26,36,.26);animation:up .28s cubic-bezier(.2,0,0,1)}
+  @keyframes up{from{transform:translateY(40px);opacity:.5}to{transform:none;opacity:1}}
+  .w-bar{display:flex;align-items:center;gap:11px;padding:14px;flex:none;background:var(--scope-tasks-bg);border-bottom:1px solid rgba(15,26,36,.1)}
+  .w-bar .back{width:34px;height:34px;border-radius:10px;border:0;background:#fff;color:var(--connecta-ink);display:grid;place-items:center;cursor:pointer;flex:none;box-shadow:0 1px 3px rgba(15,26,36,.18)}
+  .w-bar .back:active{background:var(--neutral-50)}
+  .w-bar .back svg{width:19px;height:19px}
+  .w-bar .wt{font:700 15px var(--font-sans);color:var(--connecta-ink)}
+  .w-bar .ws{font:400 11px var(--font-sans);color:var(--connecta-ink);opacity:.65;margin-top:1px}
+  .w-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+  .w-title{font:700 19px/1.25 var(--font-sans);color:var(--connecta-ink);letter-spacing:-.01em}
+  .w-block{display:flex;flex-direction:column;gap:6px}
+  .w-h{font:700 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3)}
+  .w-p{font:400 14px/1.55 var(--font-sans);color:var(--connecta-ink)}
+  .w-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font:400 13.5px/1.5 var(--font-sans);color:var(--connecta-ink)}
+  .facts{display:flex;gap:8px}
+  .fact{flex:1;background:var(--neutral-50);border:1px solid var(--border-1);border-radius:12px;padding:11px 12px}
+  .fact .fl{font:600 10px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-4)}
+  .fact .fv{font:700 15px var(--font-sans);color:var(--connecta-ink);margin-top:3px}
+  .attach{display:flex;align-items:center;gap:11px;background:var(--neutral-50);border:1px solid var(--border-1);border-radius:12px;padding:11px 13px}
+  .attach .ic{width:34px;height:34px;border-radius:9px;background:var(--connecta-sky);color:var(--connecta-ink);display:grid;place-items:center;flex:none}
+  .attach .ic svg{width:18px;height:18px}
+  .attach .an{font:600 13px var(--font-sans);color:var(--connecta-ink)}
+  .attach .am{font:400 11px var(--font-sans);color:var(--fg-3)}
+  .attach .dl{margin-left:auto;color:var(--scope-tasks-accent,#0F1A24)}
+  .attach .dl svg{width:18px;height:18px}
+  .w-foot{flex:none;padding:13px 16px 18px;border-top:1px solid var(--border-1);display:flex;gap:8px}
+  .w-foot .btn{flex:1;width:auto;padding:13px}
+  .w-foot .btn.ghost{flex:none;padding:13px 16px;background:var(--neutral-50);box-shadow:none}
+
+  /* toast */
+  .toast{position:absolute;left:14px;right:14px;bottom:18px;z-index:30;background:var(--connecta-ink);color:#fff;border-radius:13px;padding:13px 15px;display:flex;align-items:center;gap:10px;font:600 13px var(--font-sans);box-shadow:0 10px 26px rgba(15,26,36,.3);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s;pointer-events:none}
+  .toast.show{opacity:1;transform:none}
+  .toast svg{width:18px;height:18px;flex:none;color:var(--connecta-lime)}
+
+  .caption{margin-top:12px;font:500 12px var(--font-sans);color:var(--fg-3)}
 </style>
 
 <div class="wrap">
-  <div>
-    <div class="col-label">Desktop</div>
-    <div class="card">
-      <div class="head">
-        <span class="tag">Задача</span>
-        <span class="meta-class">клас 7А · физика</span>
-      </div>
-      <div>
-        <div class="from">г-жа Петрова · Teacher</div>
-        <div class="title">Измерване на скорост на топче по рампа</div>
-      </div>
-      <div class="body">Опишете как ще измерите скоростта на топче, спускащо се по рампа. Включете възможните грешки при измерване и как ще ги намалите.</div>
-      <button class="why-btn" aria-expanded="false" data-why>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-        Детайли
-        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="why-body" hidden data-whybody>
-        <div class="why-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg>Детайли по задачата</div>
-        Срок: петък, 20 септ · 10 точки · предай като снимка или кратък текст в класния кръг.
-      </div>
-      <div class="actions">
-        <button class="btn primary">Виж задачата</button>
-        <button class="btn ghost">Маркирай прочетено</button>
-      </div>
-    </div>
-  </div>
 
+  <!-- ============ A · interactive ============ -->
   <div>
-    <div class="col-label">Mobile</div>
-    <div class="phone">
+    <div class="col-label">In thread · tap "Виж задачата"</div>
+    <div class="phone" id="phone">
       <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="top"><span class="av">7А</span><div><div class="nm">Клас 7А · физика</div><div class="pr">класен кръг</div></div></div>
       <div class="screen">
-        <div class="card">
+        <div class="sysline">Нова задача от г-жа Петрова</div>
+
+        <div class="card" id="taskCard">
           <div class="head">
             <span class="tag">Задача</span>
-            <span class="meta-class">7А · физика</span>
+            <span class="status-pill" id="statusPill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Нова</span>
           </div>
           <div>
-            <div class="from">г-жа Петрова · Teacher</div>
+            <div class="from">г-жа Петрова · клас 7А · физика</div>
             <div class="title">Измерване на скорост на топче по рампа</div>
           </div>
           <div class="body">Опишете как ще измерите скоростта на топче по рампа и как ще намалите грешките при измерване.</div>
-          <button class="why-btn" aria-expanded="false" data-why>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            Детайли
-            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="why-body" hidden data-whybody>
-            <div class="why-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6"/></svg>Детайли</div>
-            Срок: петък · 10 точки · предай снимка или текст.
-          </div>
+          <div class="duerow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Срок: петък, 20 септ · 10 точки</div>
           <div class="actions">
-            <button class="btn primary">Виж задачата</button>
-            <button class="btn ghost">Маркирай прочетено</button>
+            <button class="btn primary" id="openTask">Виж задачата</button>
+            <button class="btn ghost" id="quickRead">Маркирай прочетено</button>
+          </div>
+        </div>
+
+        <div class="read-strip" id="readStrip">
+          <span class="rc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span class="rt"><b>Задача прочетена</b><span>Измерване на скорост · петък, 20 септ</span></span>
+          <button class="undo" id="undoRead">Покажи</button>
+        </div>
+      </div>
+
+      <!-- full-screen task window -->
+      <div class="overlay" id="taskWindow">
+        <div class="backdrop" data-close></div>
+        <div class="window">
+          <div class="w-bar">
+            <button class="back" data-close aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div><div class="wt">Задача · физика</div><div class="ws">г-жа Петрова · клас 7А</div></div>
+          </div>
+          <div class="w-body">
+            <div class="w-title">Измерване на скорост на топче по рампа</div>
+            <div class="facts">
+              <div class="fact"><div class="fl">Срок</div><div class="fv">петък, 20.09</div></div>
+              <div class="fact"><div class="fl">Точки</div><div class="fv">10 т.</div></div>
+              <div class="fact"><div class="fl">Предаване</div><div class="fv">снимка</div></div>
+            </div>
+            <div class="w-block">
+              <div class="w-h">Какво да направите</div>
+              <div class="w-p">Опишете как ще измерите скоростта на топче, спускащо се по рампа. Включете възможните грешки при измерване и как ще ги намалите.</div>
+            </div>
+            <div class="w-block">
+              <div class="w-h">Стъпки</div>
+              <ol class="w-list">
+                <li>Измерете дължината на рампата с линийка.</li>
+                <li>Засечете времето на спускане 3 пъти.</li>
+                <li>Изчислете средната скорост (v = s ÷ t).</li>
+                <li>Опишете 2 източника на грешка.</li>
+              </ol>
+            </div>
+            <div class="w-block">
+              <div class="w-h">Материал</div>
+              <div class="attach">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+                <div><div class="an">Рампа_упътване.pdf</div><div class="am">2 стр · 480 KB</div></div>
+                <span class="dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
+              </div>
+            </div>
+          </div>
+          <div class="w-foot">
+            <button class="btn primary" id="markRead">Маркирай прочетено</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Маркирано като прочетено</div>
+    </div>
+    <div class="caption">tap "Виж задачата" → full task window → "Маркирай прочетено" clears the card from the thread + toast</div>
+  </div>
+
+  <!-- ============ B · the full window (static) ============ -->
+  <div>
+    <div class="col-label">Full window · expanded task</div>
+    <div class="phone" style="overflow:hidden">
+      <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="overlay open" style="position:absolute;top:38px">
+        <div class="window" style="animation:none;border-radius:0;top:0">
+          <div class="w-bar">
+            <button class="back" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div><div class="wt">Задача · физика</div><div class="ws">г-жа Петрова · клас 7А</div></div>
+          </div>
+          <div class="w-body">
+            <div class="w-title">Измерване на скорост на топче по рампа</div>
+            <div class="facts">
+              <div class="fact"><div class="fl">Срок</div><div class="fv">петък, 20.09</div></div>
+              <div class="fact"><div class="fl">Точки</div><div class="fv">10 т.</div></div>
+              <div class="fact"><div class="fl">Предаване</div><div class="fv">снимка</div></div>
+            </div>
+            <div class="w-block">
+              <div class="w-h">Какво да направите</div>
+              <div class="w-p">Опишете как ще измерите скоростта на топче, спускащо се по рампа. Включете възможните грешки при измерване и как ще ги намалите.</div>
+            </div>
+            <div class="w-block">
+              <div class="w-h">Стъпки</div>
+              <ol class="w-list">
+                <li>Измерете дължината на рампата с линийка.</li>
+                <li>Засечете времето на спускане 3 пъти.</li>
+                <li>Изчислете средната скорост (v = s ÷ t).</li>
+                <li>Опишете 2 източника на грешка.</li>
+              </ol>
+            </div>
+            <div class="w-block">
+              <div class="w-h">Материал</div>
+              <div class="attach">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+                <div><div class="an">Рампа_упътване.pdf</div><div class="am">2 стр · 480 KB</div></div>
+                <span class="dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg></span>
+              </div>
+            </div>
+          </div>
+          <div class="w-foot">
+            <button class="btn primary">Маркирай прочетено</button>
           </div>
         </div>
       </div>
     </div>
+    <div class="caption">due · points · submission facts, steps, and the attached material</div>
   </div>
 </div>
 
-<div style="margin-top:14px" class="label-eyebrow">teacher task · sky ground + ink type · same palette as teacher bubble &amp; voice</div>
 <script>
-  document.querySelectorAll('[data-why]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      btn.parentNode.querySelector('[data-whybody]').toggleAttribute('hidden', open);
-    });
+  var win = document.getElementById('taskWindow');
+  function openWin(){ win.classList.add('open'); }
+  function closeWin(){ win.classList.remove('open'); }
+  document.getElementById('openTask').addEventListener('click', openWin);
+  win.querySelectorAll('[data-close]').forEach(function(el){ el.addEventListener('click', closeWin); });
+
+  var card = document.getElementById('taskCard');
+  var strip = document.getElementById('readStrip');
+  var pill = document.getElementById('statusPill');
+  var toast = document.getElementById('toast');
+
+  function markRead(){
+    closeWin();
+    card.style.display = 'none';     // clears the task from the thread
+    strip.classList.add('show');     // leaves a calm "read" strip in its place
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2400);
+  }
+  document.getElementById('markRead').addEventListener('click', markRead);
+  document.getElementById('quickRead').addEventListener('click', markRead);
+
+  document.getElementById('undoRead').addEventListener('click', function(){
+    strip.classList.remove('show');
+    card.style.display = '';
+    // status now reflects it's been opened/read once
+    pill.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Прочетено';
+    pill.style.background = 'var(--connecta-ink)';
+    pill.style.color = 'var(--connecta-lime)';
   });
 </script>
 </body></html>

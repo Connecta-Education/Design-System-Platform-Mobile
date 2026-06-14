@@ -1,69 +1,222 @@
 <!doctype html>
-<!-- @dsCard group="Cells" name="Cells — Parent alert" subtitle="High-signal alert · web + mobile" viewport="820x360" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:820px">
+<!-- @dsCard group="Cells" name="Cells — Parent alert" subtitle="Full flow · alert → open guidance → mark reviewed → status change · web + mobile" viewport="860x720" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:860px">
 <style>
-  .wrap{display:flex;gap:32px;align-items:flex-start}
+  .wrap{display:flex;gap:34px;align-items:flex-start}
   .col-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
-  .alert{background:var(--state-alert-bg);border:1px solid var(--tint-coral);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+
+  /* ===== alert card (shared) ===== */
+  .alert{background:var(--state-alert-bg);border:1px solid var(--tint-coral);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:11px;box-sizing:border-box;transition:background var(--dur-base) var(--ease-standard),border-color var(--dur-base) var(--ease-standard)}
   .alert .top{display:flex;align-items:center;gap:8px}
-  .alert .dot{width:7px;height:7px;border-radius:9999px;background:var(--connecta-coral);flex:none}
-  .alert .for{font:500 13px var(--font-sans);color:var(--connecta-plum)}
-  .alert .time{font:400 12px var(--font-sans);color:var(--connecta-plum);opacity:.55;margin-left:auto}
-  .alert .title{font:600 16px var(--font-sans);color:var(--connecta-plum);letter-spacing:-.005em}
-  .alert .body{font:400 14px var(--font-sans);color:var(--connecta-plum);line-height:1.45;opacity:.85}
-  .alert .actions{display:flex;gap:8px;margin-top:4px}
-  .alert .btn{border:0;border-radius:10px;padding:8px 14px;font:600 13px var(--font-sans);cursor:pointer}
+  .alert .dot{width:8px;height:8px;border-radius:9999px;background:var(--connecta-coral);flex:none}
+  .alert .for{font:600 13px var(--font-sans);color:var(--connecta-plum)}
+  .alert .status{margin-left:auto;display:flex;align-items:center;gap:6px;font:600 11px var(--font-sans);letter-spacing:.02em;padding:4px 9px;border-radius:9999px;background:var(--connecta-coral);color:#fff}
+  .alert .status svg{width:12px;height:12px}
+  .alert .time{font:400 12px var(--font-sans);color:var(--connecta-plum);opacity:.55}
+  .alert .title{font:600 16px/1.25 var(--font-sans);color:var(--connecta-plum);letter-spacing:-.005em}
+  .alert .body{font:400 14px/1.45 var(--font-sans);color:var(--connecta-plum);opacity:.85}
+  .alert .actions{display:flex;gap:8px;margin-top:3px}
+  .alert .btn{border:0;border-radius:10px;padding:9px 15px;font:600 13px var(--font-sans);cursor:pointer;transition:opacity var(--dur-base)}
   .alert .btn.primary{background:var(--connecta-ink);color:var(--connecta-paper)}
   .alert .btn.ghost{background:transparent;color:var(--connecta-plum);border:1px solid var(--connecta-plum)}
+  .alert .btn:active{opacity:.8}
 
-  .desk .alert{width:480px;box-sizing:border-box}
+  /* reviewed end-state */
+  .alert.reviewed{background:var(--state-ok-bg);border-color:var(--connecta-lime)}
+  .alert.reviewed .dot{background:var(--connecta-olive)}
+  .alert.reviewed .for,.alert.reviewed .title,.alert.reviewed .body,.alert.reviewed .time{color:var(--connecta-olive)}
+  .alert.reviewed .status{background:var(--connecta-olive);color:var(--connecta-lime)}
 
-  /* phone */
-  .phone{width:300px;background:#fff;border:1px solid var(--border-1);border-radius:34px;box-shadow:var(--shadow-3);overflow:hidden}
-  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 6px;font:600 12px var(--font-sans);color:var(--fg-1)}
+  /* ===== inline guidance (web) ===== */
+  .guidance{border-top:1px solid rgba(87,27,50,.16);margin-top:2px;padding-top:13px;display:none;flex-direction:column;gap:12px}
+  .guidance.open{display:flex;animation:fade .22s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .g-h{font:700 12px var(--font-sans);letter-spacing:.04em;text-transform:uppercase;color:var(--connecta-plum);opacity:.7}
+  .g-step{display:flex;gap:11px;align-items:flex-start}
+  .g-step .num{width:22px;height:22px;border-radius:7px;flex:none;background:var(--connecta-plum);color:#fff;display:grid;place-items:center;font:700 12px var(--font-sans)}
+  .g-step .gt{font:600 13.5px/1.3 var(--font-sans);color:var(--connecta-plum)}
+  .g-step .gx{font:400 13px/1.45 var(--font-sans);color:var(--connecta-plum);opacity:.82;margin-top:2px}
+  .privacy{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.55);border-radius:10px;padding:9px 12px;font:400 12px/1.4 var(--font-sans);color:var(--connecta-plum)}
+  .privacy svg{width:15px;height:15px;flex:none;opacity:.7}
+
+  .desk{width:500px}
+  .desk .alert{width:100%}
+
+  /* ===== phone ===== */
+  .phone{position:relative;width:310px;height:632px;background:#fff;border:1px solid var(--border-1);border-radius:38px;box-shadow:var(--shadow-3);overflow:hidden;display:flex;flex-direction:column}
+  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:13px 24px 7px;font:600 12px var(--font-sans);color:var(--fg-1);flex:none}
   .phone .sb .dots{display:flex;gap:4px}.phone .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
-  .phone .hdr{padding:6px 18px 12px;border-bottom:1px solid var(--border-1);display:flex;align-items:center;gap:9px}
+  .phone .hdr{padding:5px 18px 12px;border-bottom:1px solid var(--border-1);display:flex;align-items:center;gap:9px;flex:none}
   .phone .hdr img{width:22px;height:22px}
   .phone .hdr .t{font:600 14px var(--font-sans);color:var(--fg-1)}
-  .phone .screen{padding:14px;background:var(--bg-page);min-height:200px}
-  .phone .alert{width:100%;box-sizing:border-box;border-radius:14px;padding:16px}
+  .phone .screen{flex:1;min-height:0;overflow-y:auto;padding:14px;background:var(--bg-page)}
+  /* bottom tab bar — canonical parent mobile nav (Home · Kids · Alerts · Rules · Privacy) */
+  .phone .tabnav{flex:none;display:flex;justify-content:space-around;align-items:center;background:#fff;border-top:1px solid var(--border-1);padding:8px 4px 11px}
+  .phone .tb{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--fg-4);font:600 10px var(--font-sans)}
+  .phone .tb svg{width:21px;height:21px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .phone .tb.sel{color:var(--connecta-ink)}
+  .phone .alert{width:100%;border-radius:14px;padding:16px}
   .phone .alert .title{font-size:15px}
   .phone .alert .actions{flex-direction:column;align-items:stretch}
-  .phone .alert .btn{width:100%;text-align:center;padding:11px}
+  .phone .alert .btn{width:100%;text-align:center;padding:12px}
+
+  /* ===== phone guidance sheet (full screen) ===== */
+  .sheet-overlay{position:absolute;inset:0;z-index:20;display:none}
+  .sheet-overlay.open{display:block}
+  .backdrop{position:absolute;inset:0;background:rgba(87,27,50,.34);animation:fade .2s ease}
+  .sheet{position:absolute;left:0;right:0;bottom:0;top:30px;background:#fff;border-radius:24px 24px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 30px rgba(87,27,50,.25);animation:up .28s cubic-bezier(.2,0,0,1)}
+  @keyframes up{from{transform:translateY(40px);opacity:.5}to{transform:none;opacity:1}}
+  .sheet-bar{display:flex;align-items:center;gap:11px;padding:15px 16px;flex:none;border-bottom:1px solid var(--border-1)}
+  .sheet-bar .back{width:32px;height:32px;border-radius:9px;border:0;background:var(--tint-coral);color:var(--connecta-plum);display:grid;place-items:center;cursor:pointer;flex:none}
+  .sheet-bar .back svg{width:19px;height:19px}
+  .sheet-bar .t{font:700 15px var(--font-sans);color:var(--connecta-plum)}
+  .sheet-bar .s{font:400 11px var(--font-sans);color:var(--connecta-plum);opacity:.6;margin-top:1px}
+  .sheet-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+  .sheet-foot{flex:none;padding:14px 16px 18px;border-top:1px solid var(--border-1);display:flex;gap:8px}
+  .sheet-foot .btn{flex:1;border:0;border-radius:12px;padding:13px;font:600 14px var(--font-sans);cursor:pointer}
+  .sheet-foot .btn.primary{background:var(--connecta-ink);color:#fff}
+  .sheet-foot .btn.ghost{flex:none;background:var(--neutral-50);color:var(--connecta-plum);padding:13px 16px}
+  .pcard{background:var(--state-alert-bg);border:1px solid var(--tint-coral);border-radius:14px;padding:14px 15px;display:flex;flex-direction:column;gap:6px}
+  .pcard .pt{font:600 15px/1.25 var(--font-sans);color:var(--connecta-plum)}
+  .pcard .pb{font:400 13px/1.45 var(--font-sans);color:var(--connecta-plum);opacity:.85}
+
+  /* toast */
+  .toast{position:absolute;left:14px;right:14px;bottom:74px;z-index:30;background:var(--connecta-olive);color:var(--connecta-lime);border-radius:13px;padding:13px 15px;display:flex;align-items:center;gap:10px;font:600 13px var(--font-sans);box-shadow:0 10px 26px rgba(66,79,26,.32);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s;pointer-events:none}
+  .toast.show{opacity:1;transform:none}
+  .toast svg{width:18px;height:18px;flex:none}
 </style>
 
 <div class="wrap">
+
+  <!-- ============ WEB ============ -->
   <div class="desk">
-    <div class="col-label">Web</div>
-    <div class="alert">
-      <div class="top"><span class="dot"></span><span class="for">for you</span><span class="time">today, 14:32</span></div>
+    <div class="col-label">Web · open guidance inline → mark reviewed</div>
+    <div class="alert" id="webAlert">
+      <div class="top">
+        <span class="dot"></span><span class="for">for you</span>
+        <span class="status" id="webStatus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>Needs review</span>
+      </div>
       <div class="title">A pattern in Mia's circle is worth a look.</div>
-      <div class="body">We don't read messages — we noticed repeated risk language and a cooldown that was ignored.</div>
+      <div class="body">We don't read messages — we noticed repeated risk language and a cooldown that was ignored, twice this week.</div>
+
+      <div class="guidance" id="webGuidance">
+        <div class="g-h">What we suggest</div>
+        <div class="g-step"><span class="num">1</span><div><div class="gt">Ask, don't accuse.</div><div class="gx">"How are things in the group chat lately?" opens more than naming what we saw.</div></div></div>
+        <div class="g-step"><span class="num">2</span><div><div class="gt">Name the feeling, not the screenshot.</div><div class="gx">Mia knows the cooldown fired — she doesn't need the transcript repeated back.</div></div></div>
+        <div class="g-step"><span class="num">3</span><div><div class="gt">Agree one small next step together.</div><div class="gx">A short break from the circle, or muting one thread, is often enough.</div></div></div>
+        <div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>GoodTalk flags patterns, never message content. Mia's words stay private to her.</div>
+      </div>
+
       <div class="actions">
-        <button class="btn primary">Open guidance</button>
-        <button class="btn ghost">Mark reviewed</button>
+        <button class="btn primary" id="webOpen">Open guidance</button>
+        <button class="btn ghost" id="webReview">Mark reviewed</button>
       </div>
     </div>
+    <div style="margin-top:10px" class="label-eyebrow">unreviewed (coral) → guidance expands → reviewed flips the card to calm olive</div>
   </div>
 
+  <!-- ============ MOBILE ============ -->
   <div>
-    <div class="col-label">Mobile</div>
-    <div class="phone">
+    <div class="col-label">Mobile · open guidance sheet → mark reviewed</div>
+    <div class="phone" id="phone">
       <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
       <div class="hdr"><img src="../assets/glyph-nn-coral.svg"/><span class="t">Alerts</span></div>
       <div class="screen">
-        <div class="alert">
-          <div class="top"><span class="dot"></span><span class="for">for you</span><span class="time">14:32</span></div>
+        <div class="alert" id="phAlert">
+          <div class="top">
+            <span class="dot"></span><span class="for">for you</span>
+            <span class="status" id="phStatus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>Needs review</span>
+          </div>
           <div class="title">A pattern in Mia's circle is worth a look.</div>
           <div class="body">We don't read messages — we noticed repeated risk language.</div>
           <div class="actions">
-            <button class="btn primary">Open guidance</button>
-            <button class="btn ghost">Mark reviewed</button>
+            <button class="btn primary" id="phOpen">Open guidance</button>
+            <button class="btn ghost" id="phReviewQuick">Mark reviewed</button>
           </div>
         </div>
       </div>
+
+      <nav class="tabnav">
+        <div class="tb"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></div>
+        <div class="tb"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/></svg><span>Kids</span></div>
+        <div class="tb sel"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6l8-3z"/></svg><span>Alerts</span></div>
+        <div class="tb"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Rules</span></div>
+        <div class="tb"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Privacy</span></div>
+      </nav>
+
+      <!-- full-screen guidance sheet -->
+      <div class="sheet-overlay" id="phSheet">
+        <div class="backdrop" data-close></div>
+        <div class="sheet">
+          <div class="sheet-bar">
+            <button class="back" data-close aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div><div class="t">Guidance for you</div><div class="s">Mia's circle · today, 14:32</div></div>
+          </div>
+          <div class="sheet-body">
+            <div class="pcard">
+              <div class="pt">What we noticed</div>
+              <div class="pb">Repeated risk language and a cooldown that was ignored twice this week — a pattern, not a single message.</div>
+            </div>
+            <div class="g-h">What we suggest</div>
+            <div class="g-step"><span class="num">1</span><div><div class="gt">Ask, don't accuse.</div><div class="gx">"How are things in the group chat lately?" opens more than naming what we saw.</div></div></div>
+            <div class="g-step"><span class="num">2</span><div><div class="gt">Name the feeling, not the screenshot.</div><div class="gx">Mia knows the cooldown fired — she doesn't need the transcript repeated.</div></div></div>
+            <div class="g-step"><span class="num">3</span><div><div class="gt">Agree one small next step.</div><div class="gx">A short break, or muting one thread, is often enough.</div></div></div>
+            <div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>GoodTalk flags patterns, never message content.</div>
+          </div>
+          <div class="sheet-foot">
+            <button class="btn primary" id="phReview">Mark reviewed</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- toast -->
+      <div class="toast" id="phToast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Marked reviewed · saved to Mia's history</div>
     </div>
+    <div style="margin-top:10px" class="label-eyebrow">tap Open guidance → full-screen sheet → Mark reviewed → status flips + toast</div>
   </div>
 </div>
 
-<div style="margin-top:14px" class="label-eyebrow">parent alert · calm coral dot · plum type for gravity · ink primary action</div>
+<script>
+  var reviewedStatus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Reviewed · 14:36';
+
+  // ---- WEB: inline guidance + review ----
+  var webGuidance = document.getElementById('webGuidance');
+  var webOpenBtn = document.getElementById('webOpen');
+  document.getElementById('webOpen').addEventListener('click', function(){
+    var open = webGuidance.classList.toggle('open');
+    webOpenBtn.textContent = open ? 'Hide guidance' : 'Open guidance';
+  });
+  document.getElementById('webReview').addEventListener('click', function(){
+    markReviewed(document.getElementById('webAlert'), document.getElementById('webStatus'));
+    webGuidance.classList.remove('open');
+    webOpenBtn.textContent = 'Open guidance';
+    webOpenBtn.disabled = true; webOpenBtn.style.opacity = .45; webOpenBtn.style.cursor = 'default';
+  });
+
+  // ---- PHONE: sheet open/close + review ----
+  var sheet = document.getElementById('phSheet');
+  document.getElementById('phOpen').addEventListener('click', function(){ sheet.classList.add('open'); });
+  sheet.querySelectorAll('[data-close]').forEach(function(el){
+    el.addEventListener('click', function(){ sheet.classList.remove('open'); });
+  });
+  function phReview(){
+    sheet.classList.remove('open');
+    markReviewed(document.getElementById('phAlert'), document.getElementById('phStatus'));
+    var t = document.getElementById('phToast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  }
+  document.getElementById('phReview').addEventListener('click', phReview);
+  document.getElementById('phReviewQuick').addEventListener('click', phReview);
+
+  // ---- shared: flip a card to reviewed ----
+  function markReviewed(card, statusEl){
+    card.classList.add('reviewed');
+    statusEl.innerHTML = reviewedStatus;
+    // swap the action buttons for a single calm note
+    var actions = card.querySelector('.actions');
+    if(actions){
+      actions.innerHTML = '<button class="btn ghost" disabled style="opacity:.75;cursor:default">Reopen guidance</button>';
+    }
+  }
+</script>
 </body></html>
