@@ -1,10 +1,10 @@
 <!doctype html>
-<!-- @dsCard group="Cells" name="Cells — Voice message" subtitle="VoiceMessage · four voices: Kid, Teacher, Socrat, GoodTalk" -->
+<!-- @dsCard group="Cells" name="Cells — Voice message" subtitle="VoiceMessage · four voices: Kid, Teacher, Socratic, GoodTalk" -->
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <title>Connecta — Voice Messages</title>
-<link rel="stylesheet" href="colors_and_type.css"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
 <style>
   html, body { margin:0; padding:0; min-height:100%; background:#0F1A24; color:#fff; }
   body { font-family: "DM Sans", system-ui, sans-serif; padding:48px 24px 96px; box-sizing:border-box; }
@@ -31,11 +31,11 @@
     <div>
       <div class="mono">Connecta · component preview</div>
       <h1 class="h1">Voice messages.</h1>
-      <p class="lede" style="margin-top:8px">One <code style="font:500 12px/1 var(--font-mono); color:#DEFB50; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:4px">VoiceMessage</code> component, four voices. Waveform fills as the message plays; a role chip appears on Teacher / Socrat / GoodTalk so kids never confuse who's speaking. Kid voices have no chip — name + bubble shape is enough.</p>
+      <p class="lede" style="margin-top:8px">One <code style="font:500 12px/1 var(--font-mono); color:#DEFB50; background:rgba(255,255,255,.06); padding:2px 6px; border-radius:4px">VoiceMessage</code> component, four voices. Waveform fills as the message plays; a role chip appears on Teacher / Socratic / GoodTalk so kids never confuse who's speaking. Kid voices have no chip — name + bubble shape is enough.</p>
       <div class="legend">
         <span><span class="swatch" style="background:#F35F49"></span>Kid · ink / coral</span>
         <span><span class="swatch" style="background:#2A6FA8"></span>Teacher · dark blue</span>
-        <span><span class="swatch" style="background:#0F1A24; outline:1px solid #DEFB50"></span>Socrat · black + lime</span>
+        <span><span class="swatch" style="background:#0F1A24; outline:1px solid #DEFB50"></span>Socratic · black + lime</span>
         <span><span class="swatch" style="background:#ECFDA8"></span>GoodTalk · green + black</span>
       </div>
     </div>
@@ -44,8 +44,8 @@
   <div id="root"></div>
 </div>
 
-<script type="text/babel" src="ui_kits/chat-app/components.jsx"></script>
-<script type="text/babel" src="ui_kits/chat-app/preview-voices.jsx"></script>
+<script type="text/babel" src="../ui_kits/chat-app/components.jsx"></script>
+<script type="text/babel" src="../ui_kits/chat-app/preview-voices.jsx"></script>
 <script type="text/babel">
 const { useState, useEffect } = React;
 
@@ -142,14 +142,14 @@ function App() {
       </PhonePanel>
 
       {/* ── SOCRATIC ─────────────────────────────────── */}
-      <PhonePanel label="Socrat · voice prompt" accent="#DEFB50">
-        <MiniHeader title="Лаб 7А — Хвърляне на топче" subtitle="физика · със Socrat" kind="lab"/>
+      <PhonePanel label="Socratic · voice prompt" accent="#DEFB50">
+        <MiniHeader title="Лаб 7А — Хвърляне на топче" subtitle="физика · със Socratic" kind="lab"/>
         <div style={{flex:1, overflowY:'auto', padding:'14px 14px', background:C.paper}}>
-          <Bubble system>Socrat помага в тази задача</Bubble>
+          <Bubble system>Socratic помага в тази задача</Bubble>
           <Bubble mine time="14:20">не разбирам втората част</Bubble>
           <VoiceMessage
             voice="socratic"
-            sender="Socrat"
+            sender="Socratic"
             duration={22}
             progress={progress.socratic}
             playing={playing.socratic}

@@ -63,18 +63,35 @@ The public marketing site shipped before this system was finalized. Auditing it 
 | `colors_and_type.css` | All CSS custom properties: brand & neutral palette, semantic vars (`--fg-1`, `--bg-page`, `--state-*`, `--socratic-*`, `--scope-*`, `--role-*`), radii, shadows, spacing, motion, **brand washes (`--wash-*`)** and **photo scrims (`--scrim-*`)**. Drop in once at the document root. |
 | `fonts/` | DM Sans variable font files (roman + italic), self-hosted. Covers Latin Extended + full Cyrillic for Bulgarian. |
 | `assets/` | Logos (4 wordmark colorways), app-icon glyphs (4 backgrounds + 4 bare glyphs), mood/type reference screenshots, brand sheet. |
-| `preview/` | One HTML card per token group / principle, registered to the Design System tab. |
+| `preview/` | One HTML card per token group / principle / component, registered to the Design System tab. Includes the **Cells** — chat **Bubbles**, **Chat input (composer)**, **Learning bubble** (single Socratic reply) and **Socratic interaction** (multi-step lesson, compact preview → tap → full-screen), **Teacher task**, **Voice message** and **Voice recorder**. |
 | `ui_kits/chat-app/` | Hi-fi recreation of the kid/teen chat app (login → circle list → chat with GoodTalk intervention). |
 | `ui_kits/parent-portal/` | Hi-fi recreation of the parent/guardian dashboard (alerts, circles, controls). |
 | `primereact-connecta.css` | **The component layer.** Themed PrimeReact catalog — Connecta tokens applied to PrimeReact's component structure. The CSS counterpart of the Connecta preset. |
-| `preview/primereact-*.html` | Per-family PrimeReact component proofs (forms, overlays, menus, data, etc.), registered as Design System cards. |
-| `Connecta PrimeReact Bridge.html` | Engineering bridge — how to wire PrimeReact into an app via the Connecta preset (styled mode) or passthrough (unstyled). |
-| `Connecta × PrimeReact.html` | Visual catalog of the themed PrimeReact components. |
-| `Connecta Chat App.html` | Top-level demo of the chat app. |
+| `preview/primereact-*.html` | Per-family PrimeReact component proofs (forms, overlays, menus, data, etc.), registered as Design System cards under **Components - Prime React**. |
+| `Connecta × PrimeReact.html` | Visual catalog of the themed PrimeReact components, and how to wire them into an app (Connecta preset / passthrough). |
+| `Connecta Design System - Guide.html` | Browsable guide / index of the system. |
 | `SKILL.md` | Agent skill manifest — pointer for Claude Code or other agents. |
 | `README.md` | This file. |
 
-> **Kits still to build for v2:** teacher workspace, school admin console, Socratic homework canvas, Lab Circles workspace, country-pack onboarding flow. Confirm priority with the product team before starting.
+> **Kits still to build for v2:** teacher workspace, school admin console, Lab Circles workspace, country-pack onboarding flow. The **Socratic homework canvas** has shipped at cell level (the **Socratic interaction** cell — a multi-step lesson that opens full-screen from a compact in-chat preview); a full standalone canvas kit can follow. Confirm priority with the product team before starting.
+
+---
+
+## Design system structure
+
+The Design System tab is organized into **seven groups**:
+
+| Group | What's in it |
+|---|---|
+| **Atoms** | Color, type, spacing, radii & shadow tokens — the variables everything else is composed from. |
+| **Brand** | Wordmark, app-icon glyph, avatars, imagery & identity principles. |
+| **Components - Prime React** | The PrimeReact × Connecta bridge — every PrimeReact widget restyled to the tokens (25 sheets). |
+| **Cells** | Composed chat & learning surfaces — message bubble, chat input (composer), Learning bubble, Socratic interaction, teacher task, teacher announcement, voice message, voice recorder, parent alert. |
+| **Molecules** | Single-purpose controls — button, input & textarea, form controls, tag, role badge, indicators, utility. |
+| **Organisms** | Multi-cell flows — navigation (student · teacher · parent), GoodTalk nudge banner. |
+| **Species** | Full applications — chat app, parent portal, teacher panel. |
+
+> The five product layers read **Atoms → Molecules → Cells → Organisms → Species**, with **Brand** and the **Components - Prime React** bridge alongside the chain. The standalone *Overview* map card has been retired — this listing is the source of truth for the taxonomy.
 
 ---
 
@@ -414,7 +431,7 @@ Photo scrims: `--scrim-bottom`, `--scrim-top`, `--scrim-vignette`.
 > **The rule for building UI: compose from PrimeReact + Connecta's custom components.**
 > When you implement any Connecta interface in code, build it from two sources only:
 > 1. **[PrimeReact](https://primereact.org)** — for standard UI primitives (forms, inputs, selects, dialogs, overlays, menus, tables, date pickers, toasts, …), themed through the **Connecta preset**.
-> 2. **Connecta custom components** — for the brand-specific surfaces PrimeReact doesn't provide: the GoodTalk **NudgeBanner**, chat **Bubbles**, **CoachCard**, **role badges**, and the audience-scoped shells. These live in `ui_kits/` and are spec'd by the `preview/components-*.html` cards.
+> 2. **Connecta custom components** — for the brand-specific surfaces PrimeReact doesn't provide: the GoodTalk **NudgeBanner**, chat **Bubbles**, the **Chat input (composer)**, **Learning bubble** (single Socratic reply) and **Socratic interaction** (multi-step lesson, opens full-screen from a compact preview), **Voice message** & **Voice recorder**, **CoachCard**, **role badges**, and the audience-scoped shells. These live in `ui_kits/` and are spec'd by the `preview/components-*.html` cards.
 >
 > Do **not** introduce a third-party component library, and do **not** reinvent the custom components — extend the ones in `ui_kits/`. (The previous Tamagui code export has been removed.)
 
@@ -422,7 +439,7 @@ Pick PrimeReact first; reach for a Connecta custom component only when no PrimeR
 
 ### How PrimeReact gets the Connecta look
 
-Two modes, both reading from `colors_and_type.css` tokens — see `Connecta PrimeReact Bridge.html` for the full walkthrough.
+Two modes, both reading from `colors_and_type.css` tokens — see `Connecta × PrimeReact.html` for the full catalog and wiring walkthrough.
 
 | Mode | When | How |
 |---|---|---|
@@ -446,7 +463,8 @@ export default function App() {
 
 ### Theme contract (don't relitigate these in component code)
 
-- **Ink is primary** — primary buttons, the focus ring, selected borders. Coral is **error only**, never a default action. Lime is highlight / "go".
+- **Ink is primary** — primary buttons, the focus ring, selected borders, and the **send action** (the composer's send is an ink circular up-arrow, never coral). Coral is **error only**, never a default action. Lime is highlight / "go".
+- **Always ship navigation.** Every mobile or web role screen (student · teacher · parent) must include the canonical bottom tab-bar navigation — never deliver a screen without it. See the *navigation* organism.
 - **Hairline borders over shadows.** 1px `--border-1`; 2px ink for selected. DM Sans throughout; `--r-sm` for input radius, `--r-md` for buttons, `--r-lg` for cards.
 - **No gradients in component chrome.** Washes/scrims stay in marketing surfaces only.
 - Everything maps to a `var()` token — never hard-code a hex, px, or font-family inside a component (the `_adherence.oxlintrc.json` lint enforces this).

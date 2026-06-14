@@ -117,20 +117,33 @@ function Bubble({ children, mine, sender, time, system }) {
 }
 
 // ─────────────────────────── Composer ───────────────────────────
-function Composer({ value, onChange, onSend, onRecordStart, onEmoji, disabled, placeholder='Write a message' }) {
+// Instagram-style single bar: a leading camera circle, then ONE input pill
+// that holds the placeholder on the left and the action icons — mic · image ·
+// camera — inline on the right, all inside the field. "+" opens an attachment
+// tray. Once you type, the inline icons collapse into a single send button.
+function Composer({ value, onChange, onSend, onRecordStart, onImage, onCamera, onAttach, attachOpen, disabled, placeholder='Message…' }) {
   const empty = !value;
+  const iconBtn = (icon, label, onClick) => (
+    <button onClick={onClick} aria-label={label} style={{
+      width:30, height:30, borderRadius:9999, border:0, cursor:'pointer', flexShrink:0,
+      background:'transparent', color:C.n700,
+      display:'flex', alignItems:'center', justifyContent:'center',
+    }}><i data-lucide={icon} style={{width:21, height:21}}></i></button>
+  );
   return (
     <div style={{
-      display:'flex', alignItems:'flex-end', gap:10, padding:'10px 12px 26px',
+      display:'flex', alignItems:'center', gap:10, padding:'10px 12px 26px',
       background:C.paper, borderTop:`1px solid ${C.n100}`, boxSizing:'border-box',
     }}>
-      <button style={{
-        width:40, height:40, borderRadius:12, background:C.n50, border:0, cursor:'pointer',
-        display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, color:C.n600,
-      }}><i data-lucide="plus" style={{width:20, height:20}}></i></button>
+      <button onClick={onCamera} aria-label="Camera" style={{
+        width:38, height:38, borderRadius:9999, border:0, cursor:'pointer', flexShrink:0,
+        background:C.coral, color:'#fff',
+        display:'flex', alignItems:'center', justifyContent:'center',
+      }}><i data-lucide="camera" style={{width:20, height:20}}></i></button>
+
       <div style={{
-        flex:1, background:C.paper, borderRadius:14, boxShadow:`inset 0 0 0 1px ${C.n200}`,
-        display:'flex', alignItems:'center', gap:6, minHeight:40, padding:'8px 6px 8px 12px',
+        flex:1, background:C.n50, borderRadius:9999,
+        display:'flex', alignItems:'center', gap:4, minHeight:40, padding:'4px 8px 4px 16px',
       }}>
         <input
           value={value} onChange={e=>onChange(e.target.value)}
@@ -141,37 +154,53 @@ function Composer({ value, onChange, onSend, onRecordStart, onEmoji, disabled, p
             font:`400 14px/1.4 ${FONT}`, color:C.ink, minWidth:0,
           }}
         />
-        <button onClick={onEmoji} aria-label="Emoji" style={{
-          width:28, height:28, borderRadius:9999, border:0, cursor:'pointer',
-          background:'transparent', color:C.n500, flexShrink:0,
-          display:'flex', alignItems:'center', justifyContent:'center',
-        }}>
-          <i data-lucide="smile" style={{width:20, height:20}}></i>
-        </button>
+        {empty ? (
+          <div style={{display:'flex', alignItems:'center', gap:2, flexShrink:0}}>
+            {iconBtn('mic', 'Hold to record', onRecordStart)}
+            {iconBtn('image', 'Photo', onImage)}
+            {iconBtn('plus', 'Add', onAttach)}
+          </div>
+        ) : (
+          <button onClick={onSend} disabled={disabled} aria-label="Send" style={{
+            width:34, height:34, borderRadius:9999, border:0, flexShrink:0,
+            background: disabled ? C.n100 : C.ink, color: disabled ? C.n400 : '#fff',
+            cursor: disabled ? 'not-allowed':'pointer',
+            display:'flex', alignItems:'center', justifyContent:'center',
+          }}><i data-lucide="arrow-up" style={{width:18, height:18}}></i></button>
+        )}
       </div>
-      {empty ? (
-        <button onClick={onRecordStart} aria-label="Hold to record" style={{
-          width:40, height:40, borderRadius:12, border:0, cursor:'pointer',
-          background:C.n50, color:C.n700,
-          display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0,
-          transition:'transform 140ms cubic-bezier(.2,0,0,1)',
+    </div>
+  );
+}
+
+// ─────────────────────────── Attachment tray ───────────────────────────
+// Slides up over the composer when "+" is tapped. Photo · camera · voice · file.
+function AttachTray({ onPick }) {
+  const items = [
+    { id:'photo',  icon:'image',     label:'Photo',  bg:C.sky,      fg:C.ink },
+    { id:'camera', icon:'camera',    label:'Camera', bg:C.paleLime, fg:C.olive },
+    { id:'voice',  icon:'mic',       label:'Voice',  bg:C.pink,     fg:C.plum },
+    { id:'file',   icon:'paperclip', label:'File',   bg:C.n100,     fg:C.n700 },
+  ];
+  return (
+    <div style={{
+      margin:'0 12px 8px', borderRadius:16, background:C.paper,
+      border:`1px solid ${C.n200}`, boxShadow:'0 8px 24px rgba(15,26,36,.10)',
+      padding:'12px', animation:'slideDown 180ms cubic-bezier(.3,0,0,1)',
+      display:'flex', gap:10,
+    }}>
+      {items.map(it=>(
+        <button key={it.id} onClick={()=>onPick(it.id)} style={{
+          flex:1, background:'transparent', border:0, cursor:'pointer',
+          display:'flex', flexDirection:'column', alignItems:'center', gap:7,
         }}>
-          <i data-lucide="mic" style={{width:20, height:20}}></i>
+          <div style={{
+            width:'100%', height:56, borderRadius:16, background:it.bg, color:it.fg,
+            display:'flex', alignItems:'center', justifyContent:'center',
+          }}><i data-lucide={it.icon} style={{width:24, height:24}}></i></div>
+          <div style={{font:`500 11px/1 ${FONT}`, color:C.n600}}>{it.label}</div>
         </button>
-      ) : (
-        <button onClick={onSend} disabled={disabled} style={{
-          width:40, height:40, borderRadius:12, border:0,
-          cursor: disabled ? 'not-allowed':'pointer',
-          background: disabled ? C.n100 : C.ink,
-          color: disabled ? C.n400 : '#fff',
-          display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0,
-          transition:'transform 140ms cubic-bezier(.2,0,0,1)',
-        }} onMouseDown={e=>{if(!disabled) e.currentTarget.style.transform='scale(.96)'}}
-           onMouseUp={e=>e.currentTarget.style.transform='scale(1)'}
-           onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}>
-          <i data-lucide="arrow-up" style={{width:20, height:20}}></i>
-        </button>
-      )}
+      ))}
     </div>
   );
 }
@@ -252,6 +281,150 @@ function SocraticBubble({
         <button onClick={onPrimary} style={btn(C.lime, C.ink)}>{primary}</button>
         <button onClick={onGhost} style={btnGhost(C.lime)}>{ghost}</button>
         <button onClick={onWhy} style={{...btnGhost(C.lime), border:0, marginLeft:'auto', opacity:.85}}>Why?</button>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────── Socratic lesson (preview → full-screen) ───────────────────────────
+// A multi-step Socratic lesson is too tall for the thread, so it rides in as a
+// COMPACT preview bubble. Tapping it opens the whole lesson full-screen (like
+// opening media in a chat); back ‹ or tapping outside returns to the keyboard.
+function LessonPreview({ title = "Let's see it together.", meta = 'Friction & motion · 3 steps', steps = ['Table','Think','Choose'], onOpen }) {
+  return (
+    <button onClick={onOpen} style={{
+      alignSelf:'flex-start', maxWidth:'84%', margin:'8px 12px', textAlign:'left', cursor:'pointer',
+      border:0, background:C.socraticBg, color:'#fff', borderRadius:'18px 18px 18px 6px',
+      padding:'13px 14px', display:'flex', flexDirection:'column', gap:9,
+      animation:'slideDown 220ms cubic-bezier(.3,0,0,1)',
+    }}>
+      <span style={{
+        display:'inline-flex', alignItems:'center', gap:6, alignSelf:'flex-start',
+        background:C.lime, color:C.ink, font:`600 10px/1 ${MONO}`, letterSpacing:'.04em',
+        padding:'5px 9px', borderRadius:9999,
+      }}><i data-lucide="compass" style={{width:11, height:11, strokeWidth:2}}></i>Socratic · for this task</span>
+      <span style={{font:`600 17px/1.2 ${FONT}`, letterSpacing:'-.01em', color:C.lime}}>{title}</span>
+      <span style={{font:`400 12px/1.3 ${FONT}`, color:'rgba(255,255,255,.78)'}}>{meta}</span>
+      <span style={{display:'flex', gap:6, flexWrap:'wrap'}}>
+        {steps.map(s=>(
+          <span key={s} style={{font:`500 10.5px/1 ${FONT}`, color:'rgba(255,255,255,.92)', background:'rgba(255,255,255,.12)', borderRadius:9999, padding:'5px 9px'}}>{s}</span>
+        ))}
+      </span>
+      <span style={{display:'flex', alignItems:'center', justifyContent:'space-between', gap:8, marginTop:1, paddingTop:9, borderTop:'1px solid rgba(255,255,255,.14)'}}>
+        <span style={{font:`600 12px/1 ${FONT}`, color:'#fff'}}>Open full screen</span>
+        <i data-lucide="maximize-2" style={{width:16, height:16, color:C.lime}}></i>
+      </span>
+    </button>
+  );
+}
+
+function LessonChips({ options }) {
+  const [sel, setSel] = React.useState(options.findIndex(o=>o.sel));
+  return (
+    <div style={{display:'flex', flexDirection:'column', gap:9}}>
+      {options.map((o,i)=>(
+        <button key={i} onClick={()=>setSel(i)} style={{
+          display:'flex', alignItems:'center', justifyContent:'center', gap:8, minHeight:46,
+          padding:'0 14px', borderRadius:14, cursor:'pointer',
+          background: sel===i ? C.lime : '#fff', color:C.ink,
+          border:`1px solid ${sel===i ? C.olive : C.n200}`,
+          font:`600 13.5px/1.2 ${FONT}`, letterSpacing:'-.005em',
+        }}>{o.ar && <span style={{fontSize:17, lineHeight:1}}>{o.ar}</span>}{o.label}</button>
+      ))}
+    </div>
+  );
+}
+
+// Full-screen lesson sheet, mounted absolutely inside the chat screen.
+function LessonOverlay({ onClose }) {
+  const stepCard = (n, title, children, bulb) => (
+    <div style={{background:'#fff', borderRadius:18, padding:'15px 16px', display:'flex', flexDirection:'column', gap:11, boxShadow:'0 1px 2px rgba(15,26,36,.05),0 6px 18px -12px rgba(15,26,36,.18)'}}>
+      <div style={{display:'flex', alignItems:'center', gap:10}}>
+        <span style={{width:26, height:26, borderRadius:8, flex:'none', background:C.olive, color:C.lime, display:'grid', placeItems:'center', font:`700 13px/1 ${FONT}`}}>{n}</span>
+        <span style={{font:`600 15px/1.2 ${FONT}`, color:C.ink, letterSpacing:'-.005em', flex:1}}>{title}</span>
+        {bulb && <i data-lucide="lightbulb" style={{width:20, height:20, color:C.olive}}></i>}
+      </div>
+      {children}
+    </div>
+  );
+  const helper = (t) => <p style={{margin:0, font:`400 13.5px/1.5 ${FONT}`, color:C.n600}}>{t}</p>;
+  return (
+    <div style={{position:'absolute', inset:0, zIndex:30}}>
+      <div onClick={onClose} style={{position:'absolute', inset:0, background:'rgba(15,26,36,.42)', animation:'fadeIn .2s ease'}}/>
+      <div style={{
+        position:'absolute', left:0, right:0, bottom:0, top:14, background:C.socraticTint || '#EEF1E1',
+        borderRadius:'22px 22px 0 0', display:'flex', flexDirection:'column', overflow:'hidden',
+        boxShadow:'0 -8px 30px rgba(15,26,36,.25)', animation:'sheetUp .28s cubic-bezier(.2,0,0,1)',
+      }}>
+        <div style={{display:'flex', alignItems:'center', gap:11, padding:14, flex:'none', borderBottom:'1px solid rgba(66,79,26,.14)'}}>
+          <button onClick={onClose} aria-label="Back" style={{width:34, height:34, borderRadius:10, border:0, background:'rgba(66,79,26,.10)', display:'grid', placeItems:'center', cursor:'pointer', color:C.olive, flex:'none'}}>
+            <i data-lucide="chevron-left" style={{width:20, height:20, strokeWidth:2.2}}></i>
+          </button>
+          <div style={{width:34, height:34, borderRadius:9999, background:C.olive, display:'grid', placeItems:'center', flex:'none'}}>
+            <i data-lucide="compass" style={{width:19, height:19, color:C.lime, strokeWidth:2}}></i>
+          </div>
+          <div>
+            <div style={{font:`600 16px/1.1 ${FONT}`, color:C.ink}}>Let's see it together.</div>
+            <div style={{font:`400 11px/1 ${FONT}`, color:C.olive, marginTop:2}}>Socratic · friction</div>
+          </div>
+        </div>
+        <div style={{flex:1, minHeight:0, overflowY:'auto', padding:16, display:'flex', flexDirection:'column', gap:14}}>
+          {stepCard(1, 'Look at the table.', (
+            <React.Fragment>
+              {helper('Look at the table. What goes in the empty cell?')}
+              <div style={{border:`1px solid ${C.n200}`, borderRadius:12, overflow:'hidden', background:'#fff'}}>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr'}}>
+                  <div style={{padding:'0 13px', display:'flex', alignItems:'center', minHeight:46, background:C.olive, color:'#fff', font:`600 12.5px/1.3 ${FONT}`, borderRight:'1px solid rgba(255,255,255,.16)'}}>When there is…</div>
+                  <div style={{padding:'0 13px', display:'flex', alignItems:'center', minHeight:46, background:C.olive, color:'#fff', font:`600 12.5px/1.3 ${FONT}`}}>The cart…</div>
+                </div>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr'}}>
+                  <div style={{padding:'0 13px', display:'flex', alignItems:'center', minHeight:54, font:`500 13.5px/1.3 ${FONT}`, color:C.ink, borderTop:`1px solid ${C.n200}`, borderRight:`1px solid ${C.n200}`}}>Friction</div>
+                  <div style={{padding:'0 13px', display:'flex', alignItems:'center', minHeight:54, font:`500 13.5px/1.3 ${FONT}`, color:C.ink, borderTop:`1px solid ${C.n200}`}}>Stops</div>
+                </div>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr'}}>
+                  <div style={{padding:'0 13px', display:'flex', alignItems:'center', minHeight:54, font:`500 13.5px/1.3 ${FONT}`, color:C.ink, borderTop:`1px solid ${C.n200}`, borderRight:`1px solid ${C.n200}`}}>No friction</div>
+                  <div style={{display:'flex', alignItems:'center', justifyContent:'center', minHeight:54, background:C.lime, font:`700 17px/1 ${FONT}`, color:C.ink, borderTop:`1px solid ${C.n200}`}}>?</div>
+                </div>
+              </div>
+            </React.Fragment>
+          ))}
+          {stepCard(2, 'Think.', (
+            <React.Fragment>
+              {helper("If there's no friction, what happens?")}
+              <LessonChips options={[{label:'Stops'},{label:'Keeps going', sel:true},{label:'Not sure'}]}/>
+            </React.Fragment>
+          ), true)}
+          {stepCard(3, 'Choose an answer.', (
+            <React.Fragment>
+              <div style={{background:'#fff', border:`1px solid ${C.n200}`, borderRadius:14, height:180, display:'grid', placeItems:'center', padding:8, boxSizing:'border-box'}}>
+                <svg viewBox="0 0 320 170" style={{width:'100%', height:'100%'}} xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="122" x2="300" y2="122" stroke={C.ink} strokeWidth="2.5" strokeLinecap="round"/>
+                  <g stroke="#9aa39a" strokeWidth="1.5" strokeLinecap="round">
+                    {[40,62,84,106,128,150,172,194,216,238,260,282].map(x=>(<line key={x} x1={x} y1="124" x2={x-10} y2="136"/>))}
+                  </g>
+                  <circle cx="160" cy="98" r="24" fill="#fff" stroke={C.ink} strokeWidth="2.5"/>
+                  <line x1="44" y1="92" x2="108" y2="92" stroke={C.olive} strokeWidth="4" strokeLinecap="round"/>
+                  <polygon points="108,82 126,92 108,102" fill={C.olive}/>
+                  <text x="74" y="74" textAnchor="middle" fontFamily="DM Sans" fontSize="14" fontWeight="600" fontStyle="italic" fill={C.olive}>push</text>
+                  <line x1="276" y1="92" x2="212" y2="92" stroke="#9aa39a" strokeWidth="4" strokeLinecap="round"/>
+                  <polygon points="212,82 194,92 212,102" fill="#9aa39a"/>
+                  <text x="246" y="74" textAnchor="middle" fontFamily="DM Sans" fontSize="14" fontWeight="600" fontStyle="italic" fill="#7e887e">friction</text>
+                </svg>
+              </div>
+              {helper('Which arrow disappears when there is no friction?')}
+              <LessonChips options={[{label:'friction', ar:'←', sel:true},{label:'push', ar:'→'},{label:'both'}]}/>
+            </React.Fragment>
+          ))}
+          <div style={{background:C.paleLime, borderRadius:18, minHeight:70, padding:'14px 15px', display:'flex', alignItems:'center', gap:13}}>
+            <div style={{width:38, height:38, borderRadius:9999, flex:'none', background:C.olive, display:'grid', placeItems:'center'}}>
+              <i data-lucide="check" style={{width:20, height:20, color:C.lime, strokeWidth:2.5}}></i>
+            </div>
+            <div>
+              <div style={{font:`700 14px/1.2 ${FONT}`, color:C.ink}}>Exactly.</div>
+              <div style={{font:`400 13px/1.45 ${FONT}`, color:C.n600, marginTop:2}}>With no friction, the friction arrow disappears.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -399,8 +572,13 @@ function CirclesScreen({ circles, onOpen }) {
 function ChatScreen({ circle, messages, draft, setDraft, onSend, intervention, onRewrite, onEdit, onWhy, onBack, onSendVoice }) {
   const scrollRef = React.useRef(null);
   const [emojiOpen, setEmojiOpen] = React.useState(false);
+  const [attachOpen, setAttachOpen] = React.useState(false);
   const [recording, setRecording] = React.useState(null); // null | { elapsed }
+  const [lessonOpen, setLessonOpen] = React.useState(false);
   React.useEffect(()=>{ if(scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [messages, intervention, recording]);
+  // re-render lucide icons for anything that mounts after the initial paint
+  // (attach tray, emoji close, recorder) — App's effect only covers its own render.
+  React.useEffect(()=>{ if(window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.75 } }); });
   // tick recorder elapsed
   React.useEffect(() => {
     if (!recording) return;
@@ -408,7 +586,7 @@ function ChatScreen({ circle, messages, draft, setDraft, onSend, intervention, o
     return () => clearInterval(id);
   }, [recording !== null]);
   const insertEmoji = (e) => { setDraft((draft || '') + e); };
-  const startRecord = () => { setRecording({ elapsed: 0 }); setEmojiOpen(false); };
+  const startRecord = () => { setRecording({ elapsed: 0 }); setEmojiOpen(false); setAttachOpen(false); };
   const cancelRecord = () => setRecording(null);
   const sendRecord = () => {
     const dur = Math.max(1, Math.round(recording.elapsed));
@@ -416,7 +594,7 @@ function ChatScreen({ circle, messages, draft, setDraft, onSend, intervention, o
     onSendVoice?.(dur);
   };
   return (
-    <div style={{flex:1, minHeight:0, display:'flex', flexDirection:'column', background:C.n50}}>
+    <div style={{flex:1, minHeight:0, display:'flex', flexDirection:'column', background:C.n50, position:'relative'}}>
       <ChatAppBar
         title={circle.name}
         subtitle={`${circle.members} · private`}
@@ -431,7 +609,9 @@ function ChatScreen({ circle, messages, draft, setDraft, onSend, intervention, o
       <div ref={scrollRef} style={{flex:1, minHeight:0, overflowY:'auto', padding:'12px 14px'}}>
         <Bubble system>Read by your circle only · EU servers</Bubble>
         {messages.map((m,i)=>(
-          m.kind === 'voice'
+          m.kind === 'lesson'
+            ? <LessonPreview key={i} onOpen={()=>setLessonOpen(true)}/>
+          : m.kind === 'voice'
             ? <VoiceMessage key={i} voice={m.voice || (m.mine ? 'kid-mine' : 'kid')}
                 sender={m.sender} time={m.time} duration={m.duration || 12}
                 progress={m.progress || 0} playing={m.playing}
@@ -440,11 +620,12 @@ function ChatScreen({ circle, messages, draft, setDraft, onSend, intervention, o
         ))}
         {intervention === 'pause' && <PauseBanner/>}
       </div>
+      {lessonOpen && <LessonOverlay onClose={()=>setLessonOpen(false)}/>}
       {intervention === 'nudge' && (
         <NudgeBanner draft={draft} onRewrite={onRewrite} onEdit={onEdit} onWhy={onWhy}/>
       )}
-      {emojiOpen && !recording && (
-        <EmojiPicker onPick={(e)=>{ insertEmoji(e); }} onClose={()=>setEmojiOpen(false)}/>
+      {attachOpen && !recording && (
+        <AttachTray onPick={()=>setAttachOpen(false)}/>
       )}
       {recording ? (
         <VoiceRecorder voice="kid-mine" elapsed={recording.elapsed}
@@ -452,7 +633,10 @@ function ChatScreen({ circle, messages, draft, setDraft, onSend, intervention, o
       ) : (
         <Composer value={draft} onChange={setDraft} onSend={onSend}
           onRecordStart={startRecord}
-          onEmoji={()=>setEmojiOpen(o=>!o)}
+          onImage={()=>{ setAttachOpen(true); }}
+          onCamera={()=>{ setAttachOpen(true); }}
+          onAttach={()=>{ setAttachOpen(o=>!o); }}
+          attachOpen={attachOpen}
           disabled={intervention==='pause'}/>
       )}
     </div>
@@ -524,7 +708,7 @@ function VoiceMessage({
     'kid-mine': { bg:C.ink,        fg:C.paper,     wave:C.paper,         waveDim:'rgba(255,255,255,.28)', accent:C.coral,         role:null,                                                  align:'end',   playBg:C.paper,         playFg:C.ink },
     'kid':      { bg:C.paper,      fg:C.ink,       wave:C.ink,           waveDim:'rgba(15,26,36,.20)',    accent:C.ink,           role:null,                                                  align:'start', playBg:C.ink,           playFg:C.paper },
     'teacher':  { bg:C.teacherBg,  fg:C.teacherFg, wave:C.teacherAccent, waveDim:'rgba(15,26,36,.22)',    accent:C.teacherAccent, role:{label:'TEACHER',  bg:C.teacherAccent, fg:C.paper},     align:'start', playBg:C.teacherAccent, playFg:C.paper },
-    'socratic':    { bg:C.socraticBg,    fg:C.paper,     wave:C.lime,          waveDim:'rgba(222,251,80,.30)',  accent:C.lime,          role:{label:'SOCRAT',   bg:C.lime,           fg:C.ink},      align:'start', playBg:C.lime,          playFg:C.ink },
+    'socratic':    { bg:C.socraticBg,    fg:C.paper,     wave:C.lime,          waveDim:'rgba(222,251,80,.30)',  accent:C.lime,          role:{label:'SOCRATIC',   bg:C.lime,           fg:C.ink},      align:'start', playBg:C.lime,          playFg:C.ink },
     'goodtalk': { bg:C.goodtalkBg, fg:C.plum,      wave:C.plum,          waveDim:'rgba(87,27,50,.20)',    accent:C.plum,          role:{label:'GOODTALK', bg:C.plum,           fg:C.paper},    align:'start', playBg:C.plum,          playFg:C.paper },
   }[voice];
 
@@ -669,7 +853,7 @@ function VoiceRecorder({ elapsed = 7, voice = 'kid-mine', onCancel, onSend }) {
 Object.assign(window, {
   C, FONT, MONO,
   ChatAppBar, CircleRow, Bubble, Composer,
-  NudgeBanner, PauseBanner, SocraticBubble, TeacherBubble,
-  EmojiPicker, VoiceMessage, VoiceRecorder,
+  NudgeBanner, PauseBanner, SocraticBubble, LessonPreview, LessonOverlay, TeacherBubble,
+  EmojiPicker, AttachTray, VoiceMessage, VoiceRecorder,
   LoginScreen, CirclesScreen, ChatScreen,
 });

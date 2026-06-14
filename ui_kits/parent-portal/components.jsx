@@ -147,7 +147,7 @@ function POverview() {
           <span style={{font:`500 13px/1 ${PFONT}`, color:PC.n600}}>High-signal alerts only</span>
         </div>
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12}}>
-          <PAlertCard kind="learn" child="Toni, 11" title="Toni finished a maths set with Socrat." body="Worked through 8 exercises on fractions — Socrat asked the questions, never gave the answer." time="Wed 17:20"/>
+          <PAlertCard kind="learn" child="Toni, 11" title="Toni finished a maths set with Socratic." body="Worked through 8 exercises on fractions — Socratic asked the questions, never gave the answer." time="Wed 17:20"/>
           <PAlertCard kind="nudge" child="Mia, 13" title="A message was rewritten before sending." body="Mia chose 'Try a rewrite' on a heated reply in Class 7B. We don't share what was written." time="Tue 14:32"/>
           <PAlertCard kind="pause" child="Mia, 13" title="A 2-minute cooldown happened." body="Same rule for the whole group — pace was rising fast in Football." time="Mon 19:04"/>
         </div>
@@ -206,7 +206,7 @@ function PMobile() {
           <PMStat v="1" l="cooldowns"/>
         </div>
         <div style={{font:`600 14px/1 ${PFONT}`, color:PC.ink, marginTop:2}}>Recent activity</div>
-        <PAlertCard kind="learn" child="Toni, 11" title="Toni finished a maths set with Socrat." body="8 exercises on fractions — Socrat asked, never answered." time="Wed 17:20"/>
+        <PAlertCard kind="learn" child="Toni, 11" title="Toni finished a maths set with Socratic." body="8 exercises on fractions — Socratic asked, never answered." time="Wed 17:20"/>
         <PAlertCard kind="nudge" child="Mia, 13" title="A message was rewritten before sending." body="Mia chose 'Try a rewrite' on a heated reply. We don't share what was written." time="Tue 14:32"/>
         <PAlertCard kind="pause" child="Mia, 13" title="A 2-minute cooldown happened." body="Same rule for the whole group." time="Mon 19:04"/>
         <div style={{font:`600 14px/1 ${PFONT}`, color:PC.ink, marginTop:2}}>Children</div>

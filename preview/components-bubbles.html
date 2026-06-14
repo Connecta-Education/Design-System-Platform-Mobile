@@ -1,10 +1,112 @@
 <!doctype html>
-<!-- @dsCard group="Cells" name="Cells — Message bubble" subtitle="Incoming (white) · outgoing (ink) · roles" viewport="700x220" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="background:#F7F8F9">
-<div style="display:flex;flex-direction:column;gap:10px;max-width:380px">
-  <div style="align-self:flex-start;background:white;color:#0F1A24;padding:10px 14px;border-radius:16px 16px 16px 4px;font:400 14px var(--font-sans);box-shadow:0 1px 2px rgba(15,26,36,.04)">Coming to football tomorrow?</div>
-  <div style="align-self:flex-start;background:white;color:#0F1A24;padding:10px 14px;border-radius:16px 16px 16px 4px;font:400 14px var(--font-sans);box-shadow:0 1px 2px rgba(15,26,36,.04)">Mum says I have to ask</div>
-  <div style="align-self:flex-end;background:#0F1A24;color:white;padding:10px 14px;border-radius:16px 16px 4px 16px;font:400 14px var(--font-sans)">yeah deffo, 4pm</div>
-  <div style="align-self:flex-end;background:#0F1A24;color:white;padding:10px 14px;border-radius:16px 16px 4px 16px;font:400 14px var(--font-sans)">bring the ball</div>
-  <div style="align-self:center;font-family:var(--font-mono);font-size:11px;color:#6B7682;letter-spacing:.04em">14:32 · delivered</div>
+<!-- @dsCard group="Cells" name="Cells — Message bubble" subtitle="Incoming (white) · outgoing (ink) · shown in mobile · tablet · web" viewport="980x620" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:980px">
+<style>
+  .wrap{display:flex;gap:30px;align-items:flex-start}
+  .col-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .col-label .dim{color:var(--fg-4);font-weight:500;letter-spacing:0;text-transform:none}
+
+  /* ===== bubbles (shared vocabulary) ===== */
+  .thread{display:flex;flex-direction:column;gap:8px}
+  .b{max-width:78%;padding:9px 13px;font:400 14px/1.4 var(--font-sans);text-wrap:pretty}
+  .b.in{align-self:flex-start;background:#fff;color:var(--connecta-ink);border-radius:16px 16px 16px 4px;box-shadow:0 1px 2px rgba(15,26,36,.05)}
+  .b.out{align-self:flex-end;background:var(--connecta-ink);color:#fff;border-radius:16px 16px 4px 16px}
+  .b.in + .b.out{margin-top:2px}
+  .stamp{align-self:center;font:500 11px var(--font-mono);color:var(--fg-3);letter-spacing:.04em;margin-top:4px}
+  .daysep{align-self:center;font:600 10px var(--font-sans);letter-spacing:.05em;text-transform:uppercase;color:var(--fg-4);background:rgba(15,26,36,.05);padding:4px 10px;border-radius:9999px}
+
+  /* group of stacked bubbles from same sender share tighter radius */
+  .b.in.cont{border-top-left-radius:6px}
+  .b.out.cont{border-top-right-radius:6px}
+
+  /* ===== MOBILE ===== */
+  .phone{width:280px;background:#fff;border:1px solid var(--border-1);border-radius:36px;box-shadow:var(--shadow-3);overflow:hidden}
+  .phone .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 6px;font:600 12px var(--font-sans);color:var(--fg-1)}
+  .phone .sb .dots{display:flex;gap:4px}.phone .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
+  .phone .top{display:flex;align-items:center;gap:9px;padding:4px 16px 11px;border-bottom:1px solid var(--border-1)}
+  .phone .top .av{width:30px;height:30px;border-radius:9999px;background:var(--connecta-sky);display:grid;place-items:center;font:700 12px var(--font-sans);color:var(--connecta-ink);flex:none}
+  .phone .top .nm{font:600 13.5px var(--font-sans);color:var(--connecta-ink)}
+  .phone .top .pr{font:400 11px var(--font-sans);color:var(--fg-3)}
+  .phone .screen{background:var(--neutral-50);padding:14px 12px}
+
+  /* ===== TABLET ===== */
+  .tablet{width:380px;background:#fff;border:1px solid var(--border-1);border-radius:26px;box-shadow:var(--shadow-3);overflow:hidden}
+  .tablet .bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border-1)}
+  .tablet .bar .av{width:32px;height:32px;border-radius:9999px;background:var(--connecta-sky);display:grid;place-items:center;font:700 13px var(--font-sans);color:var(--connecta-ink);flex:none}
+  .tablet .bar .nm{font:600 14px var(--font-sans);color:var(--connecta-ink)}
+  .tablet .bar .pr{font:400 11px var(--font-sans);color:var(--fg-3)}
+  .tablet .screen{background:var(--neutral-50);padding:18px;min-height:300px}
+  .tablet .b{max-width:70%}
+
+  /* ===== WEB (wider, max bubble width caps) ===== */
+  .web{flex:1;min-width:0;background:#fff;border:1px solid var(--border-1);border-radius:16px;box-shadow:var(--shadow-2);overflow:hidden}
+  .web .bar{display:flex;align-items:center;gap:11px;padding:14px 20px;border-bottom:1px solid var(--border-1)}
+  .web .bar .av{width:34px;height:34px;border-radius:9999px;background:var(--connecta-sky);display:grid;place-items:center;font:700 13px var(--font-sans);color:var(--connecta-ink);flex:none}
+  .web .bar .nm{font:600 14.5px var(--font-sans);color:var(--connecta-ink)}
+  .web .bar .pr{font:400 11.5px var(--font-sans);color:var(--fg-3)}
+  .web .screen{background:var(--neutral-50);padding:22px 26px;min-height:300px}
+  .web .b{max-width:440px}
+
+  .caption{margin-top:16px;font:500 12px var(--font-sans);color:var(--fg-3)}
+</style>
+
+<div class="wrap">
+
+  <!-- MOBILE -->
+  <div>
+    <div class="col-label">Mobile <span class="dim">· 1-col, 78% width</span></div>
+    <div class="phone">
+      <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="top"><span class="av">L</span><div><div class="nm">Leo</div><div class="pr">online</div></div></div>
+      <div class="screen">
+        <div class="thread">
+          <div class="daysep">Today</div>
+          <div class="b in">Coming to football tomorrow?</div>
+          <div class="b in cont">Mum says I have to ask</div>
+          <div class="b out">yeah deffo, 4pm</div>
+          <div class="b out cont">bring the ball</div>
+          <div class="stamp">14:32 · delivered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLET -->
+  <div>
+    <div class="col-label">Tablet <span class="dim">· 70% width</span></div>
+    <div class="tablet">
+      <div class="bar"><span class="av">L</span><div><div class="nm">Leo Marković</div><div class="pr">online · football circle</div></div></div>
+      <div class="screen">
+        <div class="thread">
+          <div class="daysep">Today</div>
+          <div class="b in">Coming to football tomorrow?</div>
+          <div class="b in cont">Mum says I have to ask</div>
+          <div class="b out">yeah deffo, 4pm</div>
+          <div class="b out cont">bring the ball</div>
+          <div class="stamp">14:32 · delivered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEB -->
+  <div class="web">
+    <div class="col-label" style="padding:0 0 0 2px">Web <span class="dim">· bubble width capped at 440px</span></div>
+    <div style="background:#fff;border:1px solid var(--border-1);border-radius:16px;box-shadow:var(--shadow-2);overflow:hidden">
+      <div class="bar"><span class="av">L</span><div><div class="nm">Leo Marković</div><div class="pr">online · football circle</div></div></div>
+      <div class="screen">
+        <div class="thread">
+          <div class="daysep">Today</div>
+          <div class="b in">Coming to football tomorrow?</div>
+          <div class="b in cont">Mum says I have to ask</div>
+          <div class="b out">yeah deffo, 4pm</div>
+          <div class="b out cont">bring the ball</div>
+          <div class="stamp">14:32 · delivered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<div class="caption">message bubble · incoming = white, outgoing = ink · same vocabulary at every breakpoint · stacked sends from one sender tighten the inner corner · width scales 78% (mobile) → 70% (tablet) → 440px cap (web)</div>
 </body></html>

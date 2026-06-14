@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Connecta × PrimeReact — engineering bridge</title>
 <link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="primereact-connecta.css">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
   *{box-sizing:border-box}
@@ -215,7 +216,7 @@
   .msg-nudge{background:var(--state-nudge-bg);color:var(--state-nudge-fg)}
   .msg-nudge .mi{color:var(--state-nudge-accent)}
   .msg-ok{background:var(--state-ok-bg);color:var(--state-ok-fg)}
-  .msg-ok .mi{color:var(--state-ok-accent)}
+  .msg-ok .mi{color:var(--connecta-olive)}
   .msg-socratic{background:var(--socratic-bg);color:var(--socratic-fg)}
   .msg-socratic .mi{color:var(--connecta-olive)}
   .msg-pause{background:var(--state-pause-bg);color:var(--state-pause-fg)}
@@ -285,6 +286,7 @@
       <a href="#map">Token map</a>
       <a href="#preset">Preset code</a>
       <a href="#gallery">Component proof</a>
+      <a href="#reference">All components</a>
       <a href="#custom">Stays custom</a>
     </nav>
   </div>
@@ -586,7 +588,7 @@
       <div class="demo-head"><span class="cmp">Message (inline)</span><div class="tags"><span class="ct">p-message</span><span class="ct">→ GoodTalk + Socratic states</span></div></div>
       <div class="demo-body col">
         <div class="p-msg msg-nudge"><span class="mi"><i data-lucide="sparkles"></i></span><div class="mt"><b>That might hurt someone. Want to rephrase?</b><small>GoodTalk · nudge — coral state, calm not alarmist.</small></div></div>
-        <div class="p-msg msg-socratic"><span class="mi"><i data-lucide="compass"></i></span><div class="mt"><b>Good start. How will you reduce the measurement error?</b><small>Socratic · Socratic — olive ground, never gives the answer.</small></div></div>
+        <div class="p-msg msg-socratic"><span class="mi"><i data-lucide="compass"></i></span><div class="mt"><b>Good start. How will you reduce the measurement error?</b><small>Socratic · Socratic method — olive ground, never gives the answer.</small></div></div>
         <div class="p-msg msg-ok"><span class="mi"><i data-lucide="check-circle"></i></span><div class="mt"><b>Nice rewrite. Sent.</b><small>Repair complete — resolves to lime “go”.</small></div></div>
         <div class="p-msg msg-pause"><span class="mi"><i data-lucide="pause-circle"></i></span><div class="mt"><b>Let's pause for 2 minutes so this doesn't escalate.</b><small>Cooldown — calm ink wash.</small></div></div>
       </div>
@@ -651,9 +653,320 @@
     </div>
   </section>
 
+  <!-- COMPONENT REFERENCE -->
+  <section id="reference">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Component reference</h2></div>
+    <p class="sec-sub">The exhaustive catalog — every PrimeReact component rendered through the Connecta preset, with the JSX you'd actually write next to it. <b>All 51 components are themed.</b> <b>AutoComplete is detailed in full below</b>; the complete <b>Form</b>, <b>Button &amp; Menu</b>, <b>Data</b>, <b>Panel</b>, <b>Overlay</b>, <b>Messages &amp; Media</b> and <b>Misc</b> families live as browsable cards in the <b>Design System → PrimeReact</b> group (<code>preview/primereact-*.html</code>). Each demo is a static visual proof of the themed result (panels shown open on purpose), not the live library.</p>
+
+    <div class="roadmap">
+      <span class="rm-cat is-done"><span class="dot"></span>Form <span class="n">14 / 14</span></span>
+      <span class="rm-cat is-done"><span class="dot"></span>Button &amp; Menu <span class="n">9 / 9</span></span>
+      <span class="rm-cat is-done"><span class="dot"></span>Data <span class="n">9 / 9</span></span>
+      <span class="rm-cat is-done"><span class="dot"></span>Panel <span class="n">9 / 9</span></span>
+      <span class="rm-cat is-done"><span class="dot"></span>Overlay <span class="n">5 / 5</span></span>
+      <span class="rm-cat is-done"><span class="dot"></span>Messages &amp; Media <span class="n">8 / 8</span></span>
+      <span class="rm-cat is-done"><span class="dot"></span>Misc <span class="n">6 / 6</span></span>
+    </div>
+
+    <!-- ===================== AutoComplete ===================== -->
+    <div class="cmp-block" id="autocomplete">
+      <div class="cmp-title">
+        <h3>AutoComplete</h3><code>p-autocomplete</code>
+        <span class="count">10 variants · Form</span>
+      </div>
+      <p class="cmp-intro">An input that suggests as you type — in Connecta it powers “find a student / class / teacher / parent” everywhere. Ink focus ring, hairline borders, <code>--r-sm</code> radius, DM Sans, soft <code>--shadow-3</code> panel; matched text gets the lime highlight; rows can carry school-graph role badges.</p>
+
+      <!-- 1 · Basic -->
+      <div class="vlabel"><span class="vn">01</span><div><h4>Basic</h4><p>Free-text suggestions filtered from a flat list of names.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Search students</span><div class="tags"><span class="ct">completeMethod</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--icon">
+              <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="ма" /></div>
+              <div class="pac-panel">
+                <div class="pac-item is-focus"><span class="pac-hl">Ма</span>рия Петрова</div>
+                <div class="pac-item"><span class="pac-hl">Ма</span>ртин Колев</div>
+                <div class="pac-item"><span class="pac-hl">Ма</span>я Стоянова</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">BasicAutoComplete.jsx</span></div>
+<pre class="code"><code><span class="tok-key">const</span> [value, setValue] = <span class="tok-fn">useState</span>(<span class="tok-str">''</span>);
+<span class="tok-key">const</span> [items, setItems] = <span class="tok-fn">useState</span>([]);
+
+<span class="tok-key">const</span> <span class="tok-fn">search</span> = (e) =&gt; {
+  setItems(students.<span class="tok-fn">filter</span>(s =&gt;
+    s.<span class="tok-fn">toLowerCase</span>().<span class="tok-fn">startsWith</span>(e.query.<span class="tok-fn">toLowerCase</span>())));
+};
+
+&lt;<span class="tok-fn">AutoComplete</span> value={value} suggestions={items}
+  completeMethod={search} placeholder=<span class="tok-str">"Search students…"</span>
+  onChange={(e) =&gt; setValue(e.value)} /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 2 · Dropdown -->
+      <div class="vlabel"><span class="vn">02</span><div><h4>Dropdown</h4><p>A trailing button reveals the full list — used for the class picker.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Pick a class</span><div class="tags"><span class="ct">dropdown</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--dropdown">
+              <div class="pac-field">
+                <input class="pac-input" value="5а" />
+                <button class="pac-dd"><i data-lucide="chevron-down"></i></button>
+              </div>
+              <div class="pac-panel">
+                <div class="pac-item is-selected">5а — Homeroom<i data-lucide="check" class="chk"></i></div>
+                <div class="pac-item">5б — Homeroom</div>
+                <div class="pac-item">6а — Science</div>
+                <div class="pac-item">7b — Homeroom</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">ClassPicker.jsx</span></div>
+<pre class="code"><code>&lt;<span class="tok-fn">AutoComplete</span> value={cls}
+  suggestions={classes} completeMethod={search}
+  <span class="tok-key">dropdown</span> placeholder=<span class="tok-str">"Pick a class"</span>
+  onChange={(e) =&gt; setCls(e.value)} /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 3 · Objects -->
+      <div class="vlabel"><span class="vn">03</span><div><h4>Objects</h4><p>Suggestions are records; <code>field</code> picks what shows in the box.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Find a teacher</span><div class="tags"><span class="ct">field="name"</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--icon">
+              <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="Геор" /></div>
+              <div class="pac-panel">
+                <div class="pac-item is-focus"><div class="pac-obj"><b><span class="pac-hl">Геор</span>ги Иванов</b><small>Mathematics · 5а, 6а</small></div></div>
+                <div class="pac-item"><div class="pac-obj"><b><span class="pac-hl">Геор</span>гина Тодорова</b><small>Biology · 7b</small></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">TeacherSelect.jsx</span></div>
+<pre class="code"><code><span class="tok-com">// teachers: [{ name, subject, classes }]</span>
+&lt;<span class="tok-fn">AutoComplete</span> value={teacher}
+  suggestions={items} completeMethod={search}
+  field=<span class="tok-str">"name"</span> placeholder=<span class="tok-str">"Find a teacher…"</span>
+  onChange={(e) =&gt; setTeacher(e.value)} /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 4 · Template -->
+      <div class="vlabel"><span class="vn">04</span><div><h4>Template</h4><p>A custom <code>itemTemplate</code> — avatar, name, and a school-graph role badge.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">People search</span><div class="tags"><span class="ct">itemTemplate</span><span class="ct">→ role badge</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--icon">
+              <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="и" /></div>
+              <div class="pac-panel">
+                <div class="pac-item is-focus">
+                  <span class="pac-av" style="background:var(--role-child-bg);color:var(--role-child-fg)">ИП</span>
+                  <div class="pac-meta"><b>Иван Петров</b><small>5а · circle 3</small></div>
+                  <div class="pac-end"><span class="pac-badge" style="background:var(--role-child-bg);color:var(--role-child-fg)">Child</span></div>
+                </div>
+                <div class="pac-item">
+                  <span class="pac-av" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg)">ГИ</span>
+                  <div class="pac-meta"><b>Георги Иванов</b><small>Mathematics</small></div>
+                  <div class="pac-end"><span class="pac-badge" style="background:var(--role-teacher-bg);color:var(--role-teacher-fg)">Teacher</span></div>
+                </div>
+                <div class="pac-item">
+                  <span class="pac-av" style="background:var(--role-parent-bg);color:var(--role-parent-fg)">МК</span>
+                  <div class="pac-meta"><b>Мария Колева</b><small>parent of Иван П.</small></div>
+                  <div class="pac-end"><span class="pac-badge" style="background:var(--role-parent-bg);color:var(--role-parent-fg)">Parent</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">PeopleSearch.jsx</span></div>
+<pre class="code"><code><span class="tok-key">const</span> <span class="tok-fn">itemTemplate</span> = (p) =&gt; (
+  &lt;<span class="tok-fn">div</span> className=<span class="tok-str">"flex items-center gap-3"</span>&gt;
+    &lt;<span class="tok-fn">Avatar</span> label={p.initials} /&gt;
+    &lt;<span class="tok-fn">div</span>&gt;
+      &lt;<span class="tok-fn">b</span>&gt;{p.name}&lt;/<span class="tok-fn">b</span>&gt;
+      &lt;<span class="tok-fn">small</span>&gt;{p.meta}&lt;/<span class="tok-fn">small</span>&gt;
+    &lt;/<span class="tok-fn">div</span>&gt;
+    &lt;<span class="tok-fn">Tag</span> value={p.role} /&gt;
+  &lt;/<span class="tok-fn">div</span>&gt;
+);
+
+&lt;<span class="tok-fn">AutoComplete</span> field=<span class="tok-str">"name"</span>
+  itemTemplate={itemTemplate} … /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 5 · Group -->
+      <div class="vlabel"><span class="vn">05</span><div><h4>Group</h4><p>Options bucketed under headers — here, students grouped by class.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Grouped by class</span><div class="tags"><span class="ct">optionGroupLabel</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--icon">
+              <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="" placeholder="Search across classes…" /></div>
+              <div class="pac-panel">
+                <div class="pac-group">5а<span class="gline"></span></div>
+                <div class="pac-item is-focus">Иван Петров</div>
+                <div class="pac-item">Мария Петрова</div>
+                <div class="pac-group">7b<span class="gline"></span></div>
+                <div class="pac-item">Мартин Колев</div>
+                <div class="pac-item">Мая Стоянова</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">GroupedSearch.jsx</span></div>
+<pre class="code"><code><span class="tok-com">// [{ class:'5а', students:[…] }, …]</span>
+&lt;<span class="tok-fn">AutoComplete</span> suggestions={groups}
+  optionGroupLabel=<span class="tok-str">"class"</span>
+  optionGroupChildren=<span class="tok-str">"students"</span>
+  completeMethod={search} … /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 6 · Multiple -->
+      <div class="vlabel"><span class="vn">06</span><div><h4>Multiple</h4><p>Selected values become removable chips — add parents to a thread.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Add parents</span><div class="tags"><span class="ct">multiple</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--multi">
+              <div class="pac-tokens">
+                <span class="pac-token">Иван П. <span class="x"><i data-lucide="x"></i></span></span>
+                <span class="pac-token">Мария К. <span class="x"><i data-lucide="x"></i></span></span>
+                <input class="pac-token-input" value="со" />
+              </div>
+              <div class="pac-panel">
+                <div class="pac-item is-focus"><span class="pac-hl">Со</span>фия Димитрова<i data-lucide="plus" class="chk"></i></div>
+                <div class="pac-item"><span class="pac-hl">Со</span>нер Ахмед<i data-lucide="plus" class="chk"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">ParentPicker.jsx</span></div>
+<pre class="code"><code>&lt;<span class="tok-fn">AutoComplete</span> <span class="tok-key">multiple</span>
+  value={parents} suggestions={items}
+  completeMethod={search} field=<span class="tok-str">"name"</span>
+  placeholder=<span class="tok-str">"Add parents…"</span>
+  onChange={(e) =&gt; setParents(e.value)} /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 7 · Force selection -->
+      <div class="vlabel"><span class="vn">07</span><div><h4>Force selection</h4><p>Only a real option is accepted — free text clears. Good for the school registry.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Select a school</span><div class="tags"><span class="ct">forceSelection</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--icon">
+              <div class="pac-field"><i data-lucide="school" class="pac-ic"></i><input class="pac-input" value="ОУ" /></div>
+              <div class="pac-panel">
+                <div class="pac-item is-focus"><div class="pac-obj"><b><span class="pac-hl">ОУ</span> „Христо Ботев“</b><small>Plovdiv · 412 students</small></div></div>
+                <div class="pac-item"><div class="pac-obj"><b><span class="pac-hl">ОУ</span> „Иван Вазов“</b><small>Sofia · 638 students</small></div></div>
+              </div>
+            </div>
+            <p class="pac-help">Typing a name that isn't in the registry resets the field — schools must resolve to a verified record.</p>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">SchoolSelect.jsx</span></div>
+<pre class="code"><code>&lt;<span class="tok-fn">AutoComplete</span> <span class="tok-key">forceSelection</span>
+  value={school} suggestions={items}
+  completeMethod={search} field=<span class="tok-str">"name"</span>
+  placeholder=<span class="tok-str">"Select a school…"</span> /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 8 · Float label + Filled -->
+      <div class="vlabel"><span class="vn">08</span><div><h4>Float label &amp; Filled</h4><p>The label rides up on focus/value; the filled style swaps the outline for a neutral ground.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">Float label · Filled</span><div class="tags"><span class="ct">FloatLabel</span><span class="ct">variant="filled"</span></div></div>
+          <div class="demo-body" style="gap:22px">
+            <div class="pac is-open is-filled pac--float" style="max-width:200px">
+              <div class="pac-field"><input class="pac-input" value="Георги Иванов" /><span class="pac-float-lbl">Assign teacher</span></div>
+            </div>
+            <div class="pac is-filled pac--filled pac--float" style="max-width:200px">
+              <div class="pac-field"><input class="pac-input" value="5а" /><span class="pac-float-lbl">Class</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">LabelledFields.jsx</span></div>
+<pre class="code"><code>&lt;<span class="tok-fn">FloatLabel</span>&gt;
+  &lt;<span class="tok-fn">AutoComplete</span> inputId=<span class="tok-str">"t"</span> value={t} … /&gt;
+  &lt;<span class="tok-fn">label</span> htmlFor=<span class="tok-str">"t"</span>&gt;Assign teacher&lt;/<span class="tok-fn">label</span>&gt;
+&lt;/<span class="tok-fn">FloatLabel</span>&gt;
+
+&lt;<span class="tok-fn">AutoComplete</span> variant=<span class="tok-str">"filled"</span> … /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 9 · Invalid + Disabled -->
+      <div class="vlabel"><span class="vn">09</span><div><h4>Invalid &amp; Disabled</h4><p>Coral border signals a validation failure (coral = error only); disabled dims to a neutral ground.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">States</span><div class="tags"><span class="ct">invalid</span><span class="ct">disabled</span></div></div>
+          <div class="demo-body" style="gap:22px;align-items:flex-start">
+            <div style="max-width:220px;width:100%">
+              <div class="pac pac--invalid pac--icon">
+                <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="Unknown name" /></div>
+              </div>
+              <div class="pac-err"><i data-lucide="alert-circle"></i> No matching student in 5а.</div>
+            </div>
+            <div class="pac pac--disabled pac--icon" style="max-width:200px">
+              <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="Locked to homeroom" disabled /></div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">FieldStates.jsx</span></div>
+<pre class="code"><code>&lt;<span class="tok-fn">AutoComplete</span> <span class="tok-key">invalid</span>={!found} … /&gt;
+&lt;<span class="tok-fn">small</span> className=<span class="tok-str">"p-error"</span>&gt;No match&lt;/<span class="tok-fn">small</span>&gt;
+
+&lt;<span class="tok-fn">AutoComplete</span> <span class="tok-key">disabled</span> value={fixed} … /&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- 10 · Empty -->
+      <div class="vlabel"><span class="vn">10</span><div><h4>Empty state</h4><p>No matches — a calm, non-alarmist note rather than a hard error.</p></div></div>
+      <div class="acv">
+        <div class="demo">
+          <div class="demo-head"><span class="cmp">No results</span><div class="tags"><span class="ct">emptyMessage</span></div></div>
+          <div class="demo-body col">
+            <div class="pac is-open pac--icon">
+              <div class="pac-field"><i data-lucide="search" class="pac-ic"></i><input class="pac-input" value="zzz" /></div>
+              <div class="pac-panel"><div class="pac-empty">No students match “zzz”.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="codewrap">
+          <div class="code-head"><span class="fdot"></span><span class="fname">EmptyState.jsx</span></div>
+<pre class="code"><code>&lt;<span class="tok-fn">AutoComplete</span>
+  emptyMessage=<span class="tok-str">"No students match…"</span> … /&gt;</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- STAYS CUSTOM -->
   <section id="custom">
-    <div class="sec-head"><span class="sec-num">05</span><h2>What stays custom</h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2>What stays custom</h2></div>
     <p class="sec-sub">PrimeReact covers the generic 90% — forms, tables, overlays, navigation. The Connecta-native surfaces below have no PrimeReact equivalent and carry the brand's load-bearing identity. Keep them hand-built (they already are, in <code>ui_kits/</code>). They sit <em>alongside</em> PrimeReact, sharing the same tokens.</p>
 
     <div class="cols2">
@@ -663,7 +976,7 @@
       </div>
       <div class="pathcard alt">
         <div class="pc-h"><div class="ic"><i data-lucide="sparkles"></i></div><h4>GoodTalk &amp; Socratic banners</h4></div>
-        <p>The in-flow intervention banner and Socratic's Socratic panel have bespoke behaviour and voice. PrimeReact's <code>Message</code> can host simpler inline notes, but the AI surfaces stay native.</p>
+        <p>The in-flow intervention banner and Socratic's panel have bespoke behaviour and voice. PrimeReact's <code>Message</code> can host simpler inline notes, but the AI surfaces stay native.</p>
       </div>
       <div class="pathcard alt">
         <div class="pc-h"><div class="ic"><i data-lucide="badge-check"></i></div><h4>Role badges</h4></div>

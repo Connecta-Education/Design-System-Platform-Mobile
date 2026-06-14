@@ -1,0 +1,214 @@
+<!doctype html>
+<!-- @dsCard group="Cells" name="Cells — Socratic interaction" subtitle="Multi-step lesson (vs the single-reply Learning bubble) · compact preview → tap → full-screen · back / tap-outside to close" viewport="820x760" --><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css"></head><body style="width:760px">
+<style>
+  .wrap{display:flex;gap:28px;align-items:flex-start}
+  .col-label{font:600 11px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);margin-bottom:12px}
+
+  /* ===== phone shell ===== */
+  .phone{
+    width:340px;height:680px;background:#FFFFFF;border:1px solid var(--border-1);
+    border-radius:40px;box-shadow:var(--shadow-3);overflow:hidden;position:relative;
+    display:flex;flex-direction:column;
+  }
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:13px 24px 7px;font:600 13px var(--font-sans);color:var(--fg-1);flex:none}
+  .sb .dots{display:flex;gap:4px}
+  .sb .dots i{width:5px;height:5px;border-radius:9999px;background:var(--fg-3);display:block}
+  .appbar{display:flex;align-items:center;gap:10px;padding:6px 14px 10px;border-bottom:1px solid var(--border-1);flex:none}
+  .appbar .av{width:34px;height:34px;border-radius:10px;background:var(--connecta-olive);display:grid;place-items:center;flex:none}
+  .appbar .av svg{width:18px;height:18px;color:var(--connecta-lime)}
+  .appbar .t{font:600 14px var(--font-sans);color:var(--connecta-ink)}
+  .appbar .s{font:400 11px var(--font-sans);color:var(--fg-3);margin-top:1px}
+
+  .thread{flex:1;min-height:0;overflow-y:auto;background:var(--neutral-50);padding:14px 12px;display:flex;flex-direction:column;gap:10px}
+  .sys{align-self:center;font:400 11px var(--font-sans);color:var(--fg-3);background:#fff;border:1px solid var(--border-1);padding:5px 11px;border-radius:9999px}
+  .msg-in{align-self:flex-start;max-width:80%;background:#fff;border:1px solid var(--border-1);border-radius:16px 16px 16px 4px;padding:9px 13px;font:400 13.5px/1.4 var(--font-sans);color:var(--connecta-ink)}
+
+  /* faux composer */
+  .composer{flex:none;display:flex;align-items:center;gap:8px;padding:10px 12px 16px;border-top:1px solid var(--border-1);background:#fff}
+  .composer .pill{flex:1;height:38px;border-radius:18px;box-shadow:inset 0 0 0 1px var(--border-1);display:flex;align-items:center;padding:0 14px;font:400 13px var(--font-sans);color:var(--fg-4)}
+  .composer .rb{width:38px;height:38px;border-radius:11px;background:var(--neutral-50);display:grid;place-items:center;color:var(--fg-3);flex:none}
+  .composer .rb svg{width:19px;height:19px}
+
+  /* ===== preview bubble (collapsed) — inverted: pale olive ground, dark olive type ===== */
+  .preview{
+    align-self:flex-start;max-width:84%;cursor:pointer;border:0;text-align:left;
+    background:var(--tint-olive);color:var(--connecta-olive);border-radius:18px 18px 18px 6px;
+    padding:13px 14px;display:flex;flex-direction:column;gap:9px;
+    box-shadow:0 1px 2px rgba(15,26,36,.06);transition:transform var(--dur-base) var(--ease-standard)}
+  .preview:active{transform:scale(.985)}
+  .preview .ptag{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;background:var(--connecta-olive);color:var(--connecta-lime);font:600 10px/1 var(--font-sans);letter-spacing:.04em;padding:5px 9px 5px 7px;border-radius:9999px}
+  .preview .ptag svg{width:11px;height:11px}
+  .preview .ptitle{font:600 17px/1.2 var(--font-sans);letter-spacing:-.01em;color:var(--connecta-olive)}
+  .preview .pmeta{font:400 12px/1.3 var(--font-sans);color:var(--connecta-olive);opacity:.7}
+  .preview .psteps{display:flex;gap:6px;flex-wrap:wrap}
+  .preview .pchip{font:500 10.5px/1 var(--font-sans);color:var(--connecta-olive);background:rgba(66,79,26,.10);border-radius:9999px;padding:5px 9px}
+  .preview .popen{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:1px;padding-top:9px;border-top:1px solid rgba(66,79,26,.18)}
+  .preview .popen span{font:600 12px/1 var(--font-sans);color:var(--connecta-olive)}
+  .preview .popen svg{width:16px;height:16px;color:var(--connecta-olive)}
+
+  /* ===== fullscreen overlay ===== */
+  .overlay{position:absolute;inset:0;z-index:30;display:none}
+  .overlay.open{display:block}
+  .backdrop{position:absolute;inset:0;background:rgba(15,26,36,.42);animation:fade .2s ease}
+  .sheet{
+    position:absolute;left:0;right:0;bottom:0;top:14px;background:var(--tint-olive);
+    border-radius:22px 22px 0 0;display:flex;flex-direction:column;overflow:hidden;
+    box-shadow:0 -8px 30px rgba(15,26,36,.25);animation:sheetUp .28s cubic-bezier(.2,0,0,1)}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes sheetUp{from{transform:translateY(36px);opacity:.4}to{transform:none;opacity:1}}
+  .sheet-bar{display:flex;align-items:center;gap:11px;padding:14px 14px;flex:none;border-bottom:1px solid rgba(66,79,26,.14)}
+  .sheet-bar .back{width:34px;height:34px;border-radius:10px;border:0;background:rgba(66,79,26,.10);display:grid;place-items:center;cursor:pointer;color:var(--connecta-olive);flex:none}
+  .sheet-bar .back svg{width:20px;height:20px}
+  .sheet-bar .av{width:34px;height:34px;border-radius:9999px;background:var(--connecta-olive);display:grid;place-items:center;flex:none}
+  .sheet-bar .av svg{width:19px;height:19px;color:var(--connecta-lime)}
+  .sheet-bar .t{font:600 16px/1.1 var(--font-sans);color:var(--connecta-ink)}
+  .sheet-bar .s{font:400 11px var(--font-sans);color:var(--connecta-olive);margin-top:1px}
+  .sheet-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+
+  /* ===== lesson content (shared) ===== */
+  .step{background:#fff;border-radius:18px;padding:15px 16px;display:flex;flex-direction:column;gap:11px;box-shadow:0 1px 2px rgba(15,26,36,.05),0 6px 18px -12px rgba(15,26,36,.18)}
+  .step-head{display:flex;align-items:center;gap:10px}
+  .badge{width:26px;height:26px;border-radius:8px;flex:none;background:var(--connecta-olive);color:var(--connecta-lime);display:grid;place-items:center;font:700 13px/1 var(--font-sans)}
+  .step-t{font:600 15px/1.2 var(--font-sans);color:var(--connecta-ink);letter-spacing:-.005em;flex:1}
+  .step-head .bulb{width:20px;height:20px;color:var(--connecta-olive);flex:none}
+  .helper{margin:0;font:400 13.5px/1.5 var(--font-sans);color:var(--fg-2)}
+  .tbl{border:1px solid var(--border-1);border-radius:12px;overflow:hidden;background:#fff}
+  .tr{display:grid;grid-template-columns:1fr 1fr}
+  .tr .td{padding:0 13px;display:flex;align-items:center;font:500 13.5px/1.3 var(--font-sans);color:var(--connecta-ink);min-height:54px;border-top:1px solid var(--border-1)}
+  .tr .td:first-child{border-right:1px solid var(--border-1)}
+  .tr.th{background:var(--connecta-olive)}
+  .tr.th .td{min-height:46px;border-top:0;color:#fff;font-weight:600;font-size:12.5px;border-color:rgba(255,255,255,.16)}
+  .td.hi{background:var(--connecta-lime);justify-content:center;font-weight:700;font-size:17px}
+  .chips{display:flex;flex-direction:column;gap:9px}
+  .chip{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 14px;border-radius:14px;cursor:pointer;background:#fff;color:var(--connecta-ink);border:1px solid var(--border-1);font:600 13.5px/1.2 var(--font-sans);letter-spacing:-.005em;transition:background var(--dur-base),border-color var(--dur-base)}
+  .chip .ar{font-size:17px;line-height:1}
+  .chip.is-sel{background:var(--connecta-lime);border-color:var(--connecta-olive)}
+  .diagram{background:#fff;border:1px solid var(--border-1);border-radius:14px;height:180px;display:grid;place-items:center;padding:8px;box-sizing:border-box}
+  .diagram svg{width:100%;height:100%}
+  .feedback{background:var(--connecta-pale-lime);border-radius:18px;min-height:70px;padding:14px 15px;display:flex;align-items:center;gap:13px}
+  .fb-icon{width:38px;height:38px;border-radius:9999px;flex:none;background:var(--connecta-olive);display:grid;place-items:center}
+  .fb-icon svg{width:20px;height:20px;color:var(--connecta-lime)}
+  .fb-t{font:700 14px/1.2 var(--font-sans);color:var(--connecta-ink)}
+  .fb-b{font:400 13px/1.45 var(--font-sans);color:var(--fg-2);margin-top:2px}
+  .fb-art{margin-left:auto;width:28px;height:28px;color:var(--connecta-olive);flex:none;opacity:.85}
+</style>
+
+<div class="wrap">
+  <!-- ============ A — interactive ============ -->
+  <div>
+    <div class="col-label">In chat · tap the card</div>
+    <div class="phone">
+      <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="appbar">
+        <div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15.6 8.4 10.8 10.8 8.4 15.6 13.2 13.2"/></svg></div>
+        <div><div class="t">Socratic</div><div class="s">по физика · 7А</div></div>
+      </div>
+      <div class="thread">
+        <div class="sys">Само за теб · мислим заедно</div>
+        <div class="msg-in">Заби ми се на задачата с триенето…</div>
+        <button class="preview" id="cardA">
+          <span class="ptag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15.6 8.4 10.8 10.8 8.4 15.6 13.2 13.2"/></svg>Socratic · за тази задача</span>
+          <span class="ptitle">Да го видим заедно.</span>
+          <span class="pmeta">Триене и движение · 3 стъпки</span>
+          <span class="psteps"><span class="pchip">Таблица</span><span class="pchip">Помисли</span><span class="pchip">Избери</span></span>
+          <span class="popen"><span>Отвори на цял екран</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></span>
+        </button>
+      </div>
+      <div class="composer">
+        <div class="pill">Напиши съобщение</div>
+        <div class="rb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.35-4.35a2 2 0 0 0-2.83 0L7 17"/></svg></div>
+        <div class="rb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg></div>
+      </div>
+
+      <div class="overlay" id="ovA">
+        <div class="backdrop" data-close></div>
+        <div class="sheet">
+          <div class="sheet-bar">
+            <button class="back" data-close aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15.6 8.4 10.8 10.8 8.4 15.6 13.2 13.2"/></svg></div>
+            <div><div class="t">Да го видим заедно.</div><div class="s">Socratic · триене</div></div>
+          </div>
+          <div class="sheet-body" data-lesson-body></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px" class="label-eyebrow">tap card → full screen · back ← or tap outside closes &amp; returns to the keyboard</div>
+  </div>
+
+  <!-- ============ B — expanded (static) ============ -->
+  <div>
+    <div class="col-label">Full screen · expanded</div>
+    <div class="phone">
+      <div class="sb"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+      <div class="overlay open" style="position:absolute;top:38px">
+        <div class="sheet" style="animation:none;border-radius:0;top:0">
+          <div class="sheet-bar">
+            <button class="back" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15.6 8.4 10.8 10.8 8.4 15.6 13.2 13.2"/></svg></div>
+            <div><div class="t">Да го видим заедно.</div><div class="s">Socratic · триене</div></div>
+          </div>
+          <div class="sheet-body" data-lesson-body></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px" class="label-eyebrow">the full visual · table → think → choose → feedback</div>
+  </div>
+</div>
+
+<script>
+  // ---- shared lesson body, injected into every [data-lesson-body] ----
+  var diagram = '<svg viewBox="0 0 320 170" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    + '<line x1="20" y1="122" x2="300" y2="122" stroke="var(--connecta-ink)" stroke-width="2.5" stroke-linecap="round"/>'
+    + '<g stroke="#9aa39a" stroke-width="1.5" stroke-linecap="round">'
+    + '<line x1="40" y1="124" x2="30" y2="136"/><line x1="62" y1="124" x2="52" y2="136"/><line x1="84" y1="124" x2="74" y2="136"/><line x1="106" y1="124" x2="96" y2="136"/><line x1="128" y1="124" x2="118" y2="136"/><line x1="150" y1="124" x2="140" y2="136"/><line x1="172" y1="124" x2="162" y2="136"/><line x1="194" y1="124" x2="184" y2="136"/><line x1="216" y1="124" x2="206" y2="136"/><line x1="238" y1="124" x2="228" y2="136"/><line x1="260" y1="124" x2="250" y2="136"/><line x1="282" y1="124" x2="272" y2="136"/></g>'
+    + '<circle cx="160" cy="98" r="24" fill="#FFFFFF" stroke="var(--connecta-ink)" stroke-width="2.5"/>'
+    + '<line x1="44" y1="92" x2="108" y2="92" stroke="var(--connecta-olive)" stroke-width="4" stroke-linecap="round"/>'
+    + '<polygon points="108,82 126,92 108,102" fill="var(--connecta-olive)"/>'
+    + '<text x="74" y="74" text-anchor="middle" font-family="DM Sans" font-size="14" font-weight="600" font-style="italic" fill="var(--connecta-olive)">бутане</text>'
+    + '<line x1="276" y1="92" x2="212" y2="92" stroke="#9aa39a" stroke-width="4" stroke-linecap="round"/>'
+    + '<polygon points="212,82 194,92 212,102" fill="#9aa39a"/>'
+    + '<text x="246" y="74" text-anchor="middle" font-family="DM Sans" font-size="14" font-weight="600" font-style="italic" fill="#7e887e">триене</text>'
+    + '</svg>';
+
+  var lesson = ''
+    + '<div class="step"><div class="step-head"><span class="badge">1</span><span class="step-t">Погледни таблицата.</span></div>'
+    + '<p class="helper">Виж таблицата. Какво трябва да напишем в празното поле?</p>'
+    + '<div class="tbl"><div class="tr th"><div class="td">Когато има…</div><div class="td">Количката…</div></div>'
+    + '<div class="tr"><div class="td">Триене</div><div class="td">Спира</div></div>'
+    + '<div class="tr"><div class="td">Няма триене</div><div class="td hi">?</div></div></div></div>'
+
+    + '<div class="step"><div class="step-head"><span class="badge">2</span><span class="step-t">Помисли.</span>'
+    + '<svg class="bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></div>'
+    + '<p class="helper">Ако няма триене, какво ще стане?</p>'
+    + '<div class="chips"><button class="chip">Спира</button><button class="chip is-sel">Продължава</button><button class="chip">Не съм сигурен</button></div></div>'
+
+    + '<div class="step"><div class="step-head"><span class="badge">3</span><span class="step-t">Избери отговор.</span></div>'
+    + '<div class="diagram">' + diagram + '</div>'
+    + '<p class="helper">Коя стрелка изчезва, когато няма триене?</p>'
+    + '<div class="chips"><button class="chip is-sel"><span class="ar">←</span> триене</button><button class="chip"><span class="ar">→</span> бутане</button><button class="chip">и двете</button></div></div>'
+
+    + '<div class="feedback"><div class="fb-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></div>'
+    + '<div><div class="fb-t">Точно така.</div><div class="fb-b">Когато няма триене, стрелката на триене изчезва.</div></div>'
+    + '<svg class="fb-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24 2.24"/><path d="M14.5 8.5 9 14"/><path d="M11.5 5.5 6 11"/></svg></div>';
+
+  document.querySelectorAll('[data-lesson-body]').forEach(function(el){ el.innerHTML = lesson; });
+
+  // ---- open / close the full-screen sheet ----
+  var ov = document.getElementById('ovA');
+  document.getElementById('cardA').addEventListener('click', function(){ ov.classList.add('open'); });
+  ov.querySelectorAll('[data-close]').forEach(function(el){
+    el.addEventListener('click', function(){ ov.classList.remove('open'); });
+  });
+
+  // ---- single-select chips (both phones) ----
+  document.querySelectorAll('.chips').forEach(function(group){
+    group.querySelectorAll('.chip').forEach(function(chip){
+      chip.addEventListener('click', function(e){
+        e.stopPropagation();
+        group.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('is-sel'); });
+        chip.classList.add('is-sel');
+      });
+    });
+  });
+</script>
+</body></html>
