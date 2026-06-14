@@ -10,8 +10,8 @@ const C = {
   n600: '#4D5762', n700: '#343C46',
   // GoodTalk — pink ground, plum type (calm safety coaching, never red)
   goodtalkBg: '#FBE1FD', goodtalkFg: '#571B32', goodtalkAccent: '#571B32',
-  // Cosmo — olive ground, lime type (learning / lab coach)
-  cosmoBg: '#424F1A',   cosmoFg: '#DEFB50',    cosmoAccent: '#DEFB50',
+  // Socratic — olive ground, lime type (learning / lab coach)
+  socraticBg: '#424F1A',   socraticFg: '#DEFB50',    socraticAccent: '#DEFB50',
   // Teacher — sky ground, ink type
   teacherBg: '#BAE6FD', teacherFg: '#0F1A24',  teacherAccent: '#0F1A24',
   // Legacy aliases retained for older surfaces (brand-only)
@@ -215,11 +215,11 @@ function NudgeBanner({
   );
 }
 
-// ─────────────────────────── Cosmo bubble ───────────────────────────
+// ─────────────────────────── Socratic bubble ───────────────────────────
 // Black + Lime — Socratic learning. Visual inverse of GoodTalk.
-// Feels like a quiet blackboard. Cosmo asks the next question; never the answer.
-function CosmoBubble({
-  tag = 'Cosmo · for this task',
+// Feels like a quiet blackboard. Socratic asks the next question; never the answer.
+function SocraticBubble({
+  tag = 'Socratic · for this task',
   meta = 'thinking together',
   prompt = 'Good start. How will you reduce the measurement error?',
   draft,
@@ -229,8 +229,8 @@ function CosmoBubble({
 }) {
   return (
     <div style={{
-      background:C.cosmoBg, padding:14, margin:'8px 12px', borderRadius:14,
-      borderLeft:`3px solid ${C.cosmoAccent}`,
+      background:C.socraticBg, padding:14, margin:'8px 12px', borderRadius:14,
+      borderLeft:`3px solid ${C.socraticAccent}`,
       animation:'slideDown 220ms cubic-bezier(.3,0,0,1)',
       color:C.paper,
     }}>
@@ -502,7 +502,7 @@ function EmojiPicker({ onPick, onClose }) {
 //   'kid-mine'  — child's own outgoing voice memo  (ink ground, paper waveform)
 //   'kid'       — incoming voice memo from a classmate (paper ground, ink waveform)
 //   'teacher'   — teacher voice memo (sky ground, deep blue waveform)
-//   'cosmo'     — Cosmo voice prompt (ink ground, lime waveform)
+//   'socratic'     — Socratic voice prompt (ink ground, lime waveform)
 //   'goodtalk'  — GoodTalk voice nudge (pale-lime ground, ink waveform)
 //
 // Waveform is a deterministic seeded series of bars (no reshuffle on re-render).
@@ -524,7 +524,7 @@ function VoiceMessage({
     'kid-mine': { bg:C.ink,        fg:C.paper,     wave:C.paper,         waveDim:'rgba(255,255,255,.28)', accent:C.coral,         role:null,                                                  align:'end',   playBg:C.paper,         playFg:C.ink },
     'kid':      { bg:C.paper,      fg:C.ink,       wave:C.ink,           waveDim:'rgba(15,26,36,.20)',    accent:C.ink,           role:null,                                                  align:'start', playBg:C.ink,           playFg:C.paper },
     'teacher':  { bg:C.teacherBg,  fg:C.teacherFg, wave:C.teacherAccent, waveDim:'rgba(15,26,36,.22)',    accent:C.teacherAccent, role:{label:'TEACHER',  bg:C.teacherAccent, fg:C.paper},     align:'start', playBg:C.teacherAccent, playFg:C.paper },
-    'cosmo':    { bg:C.cosmoBg,    fg:C.paper,     wave:C.lime,          waveDim:'rgba(222,251,80,.30)',  accent:C.lime,          role:{label:'SOCRAT',   bg:C.lime,           fg:C.ink},      align:'start', playBg:C.lime,          playFg:C.ink },
+    'socratic':    { bg:C.socraticBg,    fg:C.paper,     wave:C.lime,          waveDim:'rgba(222,251,80,.30)',  accent:C.lime,          role:{label:'SOCRAT',   bg:C.lime,           fg:C.ink},      align:'start', playBg:C.lime,          playFg:C.ink },
     'goodtalk': { bg:C.goodtalkBg, fg:C.plum,      wave:C.plum,          waveDim:'rgba(87,27,50,.20)',    accent:C.plum,          role:{label:'GOODTALK', bg:C.plum,           fg:C.paper},    align:'start', playBg:C.plum,          playFg:C.paper },
   }[voice];
 
@@ -595,7 +595,7 @@ function VoiceMessage({
             {playing && (
               <div style={{
                 width:6, height:6, borderRadius:9999, background:V.accent,
-                animation:'cosmoPulse 1.4s ease-in-out infinite',
+                animation:'socraticPulse 1.4s ease-in-out infinite',
               }}/>
             )}
             {caption && <div style={{
@@ -618,7 +618,7 @@ function VoiceMessage({
 // "Holding to record" state — replaces the composer mid-record.
 function VoiceRecorder({ elapsed = 7, voice = 'kid-mine', onCancel, onSend }) {
   const accent =
-    voice === 'cosmo'    ? C.lime :
+    voice === 'socratic'    ? C.lime :
     voice === 'teacher'  ? C.sky :
     voice === 'goodtalk' ? C.coral :
     C.coral;
@@ -641,7 +641,7 @@ function VoiceRecorder({ elapsed = 7, voice = 'kid-mine', onCancel, onSend }) {
       }}>
         <div style={{
           width:8, height:8, borderRadius:9999, background:accent,
-          animation:'cosmoPulse 1.2s ease-in-out infinite',
+          animation:'socraticPulse 1.2s ease-in-out infinite',
         }}/>
         <div style={{display:'flex', alignItems:'center', gap:2, flex:1, height:22}}>
           {Array.from({length:liveBars}).map((_, i) => {
@@ -669,7 +669,7 @@ function VoiceRecorder({ elapsed = 7, voice = 'kid-mine', onCancel, onSend }) {
 Object.assign(window, {
   C, FONT, MONO,
   ChatAppBar, CircleRow, Bubble, Composer,
-  NudgeBanner, PauseBanner, CosmoBubble, TeacherBubble,
+  NudgeBanner, PauseBanner, SocraticBubble, TeacherBubble,
   EmojiPicker, VoiceMessage, VoiceRecorder,
   LoginScreen, CirclesScreen, ChatScreen,
 });

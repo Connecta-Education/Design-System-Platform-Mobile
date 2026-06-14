@@ -4,7 +4,7 @@
    Built around the school graph: school → class → circle → child → parent → teacher.
    Two AI characters live inside it:
      · GoodTalk — child-safety moderation (calm, intervenes only on risk)
-     · Cosmo    — Socratic homework helper (curious, never gives the answer)
+     · Socratic    — Socratic homework helper (curious, never gives the answer)
    ============================================================ */
 
 /* ---------- Web fonts ---------- */
@@ -64,7 +64,7 @@
      ==================================================== */
   --tint-coral: #FDEAE5;   /* pale coral — error / check / important grounds */
   --tint-lime:  var(--connecta-pale-lime); /* #ECFDA8 — highlight / lab grounds */
-  --tint-olive: #EDF1DA;   /* pale olive — learning / Cosmo grounds */
+  --tint-olive: #EDF1DA;   /* pale olive — learning / Socratic grounds */
   --tint-sky:   #E4F3FC;   /* pale sky — teacher / school / task grounds */
   --tint-pink:  var(--connecta-pink);      /* #FBE1FD — social / friends grounds */
   --tint-plum:  #F6ECF0;   /* pale plum — parent / guardian grounds */
@@ -150,19 +150,19 @@
   --state-ok-accent:    var(--connecta-lime);
 
   /* ====================================================
-     COSMO AI — learning palette (OLIVE)
-     Cosmo is the EOES lab coach: subjects, studies, science, learning.
-     Olive ground + lime "lab / experimental" accents. Cosmo never gives
+     SOCRATIC AI — learning palette (OLIVE)
+     Socratic is the EOES lab coach: subjects, studies, science, learning.
+     Olive ground + lime "lab / experimental" accents. Socratic never gives
      the answer; it asks the next question. Visually distinct from
      GoodTalk (coral) so kids learn which AI is talking.
      ==================================================== */
-  --cosmo-bg:        var(--tint-olive);         /* Cosmo reply bubble / panel */
-  --cosmo-bg-strong: var(--connecta-olive);     /* hero / onboarding "chalkboard" */
-  --cosmo-fg:        var(--connecta-olive);      /* readable on cosmo-bg */
-  --cosmo-fg-strong: var(--connecta-lime);       /* type on the olive ground */
-  --cosmo-accent:    var(--connecta-lime);       /* lab / experimental highlight */
-  --cosmo-ink:       var(--connecta-ink);
-  /* Cosmo's learning-feedback states (never alarmist) */
+  --socratic-bg:        var(--tint-olive);         /* Socratic reply bubble / panel */
+  --socratic-bg-strong: var(--connecta-olive);     /* hero / onboarding "chalkboard" */
+  --socratic-fg:        var(--connecta-olive);      /* readable on socratic-bg */
+  --socratic-fg-strong: var(--connecta-lime);       /* type on the olive ground */
+  --socratic-accent:    var(--connecta-lime);       /* lab / experimental highlight */
+  --socratic-ink:       var(--connecta-ink);
+  /* Socratic's learning-feedback states (never alarmist) */
   --state-learn-bg:     var(--tint-olive);       /* "checking your work" */
   --state-learn-fg:     var(--connecta-olive);
   --state-learn-accent: var(--connecta-lime);
@@ -179,7 +179,7 @@
        teacher → sky  (teachers & schools)
        parent  → plum (guardians)
        school  → sky  (institutional)
-       cosmo   → olive (learning)
+       socratic   → olive (learning)
        tasks   → sky  (Teacher Tasks)
      ==================================================== */
   --scope-child-bg:    var(--neutral-0);     /* kids: clean white ground */
@@ -190,7 +190,7 @@
   --scope-parent-tint: var(--tint-plum);
   --scope-school-bg:   var(--neutral-50);    /* school admin: institutional */
   --scope-school-tint: var(--tint-sky);
-  --scope-cosmo-bg:    var(--tint-olive);    /* learning canvases (Lab Circles, homework) */
+  --scope-socratic-bg:    var(--tint-olive);    /* learning canvases (Lab Circles, homework) */
   --scope-tasks-bg:    var(--tint-sky);      /* Teacher Tasks: sky ground */
   --scope-tasks-fg:    var(--connecta-ink);  /* Teacher Tasks: ink type */
   --scope-tasks-accent:var(--connecta-ink);  /* Teacher Tasks: ink action */
@@ -203,7 +203,7 @@
        friend   → pink  (social / voice messages from friends)
        teacher  → sky
        parent   → plum
-       cosmo    → olive (learning)
+       socratic    → olive (learning)
        goodtalk → coral (check / important)
      ==================================================== */
   --bubble-self-bg:     var(--connecta-ink);
@@ -216,8 +216,8 @@
   --bubble-teacher-fg:  var(--connecta-ink);
   --bubble-parent-bg:   var(--tint-plum);
   --bubble-parent-fg:   var(--connecta-plum);
-  --bubble-cosmo-bg:    var(--connecta-olive);
-  --bubble-cosmo-fg:    var(--connecta-lime);
+  --bubble-socratic-bg:    var(--connecta-olive);
+  --bubble-socratic-fg:    var(--connecta-lime);
   --bubble-goodtalk-bg: var(--tint-coral);
   --bubble-goodtalk-fg: var(--connecta-ink);
 
@@ -234,8 +234,8 @@
   --role-parent-fg:   var(--connecta-plum);
   --role-school-bg:   var(--connecta-sky);
   --role-school-fg:   var(--connecta-ink);
-  --role-cosmo-bg:    var(--connecta-olive);
-  --role-cosmo-fg:    var(--connecta-lime);
+  --role-socratic-bg:    var(--connecta-olive);
+  --role-socratic-fg:    var(--connecta-lime);
   --role-goodtalk-bg: var(--connecta-coral);
   --role-goodtalk-fg: var(--connecta-paper);
 
@@ -317,7 +317,7 @@
   --wash-sunrise:   linear-gradient(135deg, #DEFB50 0%, #F35F49 100%);  /* @kind other */
   --wash-dusk:      linear-gradient(135deg, #F35F49 0%, #571B32 100%);  /* @kind other */
   --wash-night:     linear-gradient(180deg, #571B32 0%, #0F1A24 100%);  /* @kind other */
-  --wash-cosmo:     linear-gradient(160deg, #BAE6FD 0%, #0F1A24 110%);  /* @kind other */
+  --wash-socratic:     linear-gradient(160deg, #BAE6FD 0%, #0F1A24 110%);  /* @kind other */
   --wash-meadow:    linear-gradient(180deg, #ECFDA8 0%, #424F1A 100%);  /* @kind other */
   --wash-paper:     linear-gradient(180deg, #FFFFFF 0%, #BAE6FD 100%);  /* @kind other */
   --wash-heat:      linear-gradient(160deg, #F35F49 0%, #0F1A24 100%);  /* @kind other */

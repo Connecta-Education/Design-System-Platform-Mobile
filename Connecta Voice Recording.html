@@ -18,7 +18,7 @@
   .swatch { width:10px; height:10px; border-radius:3px; }
   .row { display:flex; gap:32px; flex-wrap:wrap; align-items:flex-start; }
   @keyframes slideDown { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform:none; } }
-  @keyframes cosmoPulse { 0%,100% { opacity:.4; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
+  @keyframes socraticPulse { 0%,100% { opacity:.4; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -35,7 +35,7 @@
       <div class="legend">
         <span><span class="swatch" style="background:#F35F49"></span>Kid · ink / coral</span>
         <span><span class="swatch" style="background:#BAE6FD"></span>Teacher · sky</span>
-        <span><span class="swatch" style="background:#424F1A; outline:1px solid #DEFB50"></span>Cosmo · olive + lime</span>
+        <span><span class="swatch" style="background:#424F1A; outline:1px solid #DEFB50"></span>Socratic · olive + lime</span>
         <span><span class="swatch" style="background:#F35F49"></span>GoodTalk · coral</span>
       </div>
     </div>
@@ -83,7 +83,7 @@ function App() {
       {[
         { voice:'kid-mine', label:'Kid · recording',     accent:'#F35F49', title:'Best 3',              subtitle:'3 членове · private',     kind:'friends' },
         { voice:'teacher',  label:'Teacher · recording', accent:'#BAE6FD', title:'7А клас — Общ чат',  subtitle:'12 членове · private',    kind:'school' },
-        { voice:'cosmo',    label:'Cosmo · recording',   accent:'#DEFB50', title:'Лаб 7А — Хвърляне',  subtitle:'физика · с Cosmo',         kind:'lab' },
+        { voice:'socratic',    label:'Socratic · recording',   accent:'#DEFB50', title:'Лаб 7А — Хвърляне',  subtitle:'физика · с Socratic',         kind:'lab' },
         { voice:'goodtalk', label:'GoodTalk · sending',  accent:'#F35F49', title:'GoodTalk',           subtitle:'само за теб · не публично', kind:'school' },
       ].map(v => (
         <PhonePanel key={v.voice} label={v.label} accent={v.accent}>
