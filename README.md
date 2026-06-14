@@ -411,12 +411,16 @@ Photo scrims: `--scrim-bottom`, `--scrim-top`, `--scrim-vignette`.
 
 ## COMPONENT IMPLEMENTATION
 
-> **The one rule for building UI: use PrimeReact.**
-> When you implement any Connecta interface in code — a screen, a dialog, a form, a menu, a table, a date picker, a toast — build it from **[PrimeReact](https://primereact.org) components**, themed through the **Connecta preset**. Do not hand-roll bespoke widgets, and do not introduce another component library (the previous Tamagui code export has been removed). PrimeReact is the single sanctioned component layer for Connecta.
+> **The rule for building UI: compose from PrimeReact + Connecta's custom components.**
+> When you implement any Connecta interface in code, build it from two sources only:
+> 1. **[PrimeReact](https://primereact.org)** — for standard UI primitives (forms, inputs, selects, dialogs, overlays, menus, tables, date pickers, toasts, …), themed through the **Connecta preset**.
+> 2. **Connecta custom components** — for the brand-specific surfaces PrimeReact doesn't provide: the GoodTalk **NudgeBanner**, chat **Bubbles**, **CoachCard**, **role badges**, and the audience-scoped shells. These live in `ui_kits/` and are spec'd by the `preview/components-*.html` cards.
+>
+> Do **not** introduce a third-party component library, and do **not** reinvent the custom components — extend the ones in `ui_kits/`. (The previous Tamagui code export has been removed.)
 
-The visual rules above (color semantics, casing, spacing, radii, no-gradient chrome, calm states) are not re-implemented per component — they are carried by the theme. PrimeReact components inherit the Connecta look automatically; your job is to compose them and apply the *content* and *audience* rules.
+Pick PrimeReact first; reach for a Connecta custom component only when no PrimeReact equivalent carries the brand behaviour (the safety nudge lifecycle, the two-AI bubble voices, the school-graph role badges). The visual rules above (color semantics, casing, spacing, radii, no-gradient chrome, calm states) are not re-implemented per component — both layers inherit them from the tokens in `colors_and_type.css`; your job is to compose and apply the *content* and *audience* rules.
 
-### How the theme is applied
+### How PrimeReact gets the Connecta look
 
 Two modes, both reading from `colors_and_type.css` tokens — see `Connecta PrimeReact Bridge.html` for the full walkthrough.
 
