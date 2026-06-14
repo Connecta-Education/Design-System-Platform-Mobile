@@ -35,7 +35,7 @@ This system was originally built against the v1 brand brief (kid/teen messenger 
 | Mood board | `assets/brand-mood.png` | Tile system, photo direction, "freedom to chat" hero. |
 | Type & color spec sheet | `assets/brand-typography.png` | DM Sans Regular/Medium/Bold confirmed; product palette swatches. |
 | Type pairing | User note: "DM Sans only" | DM Sans = the single family (incl. Cyrillic); category / metadata labels use uppercase tracked DM Sans, not a mono face. |
-| **Live marketing site** | `https://connecta.education` (Astro, EN; BG country pack pending) | **First shipped surface.** Reconciled into this system — see *v2.1* below. Source for scribbles, the 5-step Lab flow, shipped GoodTalk copy, the "C" Socratic mark, taglines, and the €20/yr chat-app SKU. |
+| **Live marketing site** | `https://connecta.education` (Astro, EN; BG country pack pending) | **First shipped surface.** Reconciled into this system — see *v2.1* below. Source for scribbles, the 5-step Lab flow, shipped GoodTalk copy, the Socratic mark (the Connecta "nn" badge), taglines, and the €20/yr chat-app SKU. |
 
 > **No codebase or Figma was attached.** UI kits are reasoned recreations against the brand brief and the product brief. The **live marketing site (`connecta.education`) is now the one shipped surface** — where it and this system disagree, the shipped site wins and this doc has been corrected to match. When production *app* code or Figma arrives, re-derive the kits too — see *Caveats*.
 
@@ -47,7 +47,7 @@ The public marketing site shipped before this system was finalized. Auditing it 
 |---|---|---|
 | 1 | **Hand-drawn scribbles** (olive / plum / pink) scattered across marketing headers | Scribbles are now a **sanctioned marketing-only accent** — the "no textures" rule still holds for product chrome. See *Scribbles*. |
 | 2 | **Lab Circles run 5 steps**: Hypothesis → Variables → Measure → Analysis → Conclusion | Corrected everywhere (was 4). |
-| 3 | **Socratic renders as a "C" monogram**, not a compass | "C" is the working mark; compass demoted to fallback. |
+| 3 | **Socratic uses the Connecta "nn" badge** as its mark | The Connecta badge (`glyph-nn-*.svg`) is the working Socratic mark; the earlier "C" monogram and compass are retired. |
 | 4 | GoodTalk ships **"Rethink / Send anyway"** + **"NUDGE · JUST FOR YOU"** | Microcopy canon updated; old strings kept as alternates. |
 | 5 | New taglines + four whole-school principles + **€20/yr** chat-app SKU | Added to *Signature phrases*, *Content*, and *Commercial*. |
 | 6 | **Lime (`#DEFB50`) is the OS `theme-color`**; `app-icon-lime-coral` is the shipped favicon/lockup | Documented; lime owns the *brand chrome* (iconn, theme color, marketing). |
@@ -480,7 +480,7 @@ No proprietary icon font exists yet. Until one is designed, the system uses **Lu
 
 | State | Lucide name | Color token |
 |---|---|---|
-| `socratic` | `compass` (Socratic's avatar mark) | `--socratic-accent` |
+| `socratic` | Connecta "nn" badge (`glyph-nn-*.svg`) — Socratic's avatar mark, not a Lucide icon | `--socratic-accent` |
 | `learn` | `book-open` | `--state-learn-accent` |
 | `progress` | `arrow-up-right` | `--state-progress-accent` |
 | `lab` | `flask-conical` (Lab Circles) | `--socratic-accent` |
@@ -554,7 +554,7 @@ The "nn" mark is the icon glyph at small sizes (favicon, app icon, avatar fallba
 ## Caveats
 
 - No production codebase or Figma exists yet. The UI kits in `ui_kits/` are reasoned recreations; treat them as direction, not source of truth.
-- **Socratic** does not yet have a visual mascot or avatar mark — current placeholder is a Lucide `compass` glyph on `--socratic-accent`. A proper Socratic mark needs to be designed before launch; it must read as *thoughtful instrument*, not *cute creature*.
+- **Socratic** uses the **Connecta "nn" badge** (`glyph-nn-*.svg`) as its avatar mark, rendered on `--socratic-accent` — the earlier "C" monogram and Lucide `compass` placeholder are retired. If a dedicated Socratic mascot is ever commissioned, it must read as *thoughtful instrument*, not *cute creature*.
 - **GoodTalk** is similarly mark-less in v1 — its identity is carried by the lime-on-olive nudge surface and the `wand-2` glyph.
 - **Country packs** — only the Bulgarian pack is referenced concretely (МОН 2024). Other packs will need locale-specific consent copy, age-band mapping, and moderation calibration; design just provides the slots.
 - **Lab Circles** workflow (hypothesis → measurement → analysis → conclusion) is described in the brief but not yet wireframed. Build before locking the visual system for it.
